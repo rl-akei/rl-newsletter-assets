@@ -1,0 +1,154 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>5 cas d'usage · slides de la vidéo</title><link rel="icon" href="logo.png"><style>
+@font-face{font-family:"Clash Grotesk";font-weight:400;src:url(fonts/clash-grotesk-400.woff2) format("woff2");font-display:block}
+@font-face{font-family:"Clash Grotesk";font-weight:500;src:url(fonts/clash-grotesk-500.woff2) format("woff2");font-display:block}
+@font-face{font-family:"Clash Grotesk";font-weight:600;src:url(fonts/clash-grotesk-600.woff2) format("woff2");font-display:block}
+@font-face{font-family:"JetBrains Mono";font-weight:400;src:url(fonts/jetbrains-mono-400.woff2) format("woff2");font-display:block}
+@font-face{font-family:"JetBrains Mono";font-weight:500;src:url(fonts/jetbrains-mono-500.woff2) format("woff2");font-display:block}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#FFFCF7;--ink:#0D1A14;--aloe-d:#475E54;--aloe-l:#B4C6BE;--mind:#DFE971;--flame:#F76420;--slate:#5C6661;--beige:#D2CFC9}
+html,body{height:100%;background:#060d0a;overflow:hidden}
+body{font-family:"Clash Grotesk",system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0}
+.s{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none;
+  --bg:var(--cream);--fg:var(--ink);--mut:var(--slate);--lab:var(--slate);--rule:var(--beige);--soft:var(--aloe-d);
+  background:var(--bg);color:var(--fg)}
+.s.on{display:block}
+.s.ink{--bg:var(--ink);--fg:var(--cream);--mut:#C9D3CD;--lab:var(--aloe-l);--rule:rgba(255,252,247,.16);--soft:var(--aloe-l)}
+.s.ink::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 62% 58% at 50% 46%,rgba(71,94,84,.42),transparent 70%)}
+/* cadre : deux rails verticaux, une barre en haut, une en bas */
+.f{position:absolute;left:96px;right:96px;top:0;bottom:0;border-left:2px solid var(--rule);border-right:2px solid var(--rule);display:flex;flex-direction:column}
+.bar{flex:none;height:92px;display:flex;align-items:stretch;justify-content:space-between;border-bottom:2px solid var(--rule)}
+.bar .l{display:flex;align-items:center;gap:36px;font-weight:500;font-size:40px;letter-spacing:-.025em}
+.bar .num{align-self:stretch;min-width:120px;display:flex;align-items:center;justify-content:center;background:var(--fg);color:var(--bg);font-family:"JetBrains Mono",monospace;font-weight:500;font-size:32px;letter-spacing:0}
+.bar .brand{display:flex;align-items:center;gap:18px;padding-left:36px;font-size:34px;font-weight:500;letter-spacing:-.01em}
+.bar .brand img{width:44px;height:42px}
+.ink .bar .brand img{filter:invert(1) brightness(1.6)}
+.mono,.bar .r{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:24px;letter-spacing:.06em;text-transform:uppercase;color:var(--lab)}
+.bar .r{display:flex;align-items:center;padding-right:36px}
+.bar .l.plain{padding-left:36px;font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:.06em;text-transform:uppercase;color:var(--lab)}
+.body{flex:1;position:relative;min-height:0;display:flex;flex-direction:column}
+.mid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 36px}
+.pad{padding:0 36px}
+h1,h2{font-weight:500;letter-spacing:-.03em;line-height:1.03;text-wrap:balance}
+.hl{color:var(--flame)}
+.soft{color:var(--soft)}
+.lead{font-size:44px;line-height:1.3;color:var(--mut);text-wrap:pretty}
+/* 01 titre */
+.t1 h1{font-size:172px;line-height:.98;letter-spacing:-.04em}
+.t1 .lead{margin-top:44px;font-size:52px}
+.strip{flex:none;display:grid;grid-template-columns:repeat(5,1fr);border-top:2px solid var(--rule)}
+.strip div{padding:30px 36px 34px;border-left:2px solid var(--rule);font-size:34px;font-weight:500;letter-spacing:-.02em;line-height:1.12;min-height:170px}
+.strip div:first-child{border-left:0}
+.strip div span{display:block;margin-bottom:16px}
+/* 02 promesse, ce qui reste, cta : une grande phrase calée à gauche */
+.one .mid{padding-bottom:70px}
+.one h1{font-size:150px;letter-spacing:-.04em;max-width:1640px}
+.one .lead{margin-top:56px;font-size:56px;max-width:1480px;line-height:1.24}
+.one .mono{display:block;margin-bottom:40px}
+/* 03 vue d'ensemble */
+.ov .head{flex:none;padding:60px 36px 56px;display:grid;grid-template-columns:8fr 4fr;gap:60px;align-items:end}
+.ov h1{font-size:92px}
+.ov .head .lead{font-size:36px}
+.grid5{flex:1;display:grid;grid-template-columns:repeat(5,1fr);border-top:2px solid var(--rule);border-bottom:2px solid var(--rule)}
+.grid5 .c{padding:34px 32px 34px;border-left:2px solid var(--rule);display:flex;flex-direction:column}
+.grid5 .c:first-child{border-left:0}
+.grid5 .n{font-weight:600;font-size:120px;line-height:.95;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.grid5 .t{font-size:42px;font-weight:500;letter-spacing:-.025em;line-height:1.08;margin-top:26px}
+.grid5 .d{font-size:30px;line-height:1.28;color:var(--mut);margin-top:16px}
+.grid5 .mono{margin-top:auto;padding-top:22px}
+.inkbar{flex:none;height:128px;background:var(--ink);color:var(--cream);display:grid;grid-template-columns:repeat(3,1fr)}
+.inkbar div{display:flex;align-items:center;padding-left:36px;font-size:46px;font-weight:500;letter-spacing:-.025em;border-left:2px solid rgba(255,252,247,.16)}
+.inkbar div:first-child{border-left:0}
+/* 04 règle */
+.rg h1{font-size:196px;line-height:1.02;letter-spacing:-.045em}
+.foot{flex:none;border-top:2px solid var(--rule);padding:38px 36px 44px;font-size:44px;line-height:1.28;color:var(--mut);text-wrap:pretty}
+/* verbatim */
+.vb .q{font-weight:500;letter-spacing:-.035em;line-height:1.06;margin-top:36px;max-width:1640px;text-wrap:balance}
+.vb .who{margin-top:40px}
+/* quoi et pourquoi */
+.qp .body{display:grid;grid-template-columns:1fr 560px}
+.qp .left{display:flex;flex-direction:column;min-width:0}
+.qp .hd{padding:44px 36px 44px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.qp h1{font-size:68px;line-height:1.06;margin-top:20px}
+.rows{border-top:2px solid var(--rule)}
+.row{display:grid;grid-template-columns:300px 1fr;border-bottom:2px solid var(--rule);min-height:138px}
+.row:last-child{border-bottom:0}
+.row .k{display:flex;align-items:center;padding-left:36px;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:24px;letter-spacing:.06em;text-transform:uppercase;color:var(--lab);border-right:2px solid var(--rule)}
+.row .x{display:flex;align-items:center;padding:20px 36px;font-size:33px;line-height:1.26;text-wrap:pretty}
+.row.you{background:var(--ink);color:var(--cream)}
+.row.you .k{color:var(--mind);border-right-color:rgba(255,252,247,.16)}
+.row.you .x{font-weight:500}
+.why{background:var(--aloe-d);color:var(--cream);padding:44px 40px;display:flex;flex-direction:column}
+.why .mono{color:#E6ECE8}
+.why .wq{font-size:44px;font-weight:500;letter-spacing:-.025em;line-height:1.12;margin-top:26px;text-wrap:balance}
+.why .src{font-family:"JetBrains Mono",monospace;font-size:22px;letter-spacing:.04em;color:#E6ECE8;margin-top:20px}
+.why .pts{margin-top:auto}
+.why .pt{border-top:2px solid rgba(255,252,247,.22);padding:26px 0 26px;font-size:32px;line-height:1.26;text-wrap:pretty}
+.why .pt:last-child{padding-bottom:0}
+/* 8 h -> 30 min */
+.nums{display:flex;align-items:baseline;gap:56px;margin-top:36px}
+.nums .a,.nums .b{font-weight:600;font-size:330px;line-height:.95;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.nums .a{color:var(--aloe-l)}
+.nums .b{color:var(--flame)}
+.nums .ar{font-size:150px;font-weight:400;color:var(--fg);position:relative;top:-50px}
+.labs{display:grid;grid-template-columns:auto 1fr;gap:0}
+/* écosystème */
+.ec .head{flex:none;padding:52px 36px 48px}
+.ec h1{font-size:96px}
+.grid6{flex:1;display:grid;grid-template-columns:repeat(6,1fr);border-top:2px solid var(--rule)}
+.grid6 .c{padding:34px 28px 34px;border-left:2px solid var(--rule)}
+.grid6 .c:first-child{border-left:0}
+.grid6 .c .t{font-size:48px;font-weight:500;letter-spacing:-.025em}
+.grid6 .c.off .t{color:var(--aloe-l)}
+.grid6 .u{display:flex;gap:16px;align-items:baseline;font-size:33px;line-height:1.2;margin-top:30px}
+.grid6 .u i{font-family:"JetBrains Mono",monospace;font-style:normal;font-weight:500;font-size:22px;background:var(--ink);color:var(--cream);padding:5px 9px;flex:none;position:relative;top:-3px}
+.base{flex:none;background:var(--ink);color:var(--cream);height:112px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;font-size:42px;font-weight:500;letter-spacing:-.025em}
+.base .mono{color:var(--aloe-l)}
+/* par où commencer */
+.st .head{flex:1;padding:56px 36px 52px}
+.st h1{font-size:104px;max-width:1500px}
+.st .head .lead{margin-top:26px}
+.two{flex:none;display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--rule)}
+.two .c{padding:40px 36px 48px;border-left:2px solid var(--rule);min-height:430px;display:flex;flex-direction:column}
+.two .c:first-child{border-left:0}
+.two .if{font-size:44px;line-height:1.2;color:var(--mut);margin-top:22px}
+.two .th{margin-top:auto;display:flex;align-items:baseline;gap:24px;white-space:nowrap;font-size:46px;font-weight:500;letter-spacing:-.025em}
+.two .th b{font-weight:600;font-size:150px;line-height:.9;letter-spacing:-.04em}
+.two .th em{font-style:normal;color:var(--mut);font-weight:400}
+/* appel à l'action */
+.cta h1{font-size:164px;letter-spacing:-.04em;margin-top:30px}
+.cta .lead{margin-top:44px;font-size:54px;max-width:1420px;line-height:1.24}
+.btn{display:inline-flex;align-items:center;gap:26px;margin-top:48px;background:var(--mind);color:var(--ink);height:104px;padding:0 40px;font-size:40px;font-weight:500}
+.cta .foot{display:flex;padding-top:34px;padding-bottom:38px;justify-content:space-between;align-items:center;color:var(--fg);font-size:38px}
+.cta .foot b{font-weight:500}
+.cta .foot span{color:var(--mut)}
+/* commandes de la page (hors image) */
+#ui{position:fixed;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;justify-content:center;gap:22px;font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.06em;color:#B4C6BE;opacity:.0;transition:opacity .25s}
+body:hover #ui,#ui.show{opacity:1}
+#ui button{background:none;border:1px solid rgba(255,252,247,.25);color:#FFFCF7;font:inherit;padding:6px 14px;cursor:pointer}
+#ui button:hover{background:rgba(255,252,247,.1)}
+#zl,#zr{position:fixed;top:0;bottom:44px;width:50%;cursor:pointer;z-index:5}
+#zl{left:0}#zr{right:0}
+/* toutes les slides à la suite : ?toutes (sert à l'export en images) */
+body.all{overflow:auto;background:#060d0a}
+body.all #stage{position:static;transform:none!important;margin:0;width:1920px;height:auto}
+body.all .s{position:relative;display:block;margin-bottom:40px}
+body.all #ui,body.all #zl,body.all #zr{display:none}
+</style></head><body><div id="stage"><section class="s ink t1" id="s1"><div class="f"><div class="bar"><div class="l brand"><img src="logo.png" alt="">Rama Logic</div><div class="r">01 / 22</div></div><div class="body"><div class="mid"><h1>5 cas d'usage<br><span class="soft">à avoir dans</span><br>ton <span class="hl">entreprise.</span></h1><p class="lead">Quelle que soit sa taille.</p></div><div class="strip"><div><span class="mono">01</span>La demande entrante</div><div><span class="mono">02</span>Les relances</div><div><span class="mono">03</span>La proposition commerciale</div><div><span class="mono">04</span>Le compte rendu de réunion</div><div><span class="mono">05</span>Le point hebdo client</div></div></div></div></section><section class="s one" id="s2"><div class="f"><div class="bar"><div class="l plain">La promesse</div><div class="r">02 / 22</div></div><div class="body"><div class="mid"><h1>Pas les plus <span class="hl">spectaculaires.</span></h1><p class="lead">Ceux qui tournent chez moi tous les jours, et que j'installe chez mes clients.</p></div></div></div></section><section class="s ov" id="s3"><div class="f"><div class="bar"><div class="l plain">Vue d'ensemble</div><div class="r">03 / 22</div></div><div class="body"><div class="head"><h1>Les voici, dans l'ordre du <span class="hl">parcours client.</span></h1><p class="lead">De la première demande au suivi de chaque semaine.</p></div><div class="grid5"><div class="c"><div class="n">01</div><div class="t">La demande entrante</div><div class="d">Fiche et rendez-vous préparés</div><div class="mono">Qualifier</div></div><div class="c"><div class="n">02</div><div class="t">Les relances</div><div class="d">Messages rédigés d'avance</div><div class="mono">Vendre</div></div><div class="c"><div class="n">03</div><div class="t">La proposition commerciale</div><div class="d">Premier jet à relire</div><div class="mono">Vendre</div></div><div class="c"><div class="n">04</div><div class="t">Le compte rendu de réunion</div><div class="d">Actions notées, avec qui et quand</div><div class="mono">Livrer</div></div><div class="c"><div class="n">05</div><div class="t">Le point hebdo client</div><div class="d">Récap client à relire</div><div class="mono">Livrer</div></div></div><div class="inkbar"><div>L'IA prépare</div><div>Tu décides</div><div>Tu vérifies</div></div></div></div></section><section class="s ink rg" id="s4"><div class="f"><div class="bar"><div class="l plain">La règle, pour les cinq</div><div class="r">04 / 22</div></div><div class="body"><div class="mid"><h1>L'IA <span class="soft">prépare.</span><br>Tu <span class="soft">décides.</span><br>Tu <span class="hl">vérifies.</span></h1></div><div class="foot">Rien ne part chez un client sans qu'un humain ait validé.</div></div></div></section><section class="s ink vb" id="s5"><div class="f"><div class="bar"><div class="l"><span class="num">01</span>La demande entrante</div><div class="r">05 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qu'on entend</span><p class="q" style="font-size:112px"><span class="hl">«</span> On a beaucoup d'emails auxquels on n'arrive pas à répondre. <span class="hl">»</span></p><div class="mono who">Une dirigeante</div></div><div class="foot">Le jour du rendez-vous, tu arrives sans savoir à qui tu parles.</div></div></div></section><section class="s qp" id="s6"><div class="f"><div class="bar"><div class="l"><span class="num">01</span>La demande entrante</div><div class="r">06 / 22</div></div><div class="body"><div class="left"><div class="hd"><span class="mono">Quoi</span><h1>Chaque demande arrive triée, et tu entres en rendez-vous préparé.</h1></div><div class="rows"><div class="row"><div class="k">Déclencheur</div><div class="x">Un prospect prend rendez-vous, ou envoie sa demande.</div></div><div class="row"><div class="k">L'IA prépare</div><div class="x">La fiche contact dans Notion, la demande triée et attribuée, la fiche de préparation du rendez-vous.</div></div><div class="row you"><div class="k">Tu décides</div><div class="x">Tu lis la fiche. Tu mènes le rendez-vous.</div></div><div class="row"><div class="k">Résultat</div><div class="x">Préparé en 2 minutes de lecture, au lieu de 20 minutes de recherche.</div></div></div></div><div class="why"><span class="mono">Pourquoi</span><p class="wq">« On a beaucoup d'emails auxquels on n'arrive pas à répondre. »</p><div class="src">Une dirigeante</div><div class="pts"><div class="pt">Une demande entrante, c'est souvent un mail perdu au milieu des autres.</div><div class="pt">Le jour du rendez-vous, tu arrives sans savoir à qui tu parles.</div></div></div></div></div></section><section class="s one" id="s7"><div class="f"><div class="bar"><div class="l"><span class="num">01</span>La demande entrante</div><div class="r">07 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qui reste chez toi</span><h1>Mener le <span class="hl">rendez-vous.</span></h1><p class="lead">Tu y arrives préparé, en 2 minutes de lecture au lieu de 20 minutes de recherche.</p></div></div></div></section><section class="s ink vb" id="s8"><div class="f"><div class="bar"><div class="l"><span class="num">02</span>Les relances</div><div class="r">08 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qu'on entend</span><p class="q" style="font-size:88px"><span class="hl">«</span> Là où on est très mauvais, c'est le suivi, les relances. Des fois, on met 6 mois avant de rappeler un client. <span class="hl">»</span></p><div class="mono who">Un dirigeant de PME</div></div><div class="foot">Ce n'est pas de la paresse. Personne n'a le temps de relire tout le fichier client chaque matin.</div></div></div></section><section class="s qp" id="s9"><div class="f"><div class="bar"><div class="l"><span class="num">02</span>Les relances</div><div class="r">09 / 22</div></div><div class="body"><div class="left"><div class="hd"><span class="mono">Quoi</span><h1>Chaque matin, les messages de relance sont déjà rédigés. Tu coches, ça part.</h1></div><div class="rows"><div class="row"><div class="k">Déclencheur</div><div class="x">Chaque matin, les contacts qu'il faut relancer.</div></div><div class="row"><div class="k">L'IA prépare</div><div class="x">Elle relit le dernier échange et rédige un message adapté.</div></div><div class="row you"><div class="k">Tu décides</div><div class="x">Tu lis. Tu coches ceux qui te conviennent.</div></div><div class="row"><div class="k">Résultat</div><div class="x">Seul ce que tu as coché part, par mail ou sur LinkedIn. L'échange est noté dans la fiche.</div></div></div></div><div class="why"><span class="mono">Pourquoi</span><p class="wq">« Des fois, on met 6 mois avant de rappeler un client. »</p><div class="src">Un dirigeant de PME</div><div class="pts"><div class="pt">Ce n'est pas de la paresse. Personne n'a le temps de relire tout le fichier client chaque matin.</div><div class="pt">Qui tu relances, et avec quels mots : la décision reste la tienne.</div></div></div></div></div></section><section class="s one" id="s10"><div class="f"><div class="bar"><div class="l"><span class="num">02</span>Les relances</div><div class="r">10 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qui reste chez toi</span><h1>Choisir qui tu relances, et avec <span class="hl">quels mots.</span></h1><p class="lead">L'agent te donne le brouillon. La décision reste la tienne.</p></div></div></div></section><section class="s ink vb" id="s11"><div class="f"><div class="bar"><div class="l"><span class="num">03</span>La proposition commerciale</div><div class="r">11 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qu'on entend</span><p class="q" style="font-size:88px"><span class="hl">«</span> Ça me coupe dans mon travail de fond. J'ai pas de valeur ajoutée. C'est toujours les mêmes devis. <span class="hl">»</span></p><div class="mono who">Un dirigeant du BTP</div></div><div class="foot">Une proposition commerciale, c'est surtout de l'information qui existe déjà.</div></div></div></section><section class="s qp" id="s12"><div class="f"><div class="bar"><div class="l"><span class="num">03</span>La proposition commerciale</div><div class="r">12 / 22</div></div><div class="body"><div class="left"><div class="hd"><span class="mono">Quoi</span><h1>Un premier jet de proposition, monté avec ce qui existe déjà dans Notion.</h1></div><div class="rows"><div class="row"><div class="k">Déclencheur</div><div class="x">Une proposition à écrire après un rendez-vous.</div></div><div class="row"><div class="k">L'IA prépare</div><div class="x">Elle rassemble le contexte du client, ce qui s'est dit en rendez-vous, tes offres, tes conditions. Elle sort un premier jet.</div></div><div class="row you"><div class="k">Tu décides</div><div class="x">Tu relis. Tu ajustes le prix, le ton. Tu envoies.</div></div><div class="row"><div class="k">Résultat</div><div class="x">8 h avant, 30 min après, sur ce process précis. Pas pour ta boîte entière.</div></div></div></div><div class="why"><span class="mono">Pourquoi</span><p class="wq">« J'ai pas de valeur ajoutée. C'est toujours les mêmes devis. »</p><div class="src">Un dirigeant du BTP</div><div class="pts"><div class="pt">Une proposition, c'est surtout de l'information qui existe déjà.</div><div class="pt">Écrire la même chose à chaque fois te coupe dans ton travail de fond.</div></div></div></div></div></section><section class="s fig" id="s13"><div class="f"><div class="bar"><div class="l"><span class="num">03</span>La proposition commerciale</div><div class="r">13 / 22</div></div><div class="body"><div class="mid"><span class="mono">Sur ce process précis</span><div class="nums"><span class="a">8 h</span><span class="ar">→</span><span class="b">30 min</span></div></div><div class="foot">Exemple affiché sur mon site, sur ce process précis. Ce chiffre vaut pour cette tâche-là. Pas pour ta boîte entière.</div></div></div></section><section class="s ink vb" id="s14"><div class="f"><div class="bar"><div class="l"><span class="num">04</span>Le compte rendu de réunion</div><div class="r">14 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qu'on entend</span><p class="q" style="font-size:112px"><span class="hl">«</span> Et si je le note pas après le coup de fil… on ne saura jamais. <span class="hl">»</span></p><div class="mono who">Un dirigeant</div></div><div class="foot">Trois jours plus tard, personne ne sait plus qui devait faire quoi.</div></div></div></section><section class="s qp" id="s15"><div class="f"><div class="bar"><div class="l"><span class="num">04</span>Le compte rendu de réunion</div><div class="r">15 / 22</div></div><div class="body"><div class="left"><div class="hd"><span class="mono">Quoi</span><h1>Après chaque réunion, le compte rendu et les prochaines actions arrivent dans Notion.</h1></div><div class="rows"><div class="row"><div class="k">Déclencheur</div><div class="x">Une réunion enregistrée.</div></div><div class="row"><div class="k">L'IA prépare</div><div class="x">Le compte rendu, rangé sur la bonne fiche : le client, le projet. Les prochaines actions, avec une personne et une date.</div></div><div class="row you"><div class="k">Tu décides</div><div class="x">Tu relis. Tu corriges ce que l'IA a mal compris.</div></div><div class="row"><div class="k">Résultat</div><div class="x">Le lendemain matin, les actions sont dans ta liste de tâches.</div></div></div></div><div class="why"><span class="mono">Pourquoi</span><p class="wq">« Et si je le note pas après le coup de fil… on ne saura jamais. »</p><div class="src">Un dirigeant</div><div class="pts"><div class="pt">Trois jours plus tard, personne ne sait plus qui devait faire quoi.</div><div class="pt">Tu relis une page. Tu n'écris plus rien.</div></div></div></div></div></section><section class="s one" id="s16"><div class="f"><div class="bar"><div class="l"><span class="num">04</span>Le compte rendu de réunion</div><div class="r">16 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qui reste chez toi</span><h1>Relire, et corriger ce que l'IA a <span class="hl">mal compris.</span></h1><p class="lead">Tu relis une page. Tu n'écris plus rien.</p></div></div></div></section><section class="s ink vb" id="s17"><div class="f"><div class="bar"><div class="l"><span class="num">05</span>Le point hebdo client</div><div class="r">17 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qu'on entend</span><p class="q" style="font-size:132px"><span class="hl">«</span> Et nous, on n'a pas trop de visibilité. <span class="hl">»</span></p><div class="mono who">Un client, en parlant d'un prestataire (extrait)</div></div><div class="foot">C'est comme ça qu'on perd un client. Pas sur la qualité du travail. Sur le silence.</div></div></div></section><section class="s qp" id="s18"><div class="f"><div class="bar"><div class="l"><span class="num">05</span>Le point hebdo client</div><div class="r">18 / 22</div></div><div class="body"><div class="left"><div class="hd"><span class="mono">Quoi</span><h1>Chaque vendredi, un point hebdo est prêt à relire pour chaque client actif.</h1></div><div class="rows"><div class="row"><div class="k">Déclencheur</div><div class="x">Chaque vendredi, pour chaque client actif.</div></div><div class="row"><div class="k">L'IA prépare</div><div class="x">Elle lit la semaine : les tâches faites, les jalons, ce qui bloque. Elle rédige le récap.</div></div><div class="row you"><div class="k">Tu décides</div><div class="x">Tu relis, tu corriges. Tu coches « Validé ».</div></div><div class="row"><div class="k">Résultat</div><div class="x">Le brouillon du mail se crée. C'est toi qui l'envoies. 5 minutes au lieu d'une heure.</div></div></div></div><div class="why"><span class="mono">Pourquoi</span><p class="wq">« Et nous, on n'a pas trop de visibilité. »</p><div class="src">Un client, en parlant d'un prestataire (extrait)</div><div class="pts"><div class="pt">C'est comme ça qu'on perd un client. Pas sur la qualité du travail. Sur le silence.</div><div class="pt">Ton client reçoit des nouvelles chaque semaine.</div></div></div></div></div></section><section class="s one" id="s19"><div class="f"><div class="bar"><div class="l"><span class="num">05</span>Le point hebdo client</div><div class="r">19 / 22</div></div><div class="body"><div class="mid"><span class="mono">Ce qui reste chez toi</span><h1>La <span class="hl">relation.</span></h1><p class="lead">Ton client reçoit des nouvelles chaque semaine. Toi, tu y passes cinq minutes au lieu d'une heure.</p></div></div></div></section><section class="s ec" id="s20"><div class="f"><div class="bar"><div class="l plain">Vue d'en haut</div><div class="r">20 / 22</div></div><div class="body"><div class="head"><h1>Cinq cas d'usage, <span class="hl">un seul Notion.</span></h1></div><div class="grid6"><div class="c off"><div class="t">Attirer</div></div><div class="c"><div class="t">Qualifier</div><div class="u"><i>01</i><span>La demande entrante</span></div></div><div class="c"><div class="t">Vendre</div><div class="u"><i>02</i><span>Les relances</span></div><div class="u"><i>03</i><span>La proposition</span></div></div><div class="c"><div class="t">Livrer</div><div class="u"><i>04</i><span>Le compte rendu</span></div><div class="u"><i>05</i><span>Le point hebdo</span></div></div><div class="c off"><div class="t">Encaisser</div></div><div class="c off"><div class="t">Piloter</div></div></div><div class="base"><span>La même fiche client, du premier mail jusqu'au point hebdo</span><span class="mono">Notion</span></div><div class="foot">Pas cinq outils en plus. Un seul endroit où l'information vit.</div></div></div></section><section class="s st" id="s21"><div class="f"><div class="bar"><div class="l plain">Par où tu commences</div><div class="r">21 / 22</div></div><div class="body"><div class="head"><h1>Prends celui qui fait le plus <span class="hl">mal</span> chez toi.</h1><p class="lead">Tu n'as pas besoin des cinq lundi.</p></div><div class="two"><div class="c"><span class="mono">Cas A</span><div class="if">Si tu perds des prospects</div><div class="th">Commence par <b>01</b><em>ou</em><b>02</b></div></div><div class="c"><span class="mono">Cas B</span><div class="if">Si tes équipes perdent le fil</div><div class="th">Commence par <b>04</b></div></div></div></div></div></section><section class="s ink cta" id="s22"><div class="f"><div class="bar"><div class="l brand"><img src="logo.png" alt="">Rama Logic</div><div class="r">22 / 22</div></div><div class="body"><div class="mid"><span class="mono">Un regard extérieur</span><h1>On en parle <span class="hl">30 minutes.</span></h1><p class="lead">Je te dis lesquels valent le coup chez toi, et par lequel commencer.</p><span class="btn">Le lien est en dessous <span>↓</span></span></div><div class="foot"><span>Déployer l'IA, c'est facile.</span><b>La faire adopter, c'est notre métier.</b></div></div></div></section></div><div id="zl"></div><div id="zr"></div><div id="ui"><button id="bp">←</button><span id="cnt"></span><button id="bn">→</button><button id="bf">Plein écran</button><span>flèches du clavier pour avancer</span></div><script>
+const S=[...document.querySelectorAll('.s')],st=document.getElementById('stage'),cnt=document.getElementById('cnt');
+const all=location.search.includes('toutes');let i=0;
+function fit(){if(all)return;const k=Math.min(innerWidth/1920,(innerHeight)/1080);st.style.transform=`scale(${k}) translate(-50%,-50%)`}
+function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((e,j)=>e.classList.toggle('on',j===i));cnt.textContent=String(i+1).padStart(2,'0')+' / '+S.length;history.replaceState(null,'','#'+(i+1))}
+if(all){document.body.classList.add('all')}else{
+addEventListener('resize',fit);fit();go((parseInt(location.hash.slice(1))||1)-1);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();go(i+1)}
+ else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(i-1)}
+ else if(e.key==='Home')go(0);else if(e.key==='End')go(S.length-1);
+ else if(e.key==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}});
+document.getElementById('zl').onclick=()=>go(i-1);document.getElementById('zr').onclick=()=>go(i+1);
+document.getElementById('bp').onclick=()=>go(i-1);document.getElementById('bn').onclick=()=>go(i+1);
+document.getElementById('bf').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+let x0=null;addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
+const ui=document.getElementById('ui');ui.classList.add('show');setTimeout(()=>ui.classList.remove('show'),3500)}
+</script></body></html>
