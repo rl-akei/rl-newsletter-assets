@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>05 · Le point hebdo client · les vrais outils</title>
+<link rel="icon" href="../kit/logos/rama-logic_picto_ink.svg">
+<link rel="stylesheet" href="../kit/outils.css">
+<style>
+/* ===== Étape 0 : la chaîne des cinq maillons (repris du cas 01) ===== */
+.chaine{position:absolute;left:48px;right:48px;top:210px;display:grid;grid-template-columns:repeat(5,1fr)}
+.chaine .fil{position:absolute;left:10%;right:10%;top:110px;height:2px;background:var(--ink);transform-origin:0 50%}
+.chaine .c{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0}
+.chaine .c .n{font-family:var(--mono);font-weight:500;font-size:22px;color:var(--slate);letter-spacing:.06em;height:32px}
+.chaine .c .tuile{margin-top:18px}
+.chaine .c .o{margin-top:26px;font-weight:500;font-size:34px;letter-spacing:-.02em}
+.chaine .c .r{margin-top:8px;font-size:24px;line-height:1.25;color:var(--slate);max-width:190px}
+.toi{position:absolute;left:48px;right:48px;bottom:72px;background:var(--ink);color:var(--cream);padding:34px 40px;opacity:0;display:flex;align-items:center;gap:40px}
+.toi .lab{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--aloe-l);flex:none}
+.toi .p{font-weight:500;font-size:40px;letter-spacing:-.025em;line-height:1.1}
+.toi .p .hl{color:var(--flame)}
+.tuile svg.ic{width:62%;height:62%}
+
+/* Tuile « calendrier » (pas un logo : une feuille d'éphéméride à la charte) */
+.tuile.feuille{display:flex;flex-direction:column;align-items:stretch;justify-items:stretch;overflow:hidden;background:var(--cream);border-color:var(--ink)}
+.feuille .b{height:30%;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.06em;display:grid;place-items:center}
+.feuille .n{flex:1;display:grid;place-items:center;font-weight:500;font-size:32px;letter-spacing:-.03em;line-height:1}
+
+/* ===== Étape 1 : la feuille du vendredi, posée sur Notion ===== */
+.calend{position:absolute;right:72px;top:640px;width:440px;background:var(--cream);border:3px solid var(--ink);border-radius:2px;opacity:0;z-index:20}
+.calend .ct{height:52px;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-family:var(--mono);font-weight:500;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.calend .ct i{width:10px;height:10px;border-radius:50%;background:var(--mind);display:inline-block;margin-right:12px}
+.calend .cb{display:flex;align-items:flex-end;justify-content:space-between;padding:16px 22px 14px}
+.calend .jour{font-weight:600;font-size:104px;line-height:.9;letter-spacing:-.04em}
+.calend .mois{margin-top:8px;font-size:24px;color:var(--slate);letter-spacing:-.01em}
+.calend .heure{position:relative;overflow:hidden;width:132px;height:52px;font-family:var(--mono);font-weight:500;font-size:44px;letter-spacing:-.01em}
+.calend .heure span{position:absolute;right:0;bottom:4px;line-height:1}
+.calend .cp{border-top:2px solid var(--beige);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-family:var(--mono);font-weight:500;font-size:16px;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+.calend .cp b{font-weight:500;color:var(--ink);opacity:0}
+
+/* Notion : statuts et phases de RL-Customers Projects */
+.no .t-bl i{background:#5B97BD}
+.no .t-ja{background:#FBF3DB;color:#402C1B}
+.no .rel{color:#37352F;border-bottom:1px solid #D3D1CB;line-height:1.3}
+.no .tr.off{color:#91918E}
+
+/* Claude Code : noms des clients alignés en colonne */
+#term .re .cl{display:inline-block;width:16ch}
+
+/* ===== Étape 3 : la ligne RL-Points hebdo et l'image du mail ===== */
+.vp{position:absolute;left:0;right:0;top:48px;bottom:0;overflow:hidden}
+.defile{padding:22px 150px 80px}
+.defile h1{font-size:38px;font-weight:700;letter-spacing:-.01em;color:#37352F;display:flex;align-items:center;gap:14px}
+.props{margin-top:16px;padding-bottom:18px;border-bottom:1px solid #EDEDEC}
+.pr{display:flex;align-items:center;height:36px;font-size:15.5px}
+.pr .k{width:190px;flex:none;color:#787774;display:flex;align-items:center;gap:9px}
+.pr .k s{text-decoration:none;width:18px;text-align:center;color:#9B9A97}
+.pr .v{color:#37352F;display:flex;align-items:center;gap:8px}
+.img-mail{position:relative;margin-top:26px;width:748px;border-radius:3px;overflow:hidden}
+
+/* Le mail du point hebdo, reproduit d'après point_hebdo/render.py (valeurs du gabarit, puis × 1,1) */
+.mail{position:absolute;left:0;top:0;width:680px;transform:scale(1.1);transform-origin:0 0;background:#EFEBE2;padding:32px 12px 36px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Inter,sans-serif;color:#0D1A14;-webkit-font-smoothing:antialiased}
+.mail .shell{width:600px;margin:0 auto}
+.mail .mast{background:#475E54;padding:20px 32px 18px;display:flex;align-items:center;justify-content:space-between}
+.mail .mast img{width:104px;height:44px}
+.mail .mast span{font-size:11px;font-weight:600;letter-spacing:.14em;color:#B4C6BE}
+.mail .accent{height:4px;background:#DFE971}
+.mail .pave{background:#FFFCF7;border-top:1px solid #D2CFC9;padding:28px 32px 30px}
+.mail .pave.ent{border-top:none;padding:36px 32px 32px}
+.mail .h1{font-family:Georgia,"Times New Roman",Times,serif;font-size:30px;font-weight:400;line-height:1.14;letter-spacing:-.01em}
+.mail .sem{margin-top:15px;font-size:12px;letter-spacing:.04em;line-height:1.5;color:#5C6661}
+.mail .sal{margin-top:30px;font-size:15px;line-height:1.6}
+.mail .intro{margin-top:10px;font-size:15px;line-height:1.68;color:#5C6661}
+.mail .lab{margin:0 0 16px;font-size:11px;font-weight:700;letter-spacing:.14em;line-height:1.3;color:#475E54;text-transform:uppercase}
+.mail .meteo{display:flex;align-items:center;justify-content:space-between}
+.mail .meteo .g{display:flex;align-items:center;gap:12px;font-family:Georgia,"Times New Roman",Times,serif;font-size:20px;line-height:1.25}
+.mail .meteo .g i{width:10px;height:10px;background:#C8832F}
+.mail .meteo .pc{font-family:Georgia,"Times New Roman",Times,serif;font-size:24px;line-height:1.1}
+.mail .barre-av{display:flex;height:8px;margin-top:16px}
+.mail .barre-av .f{width:45%;background:#475E54}.mail .barre-av .t{flex:1;background:#D2CFC9}
+.mail .metas{margin-top:26px}
+.mail .meta{display:flex;justify-content:space-between;padding-bottom:10px}
+.mail .meta .k{font-size:10px;font-weight:700;letter-spacing:.1em;line-height:1.6;color:#5C6661;text-transform:uppercase;padding-top:1px}
+.mail .meta .v{font-size:14px;line-height:1.5}.mail .meta .v span{color:#5C6661}
+.mail .jl{display:flex;align-items:flex-start;line-height:22px}
+.mail .jl .gl{width:24px;flex:none;font-size:13px}
+.mail .jl .lb{flex:1;font-size:14px;color:#5C6661}
+.mail .jl .dt{font-size:12px;color:#5C6661}
+.mail .jl.ok .gl{color:#6A8D7E}.mail .jl.av .gl{color:#6A8D7E}
+.mail .jl.now .gl{color:#475E54}.mail .jl.now .lb{color:#0D1A14;font-weight:700}.mail .jl.now .dt{font-weight:700}
+.mail .conn{width:2px;height:12px;background:#D2CFC9;margin:2px 0 2px 6px}
+.mail .pu{display:flex;gap:12px;padding-bottom:13px}
+.mail .pu:last-child{padding-bottom:0}
+.mail .pu i{width:6px;height:6px;background:#6A8D7E;flex:none;margin-top:9px}
+.mail .pu span{font-size:15px;line-height:1.62}
+.mail .bande{border-top:1px solid #D2CFC9;background:#F6FBC6;display:flex}
+.mail .bande .r{width:4px;background:#9FA55F;flex:none}
+.mail .bande .in{padding:28px 32px 30px;flex:1}
+.mail .bande .lab{color:#0D1A14}
+.mail .bande .pu i{background:#9FA55F}
+.mail .pill{display:inline-block;background:#DFE971;color:#0D1A14;font-size:12px;font-weight:700;line-height:18px;padding:2px 9px;border-radius:8px;white-space:nowrap}
+.mail .concl{font-size:15px;line-height:1.68;color:#5C6661;margin-bottom:30px}
+.mail .sig{font-size:15px;font-weight:700;line-height:1.5}
+.mail .role{margin-top:3px;font-size:13px;color:#5C6661}
+.mail .pied{padding:20px 12px 0;text-align:center;font-size:10px;font-weight:700;letter-spacing:.22em;color:#5C6661}
+
+/* ===== Slack : canal #rl-clients, message de Claude, fil ===== */
+#w-sl .sl .side .ch.actif .halo{opacity:1}
+#w-sl .sl .side .ch.actif{color:#39063A;font-weight:700}
+#w-sl .sl .m>.tb{position:absolute;top:-14px;right:24px;display:flex;gap:2px;background:#fff;border:1px solid #DDDDDD;border-radius:8px;padding:3px;opacity:0;z-index:3}
+#w-sl .tb span{width:36px;height:32px;border-radius:5px;display:grid;place-items:center;font-size:17px}
+#w-sl .tb svg{width:20px;height:20px;stroke:#1D1C1D;fill:none;stroke-width:1.8;stroke-linejoin:round}
+#w-sl .sl .m>.survol{position:absolute;inset:0;background:#F8F8F8;opacity:0}
+#w-sl .lst{margin-top:8px}
+#w-sl .pl{display:flex;align-items:center;height:31px;opacity:0}
+#w-sl .pl .c1{width:22px;color:#616061}
+#w-sl .pl .c2{width:160px;font-weight:700}
+#w-sl .pl .c3{width:178px}
+#w-sl .pl .c4{width:64px}
+#w-sl .pl a{color:#1264A3}
+#w-sl .act-s{display:flex;gap:10px;margin-top:14px;opacity:0}
+#w-sl .bt-s{position:relative;display:inline-flex;align-items:center;height:38px;padding:0 15px;border-radius:5px;font-weight:700;font-size:16px;white-space:nowrap}
+#w-sl .bt-s.vert{background:#007A5A;color:#fff}
+#w-sl .bt-s.vert .presse{position:absolute;inset:0;border-radius:5px;background:#005E46;opacity:0}
+#w-sl .bt-s.vert span{position:relative}
+#w-sl .bt-s.gris{background:#fff;color:#1D1C1D;border:1px solid rgba(29,28,29,.3)}
+#w-sl .valide{position:absolute;left:0;top:14px;height:38px;display:flex;align-items:center;gap:8px;font-size:17px;color:#1D1C1D;opacity:0;white-space:nowrap}
+#w-sl .valide .gris{color:#616061}
+#w-sl .zone-act{position:relative;height:52px}
+#w-sl .reps{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:15px;opacity:0}
+#w-sl .reps img{width:24px;height:24px;border-radius:5px;object-fit:cover;border:1px solid #EEE}
+#w-sl .reps b{color:#1264A3;font-weight:700}
+#w-sl .reps span{color:#616061}
+#w-sl .av.photo{border:none;overflow:hidden}
+#w-sl .av.photo img{width:46px;height:46px;object-fit:cover}
+/* Le fil s'ouvre par-dessus le canal (fenêtre étroite) */
+#fil{position:absolute;inset:0;background:#fff;opacity:0;z-index:6;border-left:1px solid #E8E8E8}
+#fil .fh{height:60px;border-bottom:1px solid #E8E8E8;display:flex;align-items:center;gap:12px;padding:0 14px 0 22px}
+#fil .fh b{font-size:20px;font-weight:900}
+#fil .fh span{font-size:15px;color:#616061}
+#fil .fh .x{margin-left:auto;width:38px;height:38px;border-radius:6px;display:grid;place-items:center;color:#1D1C1D;font-size:20px}
+#fil .fc{position:absolute;left:0;right:0;top:60px;bottom:116px;padding:10px 0;overflow:hidden}
+#fil .nrep{position:relative;display:flex;align-items:center;gap:12px;margin:6px 22px 4px;height:22px;font-size:14px;color:#616061}
+#fil .nrep::after{content:"";flex:1;height:1px;background:#E8E8E8}
+#fil .nrep .a,#fil .nrep .b{opacity:0}
+#fil .nrep .b{position:absolute;left:0}
+#fil .m.rep{opacity:0}
+#fil-compo{position:absolute;left:22px;right:22px;bottom:18px;height:82px;border:1px solid #BBBBBB;border-radius:10px;padding:13px 16px;font-size:17px}
+#fil-compo .attente{position:absolute;left:16px;top:13px;color:#868686}
+#fil-compo .tx{position:absolute;left:16px;right:60px;top:13px;color:#1D1C1D;opacity:0;line-height:1.35}
+#fil-send{position:absolute;right:10px;bottom:9px;width:38px;height:30px;border-radius:5px;background:#E8E8E8;display:grid;place-items:center}
+#fil-send b{position:absolute;inset:0;border-radius:5px;background:#007A5A;opacity:0}
+#fil-send svg{position:relative;width:17px;height:17px;fill:#fff}
+
+/* ===== Gmail, Envoyés ===== */
+#w-gm .gm .boite .case,#w-gm .gm .l .case{width:18px;height:18px;border:2px solid #A8A8A8;border-radius:2px;flex:none}
+#w-gm .gm .barre-o .case{border-color:#747775}
+#w-gm .gm .l .a{color:#5E5E5E}
+#w-gm .gm .l .fond{position:absolute;inset:0;background:#FEF7E0;opacity:0}
+#w-gm .gm .l>*:not(.fond){position:relative}
+#w-gm .gm .l.nv{background:#fff}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="rail g"></div><div class="rail d"></div>
+  <div class="barre">
+    <div class="cas"><div class="num">05</div><div class="nom">Le point hebdo client</div></div>
+    <div class="temps">
+      <div class="t"><b class="fd"></b><i></i><span>Déclencheur</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>L'IA prépare</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>Tu décides</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>Résultat</span></div>
+    </div>
+  </div>
+
+  <!-- ===== Légendes, une par étape ===== -->
+  <div class="legende">
+    <div class="leg" id="leg0"><div class="lab">Cas d'usage 05 / 05</div>
+      <h2>Le point hebdo <span class="hl">client.</span></h2>
+      <p>On ne perd pas un client sur la qualité du travail. On le perd sur le silence.</p></div>
+    <div class="leg" id="leg1"><div class="lab">Le déclencheur</div>
+      <div class="outil"><div class="tuile feuille"><div class="b">VEN.</div><div class="n">23</div></div>Le calendrier</div>
+      <h2>Chaque vendredi, à midi.</h2>
+      <p>Pour chaque client actif dans Notion. Ton client finit sa semaine avec des nouvelles, pas avec une question.</p></div>
+    <div class="leg" id="leg2"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/claude-icon.svg" alt=""></div>Claude</div>
+      <h2>Claude lit la semaine de chaque client.</h2>
+      <p>Les tâches faites, les jalons, ce qui bloque. Puis il rédige un récap par client.</p></div>
+    <div class="leg" id="leg3"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div>Notion</div>
+      <h2>Un point par client, prêt à relire.</h2>
+      <p>État du projet, jalons, ce qui est fait, ce qu'on attend de lui. À ta charte, rangé dans Notion.</p></div>
+    <div class="leg" id="leg4"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/slack.svg" alt=""></div>Slack</div>
+      <h2>Tout arrive dans Slack.</h2>
+      <p>Un seul message pour tes cinq clients : la météo, l'avancement, le lien vers chaque point.</p></div>
+    <div class="leg" id="leg5"><div class="lab">Tu décides</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/slack.svg" alt=""></div>Slack</div>
+      <h2>Tu relis. Tu corriges.</h2>
+      <p>Une date est fausse ? Tu réponds dans le fil, Claude corrige le point. La relation, c'est toi.</p></div>
+    <div class="leg" id="leg6"><div class="lab">Tu décides</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/slack.svg" alt=""></div>Slack</div>
+      <h2>Tu valides, en un clic.</h2>
+      <p>Un seul bouton pour les cinq points. Rien ne part sans toi.</p></div>
+    <div class="leg" id="leg7"><div class="lab">Tu décides</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/gmail.svg" alt=""></div>Gmail</div>
+      <h2>C'est toi qui l'envoies.</h2>
+      <p>Les cinq mails partent de ta boîte, à ton nom. Chaque client reçoit le sien.</p></div>
+    <div class="leg" id="leg8"><div class="lab">Le résultat</div>
+      <h2>Ton client a des <span class="hl">nouvelles.</span></h2>
+      <p>Chaque semaine, sans silence. Et toi, tu y passes cinq minutes au lieu d'une heure.</p></div>
+    <div class="exemple">Exemple · ces clients et leurs projets sont inventés</div>
+  </div>
+
+  <!-- ===== La scène ===== -->
+  <div class="scene">
+
+    <!-- Étape 0 : la chaîne -->
+    <div class="chaine">
+      <div class="fil"></div>
+      <div class="c"><div class="n">1</div><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div><div class="o">Notion</div><div class="r">Tâches et jalons</div></div>
+      <div class="c"><div class="n">2</div><div class="tuile"><img src="../kit/logos/claude-icon.svg" alt=""></div><div class="o">Claude</div><div class="r">Il rédige les points</div></div>
+      <div class="c"><div class="n">3</div><div class="tuile"><img src="../kit/logos/slack.svg" alt=""></div><div class="o">Slack</div><div class="r">Tu relis, tu valides</div></div>
+      <div class="c"><div class="n">4</div><div class="tuile"><img src="../kit/logos/gmail.svg" alt=""></div><div class="o">Gmail</div><div class="r">Les mails partent</div></div>
+      <div class="c"><div class="n">5</div><div class="tuile"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#0D1A14" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.2" r="3.3"/><path d="M2.8 19.5c0-3.5 2.8-5.9 6.2-5.9s6.2 2.4 6.2 5.9"/><circle cx="17.2" cy="9.2" r="2.7"/><path d="M15.9 14c.4-.1.9-.2 1.3-.2 2.6 0 4.6 1.9 4.6 4.8"/></svg></div><div class="o">Tes clients</div><div class="r">Des nouvelles chaque vendredi</div></div>
+    </div>
+    <div class="toi"><div class="lab">Et toi</div><div class="p">Tu relis, tu <span class="hl">valides.</span></div></div>
+
+    <!-- Étape 1 : la feuille du vendredi -->
+    <div class="calend" id="calend">
+      <div class="ct"><span><i></i>Vendredi</span><span>Semaine 43</span></div>
+      <div class="cb">
+        <div><div class="jour">23</div><div class="mois">octobre 2026</div></div>
+        <div class="heure"><span class="a">11:59</span><span class="b">12:00</span></div>
+      </div>
+      <div class="cp"><span>Chaque vendredi</span><b id="nb-actifs">5 clients actifs</b></div>
+    </div>
+
+    <!-- Étape 1 : Notion, RL-Customers Projects -->
+    <div class="fen" id="w-no" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/notion-icon.svg" alt="">notion.so/ramalogic/RL-Customers-Projects</div></div>
+      <div class="corps"><div class="no">
+        <div class="side" style="width:236px">
+          <div class="ws"><i><img src="../kit/logos/rama-logic_picto_ink.svg" alt=""></i>Rama Logic</div>
+          <div class="si"><span class="e">🔍</span>Rechercher</div>
+          <div class="si"><span class="e">🏠</span>Accueil</div>
+          <div class="si"><span class="e">📥</span>Boîte de réception</div>
+          <div class="st">Espace d'équipe</div>
+          <div class="si"><span class="e">🗂️</span>ADMIN-BACK OFFICE</div>
+          <div class="si"><span class="e">📁</span>PROJECT OPS</div>
+          <div class="si on"><span class="e">📂</span>RL-Customers Projects</div>
+          <div class="si"><span class="e">🏁</span>RL-Jalons</div>
+          <div class="si"><span class="e">📬</span>RL-Points hebdo</div>
+          <div class="si"><span class="e">✅</span>RL-To do</div>
+        </div>
+        <div class="main" style="left:236px">
+          <div class="top"><span>PROJECT OPS</span><span class="sp">/</span><span style="color:#37352F">RL-Customers Projects</span><span class="dr"><span>Partager</span><span>☆</span><span>···</span></span></div>
+          <div class="tete" style="padding:22px 30px 0"><h1>📂 RL-Customers Projects</h1>
+            <div class="vues"><span class="v on">▦ Tous les projets</span><span class="v">Clients actifs</span><span class="v">Par phase</span>
+              <span class="act"><span>⚲</span><span>⇅</span><span class="nv">Nouveau ▾</span></span></div></div>
+          <div class="table" style="margin:0 30px">
+            <div class="tr th"><div style="width:178px">Aa Projet</div><div style="width:150px">◉ Statut</div><div style="width:262px">▾ Phase en cours</div><div style="flex:1">↗ Contact</div></div>
+            <div id="lignes-no" style="position:relative;height:294px"></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 2 : Claude Code, vendredi 12:00 -->
+    <div class="fen" id="w-cc" style="left:36px;top:40px;width:1110px;height:900px;border-color:var(--ink)">
+      <div class="nav" style="background:#2A2A28;border-bottom-color:#3A3A37"><div class="feu"><b></b><b></b><b></b></div><div class="titre" style="color:#C9C7C2;font-family:var(--mono);font-weight:400;font-size:16px">claude · point-hebdo · semaine 43 · ven. 12:00</div></div>
+      <div class="corps"><div class="ccode" id="term">
+        <div class="tete-cc ln"><span class="et">✻</span><div>Claude Code<small>point-hebdo · un point par client actif, tous les vendredis à 12 h</small></div></div>
+        <div class="ln cmd">&gt; <b>Prépare les points hebdo de la semaine 43.</b></div>
+        <div class="ln" style="height:12px"></div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Notion</span> · Lire les projets clients actifs</div>
+        <div class="ln re">└ <span class="k">5 clients :</span> 4 en Production, 1 en Onboarding</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Notion</span> · Lire la semaine de chaque client : tâches, jalons, blocages</div>
+        <div class="ln re">└ <span class="k cl">Atelier Morel</span>6 tâches faites · jalon Construction en cours · 1 blocage</div>
+        <div class="ln re">&nbsp; <span class="k cl">Cabinet Fabre</span>4 tâches faites · jalon Déploiement en cours · 0 blocage</div>
+        <div class="ln re">&nbsp; <span class="k cl">Studio Garnier</span>3 tâches faites · jalon Cadrage en cours · 0 blocage</div>
+        <div class="ln re">&nbsp; <span class="k cl">Roux Paysage</span>5 tâches faites · jalon Construction en cours · 0 blocage</div>
+        <div class="ln re">&nbsp; <span class="k cl">Benali RH</span>2 tâches faites · jalon Déploiement en cours · 1 blocage</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Write</span> · Rédiger un mail par client, à la charte</div>
+        <div class="ln re">└ État du projet, jalons, fait, décisions, attendu, prévu</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Notion</span> · Ranger chaque point dans RL-Points hebdo</div>
+        <div class="ln re">└ 5 lignes « À vérifier », avec l'image du mail</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Slack</span> · Prévenir Sylvain dans #rl-clients</div>
+        <div class="ln" style="height:12px"></div>
+        <div class="ln fin">✻ Terminé · 5 points rédigés</div>
+      </div></div>
+    </div>
+
+    <!-- Étape 3 : la ligne RL-Points hebdo d'Atelier Morel, avec l'image du mail -->
+    <div class="fen" id="w-ph" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/notion-icon.svg" alt="">notion.so/ramalogic/RL-Points-hebdo</div></div>
+      <div class="corps"><div class="no">
+        <div class="main" style="left:0">
+          <div class="top"><span>RL-Points hebdo</span><span class="sp">/</span><span style="color:#37352F">Atelier Morel · semaine 43</span><span class="dr"><span>Partager</span><span>☆</span><span>···</span></span></div>
+          <div class="vp"><div class="defile" id="defile">
+            <h1>📬 Atelier Morel · semaine 43</h1>
+            <div class="props">
+              <div class="pr"><span class="k"><s>◉</s>Statut</span><span class="v"><span class="tag t-or"><i></i>À vérifier</span></span></div>
+              <div class="pr"><span class="k"><s>▾</s>Météo</span><span class="v"><span class="tag sel t-ja">🟠 À surveiller</span></span></div>
+              <div class="pr"><span class="k"><s>#</s>Avancement</span><span class="v">45 %</span></div>
+              <div class="pr"><span class="k"><s>↗</s>Projet</span><span class="v">📂 <span class="rel">Atelier Morel</span></span></div>
+              <div class="pr"><span class="k"><s>▦</s>Semaine</span><span class="v">23 octobre 2026</span></div>
+            </div>
+            <div class="img-mail" id="img-mail"><div class="mail" id="mail">
+              <div class="shell">
+                <div class="mast"><img src="../kit/logos/rama-logic_bloc_cream.svg" alt="Rama Logic"><span>POINT HEBDO</span></div>
+                <div class="accent"></div>
+                <div class="pave ent">
+                  <div class="h1">Atelier Morel · Suivi de chantiers</div>
+                  <div class="sem">Semaine 43 · du 19 au 23 octobre 2026</div>
+                  <div class="sal">Bonjour Claire,</div>
+                  <div class="intro">Voici où en est ton projet cette semaine. Tes chantiers sont dans Notion, on branche maintenant les tâches de l'équipe.</div>
+                </div>
+                <div class="pave" id="m-etat">
+                  <div class="lab">État du projet</div>
+                  <div class="meteo"><div class="g"><i></i>À surveiller</div><div class="pc">45&nbsp;%</div></div>
+                  <div class="barre-av"><div class="f"></div><div class="t"></div></div>
+                  <div class="metas">
+                    <div class="meta"><span class="k">Livraison prévue</span><span class="v">11 décembre 2026</span></div>
+                    <div class="meta"><span class="k">Prochain jalon</span><span class="v">2 · Construction<span>&nbsp;·&nbsp;30/10</span></span></div>
+                  </div>
+                </div>
+                <div class="pave" id="m-jalons">
+                  <div class="lab">Jalons</div>
+                  <div class="jl ok"><span class="gl">✓</span><span class="lb">1 · Cadrage</span><span class="dt">25/09</span></div>
+                  <div class="conn"></div>
+                  <div class="jl now"><span class="gl">●</span><span class="lb">2 · Construction</span><span class="dt">30/10</span></div>
+                  <div class="conn"></div>
+                  <div class="jl av"><span class="gl">○</span><span class="lb">3 · Déploiement et formation</span><span class="dt">27/11</span></div>
+                  <div class="conn"></div>
+                  <div class="jl av"><span class="gl">○</span><span class="lb">4 · Clôture</span><span class="dt">11/12</span></div>
+                </div>
+                <div class="pave">
+                  <div class="lab">Fait cette semaine</div>
+                  <div class="pu"><i></i><span>Les 12 chantiers sont dans Notion, chacun avec son responsable.</span></div>
+                  <div class="pu"><i></i><span>Chaque chantier est relié à son devis signé.</span></div>
+                  <div class="pu"><i></i><span>Ton équipe voit ses tâches du jour dans une seule vue.</span></div>
+                </div>
+                <div class="pave">
+                  <div class="lab">Décisions du dernier call</div>
+                  <div class="pu"><i></i><span>Un seul tableau de suivi pour les 12 chantiers, plus de fichier à côté.</span></div>
+                </div>
+                <div class="bande" id="m-attendu"><div class="r"></div><div class="in">
+                  <div class="lab">Ce qu'on attend de toi</div>
+                  <div class="pu"><i></i><span>La liste des sous-traitants, avec un contact par lot&nbsp;<span class="pill">avant le 26/10</span></span></div>
+                </div></div>
+                <div class="pave">
+                  <div class="lab">Prévu pour la semaine prochaine</div>
+                  <div class="pu"><i></i><span>Brancher les tâches de l'équipe sur chaque chantier.</span></div>
+                  <div class="pu"><i></i><span>Préparer la formation des chefs de chantier.</span></div>
+                </div>
+                <div class="pave">
+                  <div class="concl">Bonne fin de semaine, et à vendredi prochain.</div>
+                  <div class="sig">Sylvain Ramaradjou</div>
+                  <div class="role">Rama Logic</div>
+                </div>
+              </div>
+              <div class="pied">RAMA LOGIC</div>
+            </div></div>
+          </div></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étapes 4 à 6 : notification et Slack -->
+    <div class="notif" id="notif" style="right:28px;top:28px">
+      <img src="../kit/logos/slack.svg" alt="">
+      <div style="flex:1"><div class="app"><span>Slack</span><span>maintenant</span></div>
+        <div class="tt">#rl-clients · Claude</div>
+        <div class="tx">📬 Points hebdo · semaine 43 : 5 clients prêts à relire</div></div>
+    </div>
+    <div class="fen" id="w-sl" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="titre">Slack</div></div>
+      <div class="corps"><div class="sl">
+        <div class="rail-s"><div class="ws"><img src="../kit/logos/rama-logic_picto_ink.svg" alt=""></div>
+          <div class="ri on"><b><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"/></svg></b>Accueil</div><div class="ri"><b><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></b>Messages</div><div class="ri"><b><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20h4"/></svg></b>Activité</div></div>
+        <div class="side">
+          <div class="nomws">Rama Logic</div>
+          <div class="st">▾ Canaux</div>
+          <div class="ch"><span>#</span><span>rl-acquisition</span></div>
+          <div class="ch actif"><b class="halo"></b><span>#</span><span>rl-clients</span></div>
+          <div class="ch"><span>#</span><span>rl-pilotage</span></div>
+          <div class="ch"><span>#</span><span>rl-reseaux-sociaux</span></div>
+          <div class="ch"><span>#</span><span>rl-seo</span></div>
+          <div class="ch"><span>#</span><span>rl-systeme</span></div>
+          <div class="st">▾ Messages directs</div>
+          <div class="ch"><span>●</span><span>Claude</span></div>
+        </div>
+        <div class="pane">
+          <div class="ph"># rl-clients <small>🔒 canal privé</small></div>
+          <div class="msgs">
+            <div class="sep">Aujourd'hui</div>
+            <div class="m"><div class="av"><img src="../kit/logos/claude-icon.svg" alt=""></div>
+              <div><div class="who">Claude <span class="app">APP</span><span class="h">09:00</span></div>
+                <div class="txt">🗓️ Points hebdo à midi. Voici ce que j'ai trouvé par client cette semaine.<br>Il s'est passé autre chose ?</div></div></div>
+            <div class="m" id="msg-ph" style="opacity:0"><b class="fond"></b><b class="survol"></b>
+              <div class="tb" id="tb"><span>✅</span><span>👀</span><span id="tb-fil"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></span><span>⋮</span></div>
+              <div class="av"><img src="../kit/logos/claude-icon.svg" alt=""></div>
+              <div style="flex:1"><div class="who">Claude <span class="app">APP</span><span class="h">12:04</span></div>
+                <div class="txt">📬 <b>Points hebdo · semaine 43</b> : 5 clients prêts à relire
+                  <div class="lst" id="lst"></div>
+                  <div class="zone-act">
+                    <div class="act-s" id="act-s"><span class="bt-s vert" id="btn-valider"><b class="presse"></b><span>Tout valider et envoyer</span></span><span class="bt-s gris">Voir dans Notion</span></div>
+                    <div class="valide" id="valide">✅ <b>Validé par Sylvain</b><span>· 5 points hebdo envoyés</span><span class="gris">· 12:21</span></div>
+                  </div>
+                </div>
+                <div class="reps" id="reps"><img src="../kit/img/sylvain-cal.png" alt=""><img src="../kit/logos/claude-icon.svg" alt="" style="object-fit:contain;padding:3px;background:#fff"><b>2 réponses</b><span>Dernière réponse aujourd'hui à 12:08</span></div>
+              </div></div>
+          </div>
+          <div class="compo">Envoyer un message dans #rl-clients</div>
+
+          <!-- Le fil -->
+          <div id="fil">
+            <div class="fh"><b>Fil</b><span># rl-clients</span><span class="x" id="fil-x">✕</span></div>
+            <div class="fc">
+              <div class="m"><div class="av"><img src="../kit/logos/claude-icon.svg" alt=""></div>
+                <div style="flex:1"><div class="who">Claude <span class="app">APP</span><span class="h">12:04</span></div>
+                  <div class="txt">📬 <b>Points hebdo · semaine 43</b> : 5 clients prêts à relire
+                    <div class="lst" id="lst-fil"></div></div></div></div>
+              <div class="nrep"><span class="a">1 réponse</span><span class="b">2 réponses</span></div>
+              <div class="m rep" id="rep1"><div class="av photo"><img src="../kit/img/sylvain-cal.png" alt=""></div>
+                <div><div class="who">Sylvain Ramaradjou <span class="h">12:08</span></div>
+                  <div class="txt">Atelier Morel : la liste des sous-traitants est attendue mardi, pas lundi.</div></div></div>
+              <div class="m rep" id="rep2"><div class="av"><img src="../kit/logos/claude-icon.svg" alt=""></div>
+                <div><div class="who">Claude <span class="app">APP</span><span class="h">12:08</span></div>
+                  <div class="txt">Corrigé ✓ Dans le point d'Atelier Morel : « La liste des sous-traitants, <b>avant&nbsp;le&nbsp;27/10</b>&nbsp;».</div></div></div>
+            </div>
+            <div id="fil-compo"><span class="attente">Répondre…</span><span class="tx">Atelier Morel : la liste des sous-traitants est attendue mardi, pas lundi.</span>
+              <span id="fil-send"><b></b><svg viewBox="0 0 24 24"><path d="M3 20.5l18-8.5L3 3.5l2.6 7.2L14 12l-8.4 1.3z"/></svg></span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 7 : Gmail, messages envoyés -->
+    <div class="fen" id="w-gm" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/gmail.svg" alt="">mail.google.com</div></div>
+      <div class="corps"><div class="gm">
+        <div class="haut"><div class="burger"><b></b><b></b><b></b></div><div class="logo"><img src="../kit/logos/gmail.svg" alt="">Gmail</div>
+          <div class="rech"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>Rechercher dans les messages</div></div>
+        <div class="gauche">
+          <div class="nouveau"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Nouveau message</div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><path d="M3 13h5l2 3h4l2-3h5M5 5h14l2 8v6H3v-6z"/></svg>Boîte de réception<span class="n">12</span></div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.8z"/></svg>Messages suivis</div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>En attente</div>
+          <div class="it on"><svg class="ic" viewBox="0 0 24 24"><path d="M3 20l18-8L3 4l3 8zM6 12h7"/></svg>Envoyés</div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4"/></svg>Brouillons<span class="n">3</span></div>
+          <div class="sect">Libellés</div>
+          <div class="it"><span class="lb"></span>01-🙏 Clients</div>
+          <div class="it"><span class="lb" style="background:#E2A400"></span>Prospects</div>
+          <div class="it"><span class="lb"></span>Factures</div>
+          <div class="it"><span class="lb"></span>Newsletters</div>
+        </div>
+        <div class="boite">
+          <div class="barre-o"><span class="case"></span><span>↻</span><span>⋮</span><span>1-50 sur 412</span></div>
+          <div class="lignes" id="lignes-gm"></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 8 : le résultat -->
+    <div class="gain" id="gain">
+      <div class="lab">Chaque vendredi, pour tes 5 clients</div>
+      <div class="ligne avant"><span class="k">Avant</span><span class="n">1 h</span><span class="d">à rédiger</span></div>
+      <div class="filet"></div>
+      <div class="ligne apres"><span class="k">Maintenant</span><span class="n">5 min</span><span class="d">à relire</span></div>
+    </div>
+  </div>
+
+  <svg id="souris" viewBox="0 0 28 36"><path d="M2 2 L2 28 L8.5 22 L13 32.5 L17 30.8 L12.6 20.5 L21.5 20.5 Z" fill="#0D1A14" stroke="#FFFCF7" stroke-width="2" stroke-linejoin="round"/></svg>
+  <div id="clic"></div>
+</div>
+<div id="aide"></div>
+
+<script src="../kit/gsap.min.js"></script>
+<script src="../kit/pilote.js"></script>
+<script>
+// ---------- Données d'exemple (inventées), posées avant la mesure des positions ----------
+const CLIENTS = [
+  // projet, contact, prénom, statut, phase, météo, avancement
+  ["Atelier Morel", "Claire Morel", "Claire", "Production", "2 · Construction", "🟠 À surveiller", 45],
+  ["Cabinet Fabre", "Julien Fabre", "Julien", "Production", "3 · Déploiement et formation", "🟢 En bonne voie", 70],
+  ["Studio Garnier", "Inès Garnier", "Inès", "Onboarding", "1 · Cadrage", "🟢 En bonne voie", 15],
+  ["Roux Paysage", "Thomas Roux", "Thomas", "Production", "2 · Construction", "🟢 En bonne voie", 55],
+  ["Benali RH", "Nadia Benali", "Nadia", "Production", "3 · Déploiement et formation", "🟠 À surveiller", 80],
+];
+(function () {
+  // Notion, RL-Customers Projects : les 5 projets actifs, puis 2 projets terminés
+  const st = { Production: '<span class="tag t-ve"><i></i>Production</span>', Onboarding: '<span class="tag t-bl"><i></i>Onboarding</span>', "Terminé": '<span class="tag t-gr"><i></i>Terminé</span>' };
+  const ph = { "1 · Cadrage": "t-bl", "2 · Construction": "t-or", "3 · Déploiement et formation": "t-vi", "4 · Clôture": "t-gr" };
+  const lignes = CLIENTS.map((c) => [c[0], c[3], c[4], c[1]]).concat([
+    ["Durand Associés", "Terminé", "4 · Clôture", "Sophie Durand"],
+    ["Petit et Fils", "Terminé", "4 · Clôture", "Camille Petit"],
+  ]);
+  document.getElementById("lignes-no").innerHTML = lignes.map((l, k) =>
+    `<div class="tr" id="no${k}" style="position:absolute;left:0;right:0;top:${k * 42}px"><b class="fond"></b>` +
+    `<div class="c nm" style="width:178px">${l[0]}</div><div class="c" style="width:150px">${st[l[1]]}</div>` +
+    `<div class="c" style="width:262px"><span class="tag sel ${ph[l[2]]}">${l[2]}</span></div>` +
+    `<div class="c" style="flex:1"><span class="rel">${l[3]}</span></div></div>`).join("");
+
+  // Slack : une ligne par client dans le message, et dans le fil
+  const pl = CLIENTS.map((c) =>
+    `<div class="pl"><span class="c1">•</span><span class="c2">${c[0]}</span><span class="c3">${c[5]}</span><span class="c4">${c[6]}&nbsp;%</span><a>Voir le point</a></div>`).join("");
+  document.getElementById("lst").innerHTML = pl;
+  document.getElementById("lst-fil").innerHTML = pl.replaceAll('class="pl"', 'class="pl" style="opacity:1"');
+
+  // Gmail, Envoyés : les 5 points de la semaine 43 (lignes 0 à 4) au-dessus de ceux de la semaine 42
+  const nv = CLIENTS.map((c) => [c[1], `Point hebdo · semaine 43 · ${c[0]}`, `Bonjour ${c[2]}, voici où en est ton projet cette semaine.`, "12:21", true]);
+  const vieux = CLIENTS.map((c) => [c[1], `Point hebdo · semaine 42 · ${c[0]}`, `Bonjour ${c[2]}, voici où en est ton projet cette semaine.`, "16 oct."])
+    .concat([["Julien Fabre", "Re: Planning de la formation", "Parfait pour jeudi, je bloque la salle.", "15 oct."]]);
+  document.getElementById("lignes-gm").innerHTML = nv.concat(vieux).map((m, k) =>
+    `<div class="l${m[4] ? " nv" : ""}" id="gm${k}" style="top:${k * 46}px">${m[4] ? '<b class="fond"></b>' : ""}<span class="case"></span><span class="et">☆</span>` +
+    `<span class="de"><span class="a">À : </span>${m[0]}</span><span class="ob"><b>${m[1]}</b> - ${m[2]}</span><span class="h">${m[3]}</span></div>`).join("");
+})();
+
+RL.construire(function (R) {
+  const { tl } = R;
+
+  // Mesures faites avant toute transformation : la hauteur de l'image du mail, et la descente de la page
+  const mail = document.getElementById("mail");
+  const ech = 1.1;
+  document.getElementById("img-mail").style.height = Math.round(mail.offsetHeight * ech) + "px";
+  const imgTop = document.getElementById("img-mail").offsetTop;      // dans .defile
+  const att = document.getElementById("m-attendu");
+  const vue = document.querySelector("#w-ph .vp").offsetHeight;
+  // On s'arrête avec le bloc Jalons en haut, si « Ce qu'on attend de toi » reste visible en entier ; sinon on cale ce bloc en bas
+  const jal = document.getElementById("m-jalons");
+  const surJalons = Math.round(imgTop + jal.offsetTop * ech - 14);
+  const surAttendu = Math.round(imgTop + (att.offsetTop + att.offsetHeight) * ech + 28 - vue);
+  const descente = surJalons >= surAttendu ? surJalons : surAttendu;
+  // Halte intermédiaire : l'état du projet (météo, avancement, prochain jalon) entier en bas de la vue
+  const etat = document.getElementById("m-etat");
+  const surEtat = Math.max(0, Math.round(imgTop + (etat.offsetTop + etat.offsetHeight) * ech + 20 - vue));
+
+  // États de départ
+  gsap.set("#calend .heure .b", { opacity: 0, y: 48 });
+  gsap.set("#lignes-gm", { y: -5 * 46 });
+  gsap.set("#gm0, #gm1, #gm2, #gm3, #gm4", { opacity: 0 });
+  gsap.set("#fil", { opacity: 0, x: 48 });
+  R.sourisPose({ x: 1700, y: 1000 });
+
+  // 0 · La chaîne des cinq maillons
+  R.etape((S) => {
+    R.phase(-1, S);
+    R.legende(0, S);
+    R.entre(".chaine .c", S + 0.3, { st: 0.12 });
+    tl.fromTo(".chaine .fil", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "expo.out" }, S + 0.4);
+    R.entre(".toi", S + 1.4);
+    return 2.1;
+  });
+
+  // 1 · Vendredi, 12:00 : le robot prend les projets clients actifs dans Notion
+  R.etape((S) => {
+    R.phase(0, S);
+    R.legende(1, S);
+    R.sort(".chaine .c, .chaine .fil, .toi", S, 0.3);
+    R.fenetre("#w-no", S + 0.3);
+    R.entre("#calend", S + 0.7, { y: 24 });
+    tl.to("#calend .heure .a", { opacity: 0, y: -48, duration: 0.35, ease: "power2.in" }, S + 1.5);
+    tl.to("#calend .heure .b", { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, S + 1.8);
+    tl.to("#no5, #no6", { opacity: 0.4, duration: 0.4 }, S + 2.0);
+    [0, 1, 2, 3, 4].forEach((k) => tl.to(`#no${k} .fond`, { opacity: 1, duration: 0.25 }, S + 2.0 + k * 0.28));
+    tl.to("#nb-actifs", { opacity: 1, duration: 0.3 }, S + 3.4);
+    return 3.9;
+  });
+
+  // 2 · Claude Code lit la semaine de chaque client et rédige
+  R.etape((S) => {
+    R.phase(1, S);
+    R.legende(2, S);
+    R.sort("#calend", S, 0.25);
+    R.ferme("#w-no", S);
+    R.fenetre("#w-cc", S + 0.3);
+    tl.to("#term .ln", { opacity: 1, duration: 0.15, stagger: 0.2 }, S + 0.9);
+    return 0.9 + 0.2 * 17 + 0.3;
+  });
+
+  // 3 · Le point d'Atelier Morel, rangé dans RL-Points hebdo : on le lit de haut en bas
+  R.etape((S) => {
+    R.legende(3, S);
+    R.ferme("#w-cc", S);
+    R.fenetre("#w-ph", S + 0.3);
+    tl.to("#defile", { y: -surEtat, duration: 1.1, ease: "power2.inOut" }, S + 1.3);
+    tl.to("#defile", { y: -descente, duration: 1.5, ease: "power2.inOut" }, S + 3.1);
+    return 4.8;
+  });
+
+  // 4 · Slack : un message pour les cinq clients
+  R.etape((S) => {
+    R.legende(4, S);
+    R.ferme("#w-ph", S);
+    tl.fromTo("#notif", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, S + 0.3);
+    R.fenetre("#w-sl", S + 1.4);
+    tl.to("#notif", { opacity: 0, duration: 0.3 }, S + 2.2);
+    R.entre("#msg-ph", S + 2.1, { y: 20 });
+    tl.to("#msg-ph .fond", { opacity: 1, duration: 0.3 }, S + 2.1);
+    tl.to("#lst .pl", { opacity: 1, duration: 0.2, stagger: 0.13 }, S + 2.25);
+    tl.to("#act-s", { opacity: 1, duration: 0.3 }, S + 2.95);
+    return 3.6;
+  });
+
+  // 5 · Tu relis, tu corriges dans le fil
+  R.etape((S) => {
+    R.phase(2, S);
+    R.legende(5, S);
+    tl.set("#souris", { x: 1530, y: 975 }, S);
+    R.montre(S + 0.1);
+    R.souris("#msg-ph", S + 0.2, 0.6, 0.62, 0.2);
+    tl.to("#msg-ph .fond", { opacity: 0, duration: 0.3 }, S + 0.6);
+    tl.to("#msg-ph .survol, #tb", { opacity: 1, duration: 0.15 }, S + 0.7);
+    R.souris("#tb-fil", S + 0.9, 0.4);
+    R.clic(S + 1.35);
+    tl.set("#fil", { x: 48 }, S + 1.45);
+    tl.to("#fil", { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, S + 1.45);
+    R.souris("#fil-compo", S + 1.95, 0.5, 0.45, 0.5);
+    R.clic(S + 2.5);
+    tl.to("#fil-compo .attente", { opacity: 0, duration: 0.1 }, S + 2.6);
+    tl.to("#fil-compo .tx", { opacity: 1, duration: 0.3 }, S + 2.6);
+    tl.to("#fil-send b", { opacity: 1, duration: 0.15 }, S + 2.6);
+    R.souris("#fil-send", S + 2.95, 0.45);
+    R.clic(S + 3.45);
+    tl.to("#fil-compo .tx, #fil-send b", { opacity: 0, duration: 0.15 }, S + 3.5);
+    tl.to("#fil-compo .attente", { opacity: 1, duration: 0.2 }, S + 3.6);
+    tl.to("#fil .nrep .a", { opacity: 1, duration: 0.2 }, S + 3.55);
+    R.entre("#rep1", S + 3.55, { y: 16, d: 0.5 });
+    tl.to("#fil .nrep .a", { opacity: 0, duration: 0.15 }, S + 4.3);
+    tl.to("#fil .nrep .b", { opacity: 1, duration: 0.2 }, S + 4.35);
+    R.entre("#rep2", S + 4.35, { y: 16, d: 0.5 });
+    tl.to("#reps", { opacity: 1, duration: 0.01 }, S + 4.35);
+    return 4.9;
+  });
+
+  // 6 · Tu valides : un clic, les cinq points partent
+  R.etape((S) => {
+    R.legende(6, S);
+    R.souris("#fil-x", S + 0.2, 0.6);
+    R.clic(S + 0.85);
+    tl.to("#fil", { opacity: 0, x: 48, duration: 0.3, ease: "power1.in" }, S + 0.95);
+    tl.to("#msg-ph .survol, #tb", { opacity: 0, duration: 0.2 }, S + 0.95);
+    R.souris("#btn-valider", S + 1.35, 0.7);
+    R.clic(S + 2.1);
+    tl.to("#btn-valider .presse", { opacity: 1, duration: 0.08 }, S + 2.1);
+    tl.to("#act-s", { opacity: 0, duration: 0.2 }, S + 2.45);
+    R.entre("#valide", S + 2.6, { y: 12, d: 0.5 });
+    tl.to("#msg-ph .fond", { opacity: 1, duration: 0.3 }, S + 2.6);
+    R.cache(S + 2.9);
+    return 3.3;
+  });
+
+  // 7 · Gmail, Envoyés : les cinq mails partent de ta boîte
+  R.etape((S) => {
+    R.legende(7, S);
+    R.ferme("#w-sl", S);
+    R.fenetre("#w-gm", S + 0.3);
+    for (let m = 0; m < 5; m++) {
+      const t = S + 1.1 + m * 0.42, k = 4 - m;
+      tl.to("#lignes-gm", { y: (m - 4) * 46, duration: 0.4, ease: "expo.out" }, t);
+      tl.to(`#gm${k}`, { opacity: 1, duration: 0.3 }, t + 0.05);
+      tl.to(`#gm${k} .fond`, { opacity: 1, duration: 0.2 }, t + 0.05);
+    }
+    tl.to("#lignes-gm .fond", { opacity: 0, duration: 0.8 }, S + 3.4);
+    return 4.2;
+  });
+
+  // 8 · Le résultat
+  R.etape((S) => {
+    R.phase(3, S);
+    R.legende(8, S);
+    R.ferme("#w-gm", S);
+    tl.to("#gain", { opacity: 1, duration: 0.4 }, S + 0.2);
+    R.entre("#gain .lab", S + 0.3);
+    R.entre("#gain .avant", S + 0.5);
+    tl.fromTo("#gain .filet", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 0.8, ease: "expo.out" }, S + 0.9);
+    R.entre("#gain .apres", S + 1.2);
+    return 2.0;
+  });
+});
+</script>
+</body>
+</html>

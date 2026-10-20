@@ -1,0 +1,79 @@
+{
+ "cas": "03-proposition",
+ "duree": 59.15,
+ "fps": 30,
+ "etapes": [
+  {
+   "etape": 0,
+   "debut": 0,
+   "fin_mouvement": 2.1,
+   "temps": "Cas d'usage 03 / 05",
+   "titre": "La proposition commerciale.",
+   "phrase": "Un premier jet de proposition, monté avec ce qui existe déjà dans Notion.",
+   "fin_tenue": 5.5
+  },
+  {
+   "etape": 1,
+   "debut": 5.5,
+   "fin_mouvement": 10.3,
+   "temps": "Le déclencheur",
+   "titre": "L'appel découverte se termine.",
+   "phrase": "Fathom a tout noté : 12 chantiers sur Excel, des devis refaits à la main. Reste une proposition à écrire.",
+   "fin_tenue": 13.7
+  },
+  {
+   "etape": 2,
+   "debut": 13.7,
+   "fin_mouvement": 18.65,
+   "temps": "L'IA prépare",
+   "titre": "Claude rassemble ce qui existe déjà.",
+   "phrase": "Le contexte du client, ce qui s'est dit en rendez-vous, tes offres, tes conditions. Et il sort un premier jet.",
+   "fin_tenue": 22.05
+  },
+  {
+   "etape": 3,
+   "debut": 22.05,
+   "fin_mouvement": 25.35,
+   "temps": "L'IA prépare",
+   "titre": "Il te prévient dans Slack.",
+   "phrase": "Le lien de la proposition et sa fiche Notion. Le prix reste vide : c'est à toi de le fixer.",
+   "fin_tenue": 28.75
+  },
+  {
+   "etape": 4,
+   "debut": 28.75,
+   "fin_mouvement": 33.75,
+   "temps": "Tu décides",
+   "titre": "Tu relis. Tu corriges dans le fil.",
+   "phrase": "Une phrase suffit : le prix, le planning, le ton. Claude applique. Le prix, c'est toi. Toujours.",
+   "fin_tenue": 37.15
+  },
+  {
+   "etape": 5,
+   "debut": 37.15,
+   "fin_mouvement": 42.15,
+   "temps": "Tu décides",
+   "titre": "Elle se met en page à ta charte.",
+   "phrase": "Neuf slides à tes couleurs, avec les mots de Claire. Tu la relis comme elle la verra.",
+   "fin_tenue": 45.55
+  },
+  {
+   "etape": 6,
+   "debut": 45.55,
+   "fin_mouvement": 49.95,
+   "temps": "Tu décides",
+   "titre": "Et c'est toi qui l'envoies.",
+   "phrase": "Deux lignes et le lien, depuis ta boîte. Rien ne part chez le client sans toi.",
+   "fin_tenue": 53.35
+  },
+  {
+   "etape": 7,
+   "debut": 53.35,
+   "fin_mouvement": 55.75,
+   "temps": "Le résultat",
+   "titre": "Tu reviens à ton travail de fond.",
+   "phrase": "Le premier jet est prêt à la sortie du rendez-vous. Il te reste la relecture et le prix.",
+   "fin_tenue": 59.15
+  }
+ ]
+}

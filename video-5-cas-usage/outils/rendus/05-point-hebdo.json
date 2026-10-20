@@ -1,0 +1,88 @@
+{
+ "cas": "05-point-hebdo",
+ "duree": 64,
+ "fps": 30,
+ "etapes": [
+  {
+   "etape": 0,
+   "debut": 0,
+   "fin_mouvement": 2.1,
+   "temps": "Cas d'usage 05 / 05",
+   "titre": "Le point hebdo client.",
+   "phrase": "On ne perd pas un client sur la qualité du travail. On le perd sur le silence.",
+   "fin_tenue": 5.5
+  },
+  {
+   "etape": 1,
+   "debut": 5.5,
+   "fin_mouvement": 9.4,
+   "temps": "Le déclencheur",
+   "titre": "Chaque vendredi, à midi.",
+   "phrase": "Pour chaque client actif dans Notion. Ton client finit sa semaine avec des nouvelles, pas avec une question.",
+   "fin_tenue": 12.8
+  },
+  {
+   "etape": 2,
+   "debut": 12.8,
+   "fin_mouvement": 17.4,
+   "temps": "L'IA prépare",
+   "titre": "Claude lit la semaine de chaque client.",
+   "phrase": "Les tâches faites, les jalons, ce qui bloque. Puis il rédige un récap par client.",
+   "fin_tenue": 20.8
+  },
+  {
+   "etape": 3,
+   "debut": 20.8,
+   "fin_mouvement": 25.6,
+   "temps": "L'IA prépare",
+   "titre": "Un point par client, prêt à relire.",
+   "phrase": "État du projet, jalons, ce qui est fait, ce qu'on attend de lui. À ta charte, rangé dans Notion.",
+   "fin_tenue": 29
+  },
+  {
+   "etape": 4,
+   "debut": 29,
+   "fin_mouvement": 32.6,
+   "temps": "L'IA prépare",
+   "titre": "Tout arrive dans Slack.",
+   "phrase": "Un seul message pour tes cinq clients : la météo, l'avancement, le lien vers chaque point.",
+   "fin_tenue": 36
+  },
+  {
+   "etape": 5,
+   "debut": 36,
+   "fin_mouvement": 40.9,
+   "temps": "Tu décides",
+   "titre": "Tu relis. Tu corriges.",
+   "phrase": "Une date est fausse ? Tu réponds dans le fil, Claude corrige le point. La relation, c'est toi.",
+   "fin_tenue": 44.3
+  },
+  {
+   "etape": 6,
+   "debut": 44.3,
+   "fin_mouvement": 47.6,
+   "temps": "Tu décides",
+   "titre": "Tu valides, en un clic.",
+   "phrase": "Un seul bouton pour les cinq points. Rien ne part sans toi.",
+   "fin_tenue": 51
+  },
+  {
+   "etape": 7,
+   "debut": 51,
+   "fin_mouvement": 55.2,
+   "temps": "Tu décides",
+   "titre": "C'est toi qui l'envoies.",
+   "phrase": "Les cinq mails partent de ta boîte, à ton nom. Chaque client reçoit le sien.",
+   "fin_tenue": 58.6
+  },
+  {
+   "etape": 8,
+   "debut": 58.6,
+   "fin_mouvement": 60.6,
+   "temps": "Le résultat",
+   "titre": "Ton client a des nouvelles.",
+   "phrase": "Chaque semaine, sans silence. Et toi, tu y passes cinq minutes au lieu d'une heure.",
+   "fin_tenue": 64
+  }
+ ]
+}

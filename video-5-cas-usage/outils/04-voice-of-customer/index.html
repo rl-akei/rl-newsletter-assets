@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>04 · Voice of Customer et contenus · les vrais outils</title>
+<link rel="icon" href="../kit/logos/rama-logic_picto_ink.svg">
+<link rel="stylesheet" href="../kit/outils.css">
+<style>
+/* Étape 0 : la chaîne des cinq outils (repris du cas 01) */
+.chaine{position:absolute;left:48px;right:48px;top:210px;display:grid;grid-template-columns:repeat(5,1fr)}
+.chaine .fil{position:absolute;left:10%;right:10%;top:110px;height:2px;background:var(--ink);transform-origin:0 50%}
+.chaine .c{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0}
+.chaine .c .n{font-family:var(--mono);font-weight:500;font-size:22px;color:var(--slate);letter-spacing:.06em;height:32px}
+.chaine .c .tuile{margin-top:18px}
+.chaine .c .o{margin-top:26px;font-weight:500;font-size:34px;letter-spacing:-.02em}
+.chaine .c .r{margin-top:8px;font-size:24px;line-height:1.25;color:var(--slate);max-width:190px}
+.toi{position:absolute;left:48px;right:48px;bottom:72px;background:var(--ink);color:var(--cream);padding:34px 40px;opacity:0;display:flex;align-items:center;gap:40px}
+.toi .lab{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--aloe-l);flex:none}
+.toi .p{font-weight:500;font-size:40px;letter-spacing:-.025em;line-height:1.1}
+.toi .p .hl{color:var(--flame)}
+/* Tuile Fathom : le logo officiel est déjà sur fond noir */
+.tuile.fath{background:#000;border-color:#000;overflow:hidden}
+.tuile.fath img{width:100%;height:100%}
+
+/* ================= Fathom (page d'un appel, transcription) ================= */
+.fa{position:absolute;inset:0;background:#fff;font-family:Inter,sans-serif;color:#1C1D21;font-feature-settings:"cv11"}
+.fa .fh{height:62px;border-bottom:1px solid #ECEDEF;display:flex;align-items:center;gap:12px;padding:0 24px;font-size:16px;color:#6B6F76}
+.fa .fh img{width:30px;height:30px;border-radius:7px}
+.fa .fh .lg{font-weight:700;font-size:18px;color:#1C1D21;margin-right:14px}
+.fa .fh .sp{color:#C3C5CA}
+.fa .fh b{color:#1C1D21;font-weight:600}
+.fa .fh .pt{margin-left:auto;height:36px;padding:0 16px;border-radius:8px;background:#1C1D21;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center}
+.fa .gc{position:absolute;left:0;top:62px;bottom:0;width:440px;padding:24px;border-right:1px solid #ECEDEF}
+.fa .video{position:relative;width:392px;height:220px;border-radius:10px;background:#1E2027;overflow:hidden}
+.fa .video .gr{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-56px 0 0 -46px;border-radius:50%;background:#6E56CF;color:#fff;display:grid;place-items:center;font-size:32px;font-weight:600}
+.fa .video .nt{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;font-size:13px;font-weight:500;padding:3px 8px;border-radius:5px}
+.fa .video .pp{position:absolute;right:10px;top:10px;width:118px;height:74px;border-radius:7px;overflow:hidden;border:1px solid #3A3D46}
+.fa .video .pp img{width:100%;height:100%;object-fit:cover}
+.fa .video .pp span{position:absolute;left:5px;bottom:5px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:1px 6px;border-radius:4px}
+.fa .prog{position:relative;margin-top:16px;height:6px;border-radius:3px;background:#E5E7EB}
+.fa .prog i{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:3px;background:#00B4F0;transform-origin:0 50%}
+.fa .prog b{position:absolute;left:0;top:-5px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:#fff;border:3px solid #00B4F0}
+.fa .tps{display:flex;justify-content:space-between;margin-top:10px;font-size:13.5px;color:#6B6F76}
+.fa .gc h3{margin-top:20px;font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.fa .gc .mt{margin-top:6px;font-size:15px;color:#6B6F76}
+.fa .gc .pl{margin-top:22px;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#8A8D93}
+.fa .gc .pa{display:flex;align-items:center;gap:12px;margin-top:12px;font-size:15.5px;font-weight:500}
+.fa .gc .pa small{display:block;font-size:13.5px;color:#6B6F76;font-weight:400}
+.fa .gc .pa .a{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:13px;font-weight:600;color:#fff;background:#6E56CF;object-fit:cover}
+.fa .dr{position:absolute;left:440px;right:0;top:62px;bottom:0}
+.fa .ong{height:52px;border-bottom:1px solid #ECEDEF;display:flex;gap:30px;padding:0 26px;font-size:15.5px;color:#6B6F76;font-weight:500}
+.fa .ong div{display:flex;align-items:center}
+.fa .ong .on{color:#1C1D21;box-shadow:inset 0 -2px 0 #1C1D21}
+.fa .vp{position:absolute;left:0;right:0;top:52px;bottom:0;overflow:hidden}
+.fa .liste{position:absolute;left:0;right:0;top:0;padding:10px 0}
+.fa .tour{display:flex;gap:14px;padding:12px 26px}
+.fa .tour .av{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:13px;font-weight:600;color:#fff;background:#6E56CF;object-fit:cover}
+.fa .tour .bd{flex:1;min-width:0}
+.fa .tour .hd{display:flex;align-items:center;gap:10px;height:26px}
+.fa .tour .nm{font-size:15.5px;font-weight:600}
+.fa .tour .ts{font-size:14px;color:#0077A8;font-weight:500}
+.fa .tour .tx{margin-top:3px;font-size:18px;line-height:1.45;color:#2B2D31}
+.fa .mk{border-radius:3px;background-color:rgba(246,217,203,0);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* Étiquette posée par Claude sur une phrase relevée */
+.fa .ty{margin-left:auto;display:flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:13px;background:#FBEDE6;border:1px solid #EFC3AE;color:#8E3F22;font-size:14px;font-weight:600;opacity:0}
+.fa .ty img{width:14px;height:14px}
+/* Mention de la charte, posée sur l'outil */
+.meme{position:absolute;left:24px;right:24px;bottom:24px;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:15px;letter-spacing:.06em;text-transform:uppercase;line-height:1.45;padding:14px 18px;border-radius:2px;display:flex;gap:12px;opacity:0}
+.meme i{flex:none;width:10px;height:10px;margin-top:6px;background:var(--mind);border-radius:50%}
+
+/* ================= Terminal clair du contrôle (Python) ================= */
+.term{position:absolute;inset:0;background:#fff;font-family:var(--mono);color:#1D1D1F;font-size:21px;line-height:1.7;padding:26px 34px}
+.term .ln{opacity:0;white-space:nowrap}
+.term .pr{color:#8E8E93}
+.term .gr{color:#6E6E73}
+.term .vt{color:#1A7F37}
+.term .rg{color:#CF222E}
+.term .ec{color:#9A9AA0}
+.term .sub{padding-left:33px}
+.term .ic{display:inline-block;width:21px;height:21px;vertical-align:-3px;margin-right:12px}
+.term .ic path{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.term .ic.v path{stroke:#1A7F37}.term .ic.x path{stroke:#CF222E}
+.term .bil{display:inline-flex;align-items:center;gap:10px;margin-right:26px}
+.term .bil i{width:12px;height:12px;border-radius:50%}
+
+/* ================= Notion : base RL-Voice of Customer, fiche RL-SM Contents ================= */
+#w-voc .main,#w-sm .main{left:0}
+.no .top .rep{color:#91918E;font-size:17px;margin-right:4px}
+.no .ico{display:inline-block;flex:none}
+.no .tete h1 .ico{width:36px;height:36px}
+#w-voc .vues .v{font-weight:500}
+#w-voc .vues .v.on{background:#F1F1EF;color:#37352F}
+#vue-dou{background:rgba(241,241,239,0)}
+.no .filtres{display:flex;gap:8px;padding:10px 0 12px}
+.no .filtres .pi{height:30px;padding:0 13px;border-radius:15px;border:1px solid rgba(35,131,226,.35);background:rgba(35,131,226,.06);color:#2383E2;font-size:14.5px;font-weight:500;display:flex;align-items:center;gap:6px}
+.no .vtab{position:absolute;left:24px;right:24px;top:178px;margin:0}
+#tabB{opacity:0}
+.vtab .lignes{position:relative}
+.vtab .tr.r{position:absolute;left:0;right:0;height:58px}
+.no .tr>div.vb{white-space:normal;line-height:1.35;font-weight:500;color:#37352F}
+.no .tr>div.lf{color:#37352F}
+.no .tr>div.lf span{text-decoration:underline;text-decoration-color:rgba(55,53,47,.3);text-underline-offset:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.no .tr>div.c.vb,.no .tr>div.c.lf,.no .tr>div.c.ck{position:relative}
+.no .t-red{background:#FFE2DD;color:#5D1715}
+.no .t-orange{background:#FADEC9;color:#49290E}
+.no .t-yellow{background:#FDECC8;color:#402C1B}
+.no .t-green{background:#DBEDDB;color:#1C3829}
+.no .t-blue{background:#D3E5EF;color:#183347}
+.no .t-purple{background:#E8DEEE;color:#412454}
+.no .t-pink{background:#F5E0E9;color:#4C2337}
+.no .t-brown{background:#EEE0DA;color:#442A1E}
+.no .t-gray{background:#E3E2E0;color:#32302C}
+.no .tr .tag{border-radius:4px}
+.no .tr>div.th2{flex-wrap:wrap;align-content:center;gap:4px;white-space:normal}
+.no .tr>div.th2 .tag{height:22px;font-size:13.5px}
+.no .tr>div.lf span{font-size:13.5px}
+/* Case à cocher Notion */
+.no .cbx{position:relative;width:18px;height:18px;border:1.5px solid #A5A29C;border-radius:3px;flex:none}
+.no .cbx svg{position:absolute;left:-1.5px;top:-1.5px;width:18px;height:18px;border-radius:3px;background:#2383E2;opacity:0}
+.no .cbx svg path{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.no .cbx.deja svg{opacity:1}
+/* Fiche RL-SM Contents */
+.no .pg{position:absolute;left:0;right:0;top:48px;bottom:0;padding:34px 120px 0}
+.no .pg h1{font-size:40px;font-weight:700;letter-spacing:-.01em;color:#37352F;line-height:1.2}
+.no .props{margin-top:20px;font-size:17px}
+.no .props .p{display:flex;align-items:center;min-height:40px}
+.no .props .k{width:190px;flex:none;display:flex;align-items:center;gap:9px;color:#787774}
+.no .props .k .pic{width:16px;text-align:center;font-size:14px;color:#91918E}
+.no .props .x{color:#37352F;display:flex;align-items:center;gap:6px}
+.no .props .tag{border-radius:4px;height:27px;font-size:15.5px}
+.no .pg .sep{height:1px;background:#E9E9E7;margin:16px 0 18px}
+.no .pg .bp{font-size:19.5px;line-height:1.6;color:#37352F;margin-bottom:8px}
+.no .pg .bp.f{font-weight:600}
+.no .pg .callout{display:flex;gap:12px;align-items:flex-start;margin-top:18px;background:#F1F1EF;border-radius:4px;padding:16px 20px;font-size:17.5px;line-height:1.55;color:#37352F}
+.no .pg .callout .e{font-size:19px;line-height:1.3}
+.no .men{font-weight:500;white-space:nowrap}
+.no .men .ico{width:17px;height:17px;vertical-align:-2px;margin-right:4px}
+.no .men u{text-decoration-color:rgba(55,53,47,.3);text-underline-offset:3px}
+
+/* ================= Résultat ================= */
+.res{position:absolute;inset:0;padding:0 72px;display:flex;flex-direction:column;justify-content:center;background:var(--cream);opacity:0}
+.res .lab{font-family:var(--mono);font-weight:500;font-size:24px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+.res .duo{display:flex;gap:96px;margin-top:20px}
+.res .st .n{font-weight:600;font-size:150px;letter-spacing:-.035em;line-height:.95;color:var(--ink)}
+.res .st .d{margin-top:10px;font-size:34px;font-weight:500;letter-spacing:-.02em;color:var(--slate)}
+.res .filet{height:2px;background:var(--beige);margin:44px 0 36px}
+.res .gros{display:flex;align-items:baseline;gap:30px;margin-top:10px;white-space:nowrap}
+.res .gros .n{font-weight:600;font-size:200px;letter-spacing:-.035em;line-height:.9;color:var(--flame)}
+.res .gros .n small{font-size:84px;letter-spacing:-.02em}
+.res .gros .d{font-size:36px;font-weight:500;letter-spacing:-.02em;line-height:1.15;color:var(--ink);white-space:normal}
+.res .petit{margin-top:28px;font-size:28px;line-height:1.3;letter-spacing:-.01em;color:var(--slate)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="rail g"></div><div class="rail d"></div>
+  <div class="barre">
+    <div class="cas"><div class="num">04</div><div class="nom">Voice of Customer et contenus</div></div>
+    <div class="temps">
+      <div class="t"><b class="fd"></b><i></i><span>Déclencheur</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>L'IA prépare</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>Tu décides</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>Résultat</span></div>
+    </div>
+  </div>
+
+  <!-- ===== Légendes, une par étape ===== -->
+  <div class="legende">
+    <div class="leg" id="leg0"><div class="lab">Cas d'usage 04 / 05</div>
+      <h2>La voix du client, et tes <span class="hl">contenus.</span></h2>
+      <p>Cinq outils se passent le relais, de l'appel enregistré jusqu'à ton prochain post.</p></div>
+    <div class="leg" id="leg1"><div class="lab">Le déclencheur</div>
+      <div class="outil"><div class="tuile fath"><img src="../kit/logos/fathom.png" alt=""></div>Fathom</div>
+      <h2>Un appel enregistré et transcrit.</h2>
+      <p>Le même enregistrement que pour le compte rendu. Chaque phrase garde qui l'a dite, et à quelle minute.</p></div>
+    <div class="leg" id="leg2"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/claude-icon.svg" alt=""></div>Claude</div>
+      <h2>Claude relève les phrases qui comptent.</h2>
+      <p>Douleurs, envies, objections, déclics. Quinze au plus par appel, chacune avec son type.</p></div>
+    <div class="leg" id="leg3"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="img/python.svg" alt=""></div>Le contrôle</div>
+      <h2>Chaque phrase est vérifiée mot pour mot.</h2>
+      <p>Introuvable telle quelle dans la transcription, ou dite par toi et pas par le client : elle est écartée.</p></div>
+    <div class="leg" id="leg4"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div>Notion</div>
+      <h2>Chaque phrase devient une ligne.</h2>
+      <p>Avec son type, son thème, le secteur, l'intensité et le lien vers l'appel. Ses mots, pas ton résumé.</p></div>
+    <div class="leg" id="leg5"><div class="lab">Tu décides</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div>Notion</div>
+      <h2>Le vendredi, tu relis ce qui fait mal.</h2>
+      <p>Les phrases exactes de la semaine. Tu coches celles qui méritent un contenu.</p></div>
+    <div class="leg" id="leg6"><div class="lab">Tu décides</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div>Notion</div>
+      <h2>Ses mots ouvrent ton post.</h2>
+      <p>Une fiche dans ta base de contenus : la phrase exacte en accroche, et le lien vers sa source.</p></div>
+    <div class="leg" id="leg7"><div class="lab">Le résultat</div>
+      <h2>Tes contenus parlent comme tes <span class="hl">clients.</span></h2>
+      <p>Avant un post, une proposition commerciale ou ta newsletter, tu ouvres cette base.</p></div>
+    <div class="exemple">Exemple · Atelier Morel et Claire Morel sont inventés</div>
+  </div>
+
+  <!-- ===== La scène ===== -->
+  <div class="scene">
+
+    <!-- Étape 0 : la chaîne -->
+    <div class="chaine">
+      <div class="fil"></div>
+      <div class="c"><div class="n">1</div><div class="tuile fath"><img src="../kit/logos/fathom.png" alt=""></div><div class="o">Fathom</div><div class="r">Il enregistre et transcrit</div></div>
+      <div class="c"><div class="n">2</div><div class="tuile"><img src="../kit/logos/claude-icon.svg" alt=""></div><div class="o">Claude</div><div class="r">Il relève les phrases</div></div>
+      <div class="c"><div class="n">3</div><div class="tuile"><img src="img/python.svg" alt=""></div><div class="o">Le contrôle</div><div class="r">Il vérifie mot pour mot</div></div>
+      <div class="c"><div class="n">4</div><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div><div class="o">Notion</div><div class="r">Une phrase, une ligne</div></div>
+      <div class="c"><div class="n">5</div><div class="tuile"><img src="../kit/logos/linkedin.svg" alt=""></div><div class="o">LinkedIn</div><div class="r">Ton prochain post</div></div>
+    </div>
+    <div class="toi"><div class="lab">Et toi</div><div class="p">Tu relis les phrases exactes, tu choisis ce qui devient un <span class="hl">contenu.</span></div></div>
+
+    <!-- Étapes 1 et 2 : Fathom, la transcription -->
+    <div class="fen" id="w-fa" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><span class="cad"></span>fathom.video/calls/834512907</div></div>
+      <div class="corps"><div class="fa">
+        <div class="fh"><img src="../kit/logos/fathom.png" alt=""><span class="lg">Fathom</span><span>Mes appels</span><span class="sp">/</span><b>Appel découverte · Atelier Morel</b><span class="pt">Partager</span></div>
+        <div class="gc">
+          <div class="video">
+            <div class="gr">CM</div><div class="nt">Claire Morel</div>
+            <div class="pp"><img src="../kit/img/sylvain-cal.png" alt=""><span>Sylvain</span></div>
+          </div>
+          <div class="prog" id="fa-prog"><i></i><b></b></div>
+          <div class="tps"><span>Enregistrement</span><span>31:48</span></div>
+          <h3>Appel découverte · Atelier Morel</h3>
+          <div class="mt">jeu. 22 oct. 2026 · 14:00 · 31 min</div>
+          <div class="pl">Participants</div>
+          <div class="pa"><div class="a">CM</div><div>Claire Morel<small>Atelier Morel</small></div></div>
+          <div class="pa"><img class="a" src="../kit/img/sylvain-cal.png" alt=""><div>Sylvain Ramaradjou<small>Rama Logic</small></div></div>
+          <div class="meme" id="fa-meme"><i></i><span>Le même enregistrement que le compte rendu</span></div>
+        </div>
+        <div class="dr">
+          <div class="ong"><div>Résumé</div><div class="on">Transcription</div><div>Demander à Fathom</div></div>
+          <div class="vp"><div class="liste" id="fa-liste"></div></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 2 : Claude relève les phrases -->
+    <div class="fen" id="w-cl" style="left:14px;top:300px;width:452px;height:396px;border-color:var(--ink)">
+      <div class="nav" style="background:#2A2A28;border-bottom-color:#3A3A37"><div class="feu"><b></b><b></b><b></b></div><div class="titre" style="color:#C9C7C2;font-family:var(--mono);font-weight:400;font-size:15px;margin-right:60px">claude · voc_extract</div></div>
+      <div class="corps"><div class="ccode" id="cl" style="font-size:16px;padding:20px 22px">
+        <div class="tete-cc ln" style="padding:10px 16px;margin-bottom:14px"><span class="et">✻</span><div>Claude Code<small style="font-size:13.5px">voc_extract · après chaque appel</small></div></div>
+        <div class="ln cmd">&gt; <b>Relève les phrases qui comptent.</b></div>
+        <div class="ln" style="height:10px"></div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Fathom</span> · Lire la transcription</div>
+        <div class="ln re" style="padding-left:24px">└ 31 min · Claire Morel et Sylvain</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Relever</span> les phrases du client</div>
+        <div class="ln re" style="padding-left:24px">└ <span class="k">Douleur</span> 3 · <span class="k">Désir</span> 2</div>
+        <div class="ln re" style="padding-left:24px">└ <span class="k">Objection</span> 1 · <span class="k">Déclencheur</span> 1</div>
+        <div class="ln" style="height:10px"></div>
+        <div class="ln fin">✻ 7 phrases proposées</div>
+        <div class="ln re" style="padding-left:24px">15 au plus par appel</div>
+      </div></div>
+    </div>
+
+    <!-- Étape 3 : le contrôle, dans un terminal -->
+    <div class="fen" id="w-te" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="titre" style="font-family:var(--mono);font-weight:400;font-size:16px">voc_extract · contrôle</div></div>
+      <div class="corps"><div class="term" id="te"></div></div>
+    </div>
+
+    <!-- Étapes 4 et 5 : Notion, base RL-Voice of Customer -->
+    <div class="fen" id="w-voc" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/notion-icon.svg" alt="">notion.so/ramalogic/RL-Voice-of-Customer</div></div>
+      <div class="corps"><div class="no">
+        <div class="main">
+          <div class="top"><span class="rep">»</span><span>Marketing</span><span class="sp">/</span><span style="color:#37352F">RL-Voice of Customer</span><span class="dr"><span>Partager</span><span>☆</span><span>···</span></span></div>
+          <div class="tete" style="padding:22px 24px 0"><h1><svg class="ico" viewBox="0 0 24 24"><path fill="#337EA9" d="M12 2.6l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5-4.9-4.6 6.6-.8z"/></svg>RL-Voice of Customer</h1>
+            <div class="vues"><span class="v on" id="vue-tous">▦ Toutes les phrases</span><span class="v" id="vue-dou">▦ Douleurs de la semaine</span><span class="v">▦ À réutiliser</span>
+              <span class="act"><span>⚲</span><span>⇅</span><span class="nv">Nouveau ▾</span></span></div></div>
+          <div class="vtab table" id="tabA">
+            <div class="tr th"><div style="width:300px">Aa Verbatim</div><div style="width:116px">▾ Type</div><div style="width:160px">▾ Thème</div><div style="width:158px">▾ Persona / secteur</div><div style="width:92px">▾ Intensité</div><div style="flex:1">↗ Lien Fathom</div></div>
+            <div class="lignes" id="lignes-voc"></div>
+          </div>
+          <div class="vtab table" id="tabB">
+            <div class="filtres"><span class="pi">Type : Douleur ▾</span><span class="pi">Date du call : cette semaine ▾</span></div>
+            <div class="tr th"><div style="width:420px">Aa Verbatim</div><div style="width:112px">▾ Type</div><div style="width:184px">▾ Thème</div><div style="width:104px">▾ Intensité</div><div style="flex:1">☑ À réutiliser en contenu</div></div>
+            <div class="lignes" id="lignes-dou"></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 6 : la fiche de contenu, base RL-SM Contents -->
+    <div class="fen" id="w-sm" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/notion-icon.svg" alt="">notion.so/ramalogic/Un-Excel-que-personne-ne-met-a-jour</div></div>
+      <div class="corps"><div class="no" id="sm">
+        <div class="main">
+          <div class="top"><span class="rep">»</span><span>Marketing</span><span class="sp">/</span><span>RL-SM Contents</span><span class="sp">/</span><span style="color:#37352F">Un Excel que personne ne met à jour</span><span class="dr"><span>Partager</span><span>☆</span><span>···</span></span></div>
+          <div class="pg">
+            <h1>Un Excel que personne ne met à jour</h1>
+            <div class="props">
+              <div class="p"><div class="k"><span class="pic">◉</span>Status</div><div class="x"><span class="tag t-purple">📝 Writing</span></div></div>
+              <div class="p"><div class="k"><span class="pic">▾</span>Connection</div><div class="x"><span class="tag t-blue">LI@sylvain-ramaradjou</span></div></div>
+              <div class="p"><div class="k"><span class="pic">▾</span>Post Type</div><div class="x"><span class="tag t-purple">Text</span></div></div>
+              <div class="p"><div class="k"><span class="pic">≡</span>Accroche</div><div class="x" id="sm-acc" style="opacity:0">Le suivi des chantiers, c'est un Excel que personne ne met à jour.</div></div>
+            </div>
+            <div class="sep"></div>
+            <div class="bp f">« Le suivi des chantiers, c'est un Excel que personne ne met à jour. »</div>
+            <div class="bp">Une dirigeante m'a dit ça jeudi. Mot pour mot.</div>
+            <div class="bp">Moi, j'aurais écrit « centraliser l'information ».</div>
+            <div class="bp">Personne ne parle comme ça.</div>
+            <div class="bp">Leurs mots, pas mon résumé.</div>
+            <div class="callout bp" id="sm-src"><span class="e">💬</span><div>Phrase source : <span class="men"><svg class="ico" viewBox="0 0 24 24"><path fill="#337EA9" d="M12 2.6l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5-4.9-4.6 6.6-.8z"/></svg><u>Le suivi des chantiers, c'est un Excel que personne ne met à jour.</u></span><br>dans RL-Voice of Customer, appel découverte Atelier Morel du 22/10</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 7 : le résultat -->
+    <div class="res" id="res">
+      <div class="lab l1">Entre début août et mi-septembre</div>
+      <div class="duo">
+        <div class="st"><div class="n">49</div><div class="d">appels enregistrés</div></div>
+        <div class="st"><div class="n">327</div><div class="d">phrases relevées</div></div>
+      </div>
+      <div class="filet"></div>
+      <div class="lab l2">Avec le contrôle</div>
+      <div class="gros"><div class="n">16<small> sur </small>16</div><div class="d">phrases retrouvées<br>mot pour mot</div></div>
+      <div class="petit">Sans contrôle, sur deux appels vérifiés : 5 phrases sur 29 n'existaient pas telles quelles.</div>
+    </div>
+  </div>
+
+  <svg id="souris" viewBox="0 0 28 36"><path d="M2 2 L2 28 L8.5 22 L13 32.5 L17 30.8 L12.6 20.5 L21.5 20.5 Z" fill="#0D1A14" stroke="#FFFCF7" stroke-width="2" stroke-linejoin="round"/></svg>
+  <div id="clic"></div>
+</div>
+<div id="aide"></div>
+
+<script src="../kit/gsap.min.js"></script>
+<script src="../kit/pilote.js"></script>
+<script>
+// ---------- Contenus répétés, posés avant la mesure des positions ----------
+(function () {
+  const SYL = '<img class="av" src="../kit/img/sylvain-cal.png" alt="">';
+  const CLA = '<div class="av">CM</div>';
+  const ty = (t) => `<span class="ty"><img src="../kit/logos/claude-icon.svg" alt="">${t}</span>`;
+  // Transcription Fathom : [id, locuteur, minute, texte, type relevé par Claude]
+  const tours = [
+    ["t1", "s", "00:04", "Bonjour Claire, merci d'avoir pris ce créneau."],
+    ["t2", "c", "00:09", "Bonjour ! Avec plaisir."],
+    ["t3", "c", "01:20", "Je suis co-gérante d'un atelier d'architecture. On est dix-huit."],
+    ["t4", "s", "02:41", "Racontez-moi une semaine type à l'atelier."],
+    ["t5", "c", "03:12", "On a douze chantiers en cours. <span class=\"mk\">Le suivi des chantiers, c'est un Excel que personne ne met à jour.</span>", "Douleur"],
+    ["t6", "c", "05:40", "Les devis, c'est moi. <span class=\"mk\">Je passe mes soirées à refaire les devis.</span>", "Douleur"],
+    ["t7", "s", "06:02", "<span class=\"mk\">Donc, si je reformule, vous voulez centraliser l'information ?</span>", "Désir"],
+    ["t8", "c", "08:15", "Pas vraiment. <span class=\"mk\">Ce que je veux, c'est ouvrir un seul écran le lundi matin.</span>", "Désir"],
+    ["t9", "c", "11:30", "<span class=\"mk\">On a déjà essayé Notion, l'équipe a lâché au bout d'un mois.</span>", "Objection"],
+    ["t10", "c", "14:05", "<span class=\"mk\">Le jour où on a perdu un chantier faute de relance, j'ai appelé.</span>", "Déclencheur"],
+    ["t11", "s", "14:31", "C'est-à-dire ? Racontez-moi ce jour-là."],
+  ];
+  document.getElementById("fa-liste").innerHTML = tours.map(([id, q, ts, tx, t]) =>
+    `<div class="tour" id="${id}">${q === "s" ? SYL : CLA}<div class="bd"><div class="hd"><span class="nm">${q === "s" ? "Sylvain Ramaradjou" : "Claire Morel"}</span>` +
+    `<span class="ts">${ts}</span>${t ? ty(t) : ""}</div><div class="tx">${tx}</div></div></div>`).join("");
+
+  // Le contrôle : les 7 phrases proposées par Claude, une par une
+  const V = '<svg class="ic v" viewBox="0 0 20 20"><path d="M3.5 10.5l4.2 4.2L16.5 5.5"/></svg>';
+  const X = '<svg class="ic x" viewBox="0 0 20 20"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/></svg>';
+  const ctl = [
+    [1, "Le suivi des chantiers, c'est un Excel que personne ne met à jour.", "retrouvée mot pour mot · Claire Morel, 03:12"],
+    [1, "Je passe mes soirées à refaire les devis.", "retrouvée mot pour mot · Claire Morel, 05:40"],
+    [0, "Le suivi de chantier est éclaté entre plusieurs outils.", "reformulée, introuvable dans la transcription"],
+    [0, "Donc, si je reformule, vous voulez centraliser l'information ?", "dite par Sylvain, pas par le client"],
+    [1, "Ce que je veux, c'est ouvrir un seul écran le lundi matin.", "retrouvée mot pour mot · Claire Morel, 08:15"],
+    [1, "On a déjà essayé Notion, l'équipe a lâché au bout d'un mois.", "retrouvée mot pour mot · Claire Morel, 11:30"],
+    [1, "Le jour où on a perdu un chantier faute de relance, j'ai appelé.", "retrouvée mot pour mot · Claire Morel, 14:05"],
+  ];
+  document.getElementById("te").innerHTML =
+    '<div class="ln h"><span class="pr">$</span> python3 voc_extract.py</div>' +
+    '<div class="ln h gr">Appel découverte · Atelier Morel · 7 phrases proposées par Claude</div>' +
+    '<div class="ln h gr">Règle : la phrase est dans la transcription, mot pour mot, dite par le client.</div>' +
+    '<div class="ln h" style="height:14px"></div>' +
+    ctl.map(([ok, ph, v], k) =>
+      `<div class="ln it it${k}">${ok ? V : X}<span class="${ok ? "" : "ec"}">« ${ph} »</span></div>` +
+      `<div class="ln it it${k} sub ${ok ? "vt" : "rg"}">└ ${v}</div>`).join("") +
+    '<div class="ln bi" style="height:14px"></div>' +
+    '<div class="ln bi"><span class="bil vt"><i style="background:#1A7F37"></i>5 gardées</span><span class="bil rg"><i style="background:#CF222E"></i>2 écartées</span><span class="gr">· écrites dans Notion</span></div>';
+
+  // Base RL-Voice of Customer : les 5 nouvelles lignes en haut, puis celles d'autres appels
+  const tg = (n, c) => `<span class="tag t-${c}">${n}</span>`;
+  const TYP = { D: tg("Douleur", "red"), S: tg("Désir", "green"), O: tg("Objection", "orange"), C: tg("Déclencheur", "purple") };
+  const INT = { F: tg("Forte", "red"), M: tg("Moyenne", "yellow") };
+  const BTP = tg("BTP / ingénierie", "orange");
+  const lignes = [
+    ["Le suivi des chantiers, c'est un Excel que personne ne met à jour.", "D", tg("Chaos & désordre", "red"), BTP, "F", "834512907"],
+    ["Je passe mes soirées à refaire les devis.", "D", tg("Charge mentale", "pink"), BTP, "F", "834512907"],
+    ["Ce que je veux, c'est ouvrir un seul écran le lundi matin.", "S", tg("Pilotage & vision", "purple"), BTP, "M", "834512907"],
+    ["On a déjà essayé Notion, l'équipe a lâché au bout d'un mois.", "O", tg("Adoption équipe", "brown"), BTP, "F", "834512907"],
+    ["Le jour où on a perdu un chantier faute de relance, j'ai appelé.", "C", tg("Process & structure", "brown"), BTP, "F", "834512907"],
+    ["Tout est recensé quelque part, je ne sais jamais où.", "D", tg("Chaos & désordre", "red") + tg("Charge mentale", "pink"), BTP, "F", "829104455"],
+    ["On a beaucoup d'emails auxquels on n'arrive pas à répondre.", "D", tg("Chaos & désordre", "red"), tg("Cabinet conseil", "purple"), "F", "811230876"],
+    ["C'est toujours les mêmes devis.", "D", tg("Charge mentale", "pink") + tg("Gain de temps", "green"), BTP, "F", "798442310"],
+    ["Et nous, on n'a pas trop de visibilité.", "D", tg("Pilotage & vision", "purple") + tg("Centralisation", "blue"), tg("Scale-up", "red"), "F", "826551904"],
+  ];
+  document.getElementById("lignes-voc").innerHTML = lignes.map((l, k) =>
+    `<div class="tr r${k < 5 ? " nv" : " an"}" id="voc${k}" style="top:${k * 58}px">${k < 5 ? '<b class="fond"></b>' : ""}` +
+    `<div class="c vb" style="width:300px">${l[0]}</div><div class="c" style="width:116px">${TYP[l[1]]}</div><div class="c th2" style="width:160px">${l[2]}</div>` +
+    `<div class="c" style="width:158px">${l[3]}</div><div class="c" style="width:92px">${INT[l[4]]}</div><div class="c lf" style="flex:1"><span>fathom.video/calls/${l[5]}</span></div></div>`).join("");
+
+  // Vue « Douleurs de la semaine » : filtre Type = Douleur
+  const CB = (id, deja) => `<span class="cbx${deja ? " deja" : ""}"${id ? ` id="${id}"` : ""}><svg viewBox="0 0 18 18"><path d="M4.5 9.5l3 3 6-7"/></svg></span>`;
+  const dou = [0, 1, 5, 6, 7, 8];
+  document.getElementById("lignes-dou").innerHTML = dou.map((i, k) => {
+    const l = lignes[i];
+    return `<div class="tr r" id="dou${k}" style="top:${k * 58}px">${k === 0 ? '<b class="fond"></b>' : ""}` +
+      `<div class="c vb" style="width:420px">${l[0]}</div><div class="c" style="width:112px">${TYP[l[1]]}</div><div class="c th2" style="width:184px">${l[2]}</div>` +
+      `<div class="c" style="width:104px">${INT[l[4]]}</div><div class="c ck" style="flex:1">${CB(k === 0 ? "cb0" : "", i === 5)}</div></div>`;
+  }).join("");
+})();
+
+RL.construire(function (R) {
+  const { tl } = R;
+  const H = 58;                                   // hauteur d'une ligne de la base
+  const DEFIL = -(document.getElementById("t5").offsetTop - 6);   // la transcription défile jusqu'à 03:12
+  // États de départ
+  gsap.set("#fa-prog i", { scaleX: 0.04 });
+  gsap.set("#fa-prog b", { x: 392 * 0.04 });
+  gsap.set("#lignes-voc .an", { y: -5 * H });
+  gsap.set("#lignes-voc .nv", { opacity: 0 });
+  gsap.set("#sm .bp", { opacity: 0, y: 16 });
+  R.sourisPose({ x: 1700, y: 1000 });
+
+  // 0 · La chaîne des cinq outils
+  R.etape((S) => {
+    R.phase(-1, S);
+    R.legende(0, S);
+    R.entre(".chaine .c", S + 0.3, { st: 0.12 });
+    tl.fromTo(".chaine .fil", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "expo.out" }, S + 0.4);
+    R.entre(".toi", S + 1.4);
+    return 2.1;
+  });
+
+  // 1 · Fathom : l'appel est transcrit, la transcription défile
+  R.etape((S) => {
+    R.phase(0, S);
+    R.legende(1, S);
+    R.sort(".chaine .c, .chaine .fil, .toi", S, 0.3);
+    R.fenetre("#w-fa", S + 0.3);
+    tl.to("#fa-liste", { y: DEFIL, duration: 2.1, ease: "power2.inOut" }, S + 1.0);
+    tl.to("#fa-prog i", { scaleX: 0.46, duration: 2.1, ease: "power2.inOut" }, S + 1.0);
+    tl.to("#fa-prog b", { x: 392 * 0.46, duration: 2.1, ease: "power2.inOut" }, S + 1.0);
+    R.entre("#fa-meme", S + 2.7, { y: 16 });
+    return 3.5;
+  });
+
+  // 2 · Claude relève les phrases : elles s'allument, chacune reçoit son type
+  R.etape((S) => {
+    R.phase(1, S);
+    R.legende(2, S);
+    R.sort("#fa-meme", S, 0.2);
+    R.fenetre("#w-cl", S + 0.2);
+    const ln = gsap.utils.toArray("#cl .ln");
+    // en-tête, consigne, lecture de la transcription
+    ln.slice(0, 5).forEach((el, k) => tl.to(el, { opacity: 1, duration: 0.15 }, S + 0.7 + k * 0.2));
+    tl.to(ln[5], { opacity: 1, duration: 0.15 }, S + 1.7);
+    ["t5", "t6", "t7", "t8", "t9", "t10"].forEach((id, k) => {
+      const t = S + 1.8 + k * 0.38;
+      tl.to(`#${id} .mk`, { backgroundColor: "rgba(246,217,203,1)", duration: 0.3 }, t);
+      tl.fromTo(`#${id} .ty`, { opacity: 0, x: 12 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, t + 0.05);
+    });
+    tl.to(ln[6], { opacity: 1, duration: 0.15 }, S + 2.6);
+    tl.to(ln[7], { opacity: 1, duration: 0.15 }, S + 3.3);
+    tl.to(ln.slice(8), { opacity: 1, duration: 0.15, stagger: 0.18 }, S + 4.0);
+    return 4.6;
+  });
+
+  // 3 · Le contrôle : chaque phrase passe, une par une
+  R.etape((S) => {
+    R.legende(3, S);
+    R.ferme("#w-cl", S);
+    R.ferme("#w-fa", S + 0.05);
+    R.fenetre("#w-te", S + 0.3);
+    tl.to("#te .h", { opacity: 1, duration: 0.15, stagger: 0.18 }, S + 0.8);
+    for (let k = 0; k < 7; k++) {
+      const t = S + 1.5 + k * 0.4;
+      tl.to(`#te .it${k}:not(.sub)`, { opacity: 1, duration: 0.15 }, t);
+      tl.to(`#te .it${k}.sub`, { opacity: 1, duration: 0.2 }, t + 0.18);
+    }
+    tl.to("#te .bi", { opacity: 1, duration: 0.25, stagger: 0.1 }, S + 4.4);
+    return 4.9;
+  });
+
+  // 4 · Notion : les 5 phrases gardées entrent en haut de la base
+  R.etape((S) => {
+    R.legende(4, S);
+    R.ferme("#w-te", S);
+    R.fenetre("#w-voc", S + 0.3);
+    tl.to("#lignes-voc .an", { y: 0, duration: 0.6, ease: "expo.out" }, S + 1.1);
+    tl.to("#lignes-voc .nv", { opacity: 1, duration: 0.3, stagger: 0.32 }, S + 1.25);
+    tl.to("#lignes-voc .nv .fond", { opacity: 1, duration: 0.3, stagger: 0.32 }, S + 1.25);
+    tl.to("#lignes-voc .nv .fond", { opacity: 0.5, duration: 0.6 }, S + 3.3);
+    return 3.9;
+  });
+
+  // 5 · Le vendredi : la vue des douleurs, et la case cochée
+  R.etape((S) => {
+    R.phase(2, S);
+    R.legende(5, S);
+    tl.set("#souris", { x: 1560, y: 1010 }, S);
+    R.montre(S + 0.1);
+    R.souris("#vue-dou", S + 0.2, 0.8);
+    R.clic(S + 1.05);
+    tl.to("#vue-tous", { backgroundColor: "rgba(241,241,239,0)", color: "#787774", duration: 0.2 }, S + 1.1);
+    tl.to("#vue-dou", { backgroundColor: "rgba(241,241,239,1)", color: "#37352F", duration: 0.2 }, S + 1.1);
+    tl.to("#tabA", { opacity: 0, duration: 0.2 }, S + 1.1);
+    tl.to("#tabB", { opacity: 1, duration: 0.35 }, S + 1.25);
+    R.souris("#cb0", S + 1.9, 0.8);
+    R.clic(S + 2.75);
+    tl.to("#cb0 svg", { opacity: 1, duration: 0.12 }, S + 2.8);
+    tl.to("#dou0 .fond", { opacity: 0.6, duration: 0.3 }, S + 2.8);
+    tl.to("#souris", { x: "+=46", y: "+=34", duration: 0.45, ease: "power2.out" }, S + 3.05);
+    return 3.6;
+  });
+
+  // 6 · La fiche de contenu : ses mots ouvrent le post
+  R.etape((S) => {
+    R.legende(6, S);
+    R.cache(S);
+    R.ferme("#w-voc", S + 0.1);
+    R.fenetre("#w-sm", S + 0.4);
+    tl.to("#sm .bp", { opacity: 1, y: 0, duration: 0.5, ease: "expo.out", stagger: 0.4 }, S + 1.1);
+    tl.to("#sm-acc", { opacity: 1, duration: 0.3 }, S + 1.1);
+    return 3.8;
+  });
+
+  // 7 · Le résultat
+  R.etape((S) => {
+    R.phase(3, S);
+    R.legende(7, S);
+    R.ferme("#w-sm", S);
+    tl.to("#res", { opacity: 1, duration: 0.4 }, S + 0.2);
+    R.entre("#res .l1", S + 0.3);
+    R.entre("#res .st", S + 0.45, { st: 0.12 });
+    tl.fromTo("#res .filet", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 0.8, ease: "expo.out" }, S + 0.9);
+    R.entre("#res .l2", S + 1.1);
+    R.entre("#res .gros", S + 1.25);
+    R.entre("#res .petit", S + 1.6);
+    return 2.3;
+  });
+});
+</script>
+</body>
+</html>

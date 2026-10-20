@@ -1,0 +1,88 @@
+{
+ "cas": "01-demande-entrante",
+ "duree": 64.13,
+ "fps": 30,
+ "etapes": [
+  {
+   "etape": 0,
+   "debut": 0,
+   "fin_mouvement": 2.1,
+   "temps": "Cas d'usage 01 / 05",
+   "titre": "La demande entrante.",
+   "phrase": "Cinq outils se passent le relais, du clic du prospect jusqu'à ta fiche de préparation.",
+   "fin_tenue": 5.5
+  },
+  {
+   "etape": 1,
+   "debut": 5.5,
+   "fin_mouvement": 9.1,
+   "temps": "Le déclencheur",
+   "titre": "Un prospect réserve un créneau.",
+   "phrase": "Sur ta page Cal.com, il choisit son jour et son heure. Pas d'aller-retour de mails pour trouver une date.",
+   "fin_tenue": 12.5
+  },
+  {
+   "etape": 2,
+   "debut": 12.5,
+   "fin_mouvement": 16.8,
+   "temps": "Le déclencheur",
+   "titre": "Il dit qui il est, et d'où il vient.",
+   "phrase": "Son besoin, et comment il t'a trouvé. Ses réponses partent tout droit dans sa fiche.",
+   "fin_tenue": 20.2
+  },
+  {
+   "etape": 3,
+   "debut": 20.2,
+   "fin_mouvement": 23.1,
+   "temps": "Le déclencheur",
+   "titre": "Son mail ne se perd plus.",
+   "phrase": "Le tri de ta boîte lui met l'étiquette Prospects, au milieu des factures et des newsletters.",
+   "fin_tenue": 26.5
+  },
+  {
+   "etape": 4,
+   "debut": 26.5,
+   "fin_mouvement": 30.1,
+   "temps": "L'IA prépare",
+   "titre": "Sa fiche se crée toute seule.",
+   "phrase": "Statut « 1st call », date du rendez-vous, d'où il vient. Personne n'a rien saisi.",
+   "fin_tenue": 33.5
+  },
+  {
+   "etape": 5,
+   "debut": 33.5,
+   "fin_mouvement": 39.73,
+   "temps": "L'IA prépare",
+   "titre": "Le matin, Claude prépare le rendez-vous.",
+   "phrase": "À 7 h 20, il lit la fiche, regarde le site et le LinkedIn, relie l'entreprise et écrit le brief.",
+   "fin_tenue": 43.13
+  },
+  {
+   "etape": 6,
+   "debut": 43.13,
+   "fin_mouvement": 46.43,
+   "temps": "L'IA prépare",
+   "titre": "Tu es prévenu dans Slack.",
+   "phrase": "Un message dans ton canal acquisition, avec le lien du brief. Rien d'autre à aller chercher.",
+   "fin_tenue": 49.83
+  },
+  {
+   "etape": 7,
+   "debut": 49.83,
+   "fin_mouvement": 55.33,
+   "temps": "Tu décides",
+   "titre": "Tu lis. Tu mènes le rendez-vous.",
+   "phrase": "Qui est l'entreprise, pourquoi elle t'appelle, les questions à poser. Le rendez-vous, c'est toi.",
+   "fin_tenue": 58.73
+  },
+  {
+   "etape": 8,
+   "debut": 58.73,
+   "fin_mouvement": 60.73,
+   "temps": "Le résultat",
+   "titre": "Tu arrives préparé.",
+   "phrase": "Et la même fiche client te suit, du premier mail jusqu'au point hebdo.",
+   "fin_tenue": 64.13
+  }
+ ]
+}

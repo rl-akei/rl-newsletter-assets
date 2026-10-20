@@ -1,0 +1,79 @@
+{
+ "cas": "04-voice-of-customer",
+ "duree": 55.9,
+ "fps": 30,
+ "etapes": [
+  {
+   "etape": 0,
+   "debut": 0,
+   "fin_mouvement": 2.1,
+   "temps": "Cas d'usage 04 / 05",
+   "titre": "La voix du client, et tes contenus.",
+   "phrase": "Cinq outils se passent le relais, de l'appel enregistré jusqu'à ton prochain post.",
+   "fin_tenue": 5.5
+  },
+  {
+   "etape": 1,
+   "debut": 5.5,
+   "fin_mouvement": 9,
+   "temps": "Le déclencheur",
+   "titre": "Un appel enregistré et transcrit.",
+   "phrase": "Le même enregistrement que pour le compte rendu. Chaque phrase garde qui l'a dite, et à quelle minute.",
+   "fin_tenue": 12.4
+  },
+  {
+   "etape": 2,
+   "debut": 12.4,
+   "fin_mouvement": 17,
+   "temps": "L'IA prépare",
+   "titre": "Claude relève les phrases qui comptent.",
+   "phrase": "Douleurs, envies, objections, déclics. Quinze au plus par appel, chacune avec son type.",
+   "fin_tenue": 20.4
+  },
+  {
+   "etape": 3,
+   "debut": 20.4,
+   "fin_mouvement": 25.3,
+   "temps": "L'IA prépare",
+   "titre": "Chaque phrase est vérifiée mot pour mot.",
+   "phrase": "Introuvable telle quelle dans la transcription, ou dite par toi et pas par le client : elle est écartée.",
+   "fin_tenue": 28.7
+  },
+  {
+   "etape": 4,
+   "debut": 28.7,
+   "fin_mouvement": 32.6,
+   "temps": "L'IA prépare",
+   "titre": "Chaque phrase devient une ligne.",
+   "phrase": "Avec son type, son thème, le secteur, l'intensité et le lien vers l'appel. Ses mots, pas ton résumé.",
+   "fin_tenue": 36
+  },
+  {
+   "etape": 5,
+   "debut": 36,
+   "fin_mouvement": 39.6,
+   "temps": "Tu décides",
+   "titre": "Le vendredi, tu relis ce qui fait mal.",
+   "phrase": "Les phrases exactes de la semaine. Tu coches celles qui méritent un contenu.",
+   "fin_tenue": 43
+  },
+  {
+   "etape": 6,
+   "debut": 43,
+   "fin_mouvement": 46.8,
+   "temps": "Tu décides",
+   "titre": "Ses mots ouvrent ton post.",
+   "phrase": "Une fiche dans ta base de contenus : la phrase exacte en accroche, et le lien vers sa source.",
+   "fin_tenue": 50.2
+  },
+  {
+   "etape": 7,
+   "debut": 50.2,
+   "fin_mouvement": 52.5,
+   "temps": "Le résultat",
+   "titre": "Tes contenus parlent comme tes clients.",
+   "phrase": "Avant un post, une proposition commerciale ou ta newsletter, tu ouvres cette base.",
+   "fin_tenue": 55.9
+  }
+ ]
+}

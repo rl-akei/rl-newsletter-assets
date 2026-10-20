@@ -1,0 +1,88 @@
+{
+ "cas": "02-compte-rendu",
+ "duree": 62.06,
+ "fps": 30,
+ "etapes": [
+  {
+   "etape": 0,
+   "debut": 0,
+   "fin_mouvement": 2.1,
+   "temps": "Cas d'usage 02 / 05",
+   "titre": "Le compte rendu de réunion.",
+   "phrase": "Quatre outils se passent le relais, de ton bouton « Quitter l'appel » à ta liste de tâches.",
+   "fin_tenue": 5.5
+  },
+  {
+   "etape": 1,
+   "debut": 5.5,
+   "fin_mouvement": 9.5,
+   "temps": "Le déclencheur",
+   "titre": "Une réunion enregistrée.",
+   "phrase": "Tes réunions sont enregistrées et transcrites par Fathom. Toi, tu parles avec ton client.",
+   "fin_tenue": 12.9
+  },
+  {
+   "etape": 2,
+   "debut": 12.9,
+   "fin_mouvement": 16.1,
+   "temps": "Le déclencheur",
+   "titre": "Tu raccroches. C'est tout.",
+   "phrase": "14 h 30, tu quittes l'appel. Pas de notes à reprendre, pas de mail à écrire.",
+   "fin_tenue": 19.5
+  },
+  {
+   "etape": 3,
+   "debut": 19.5,
+   "fin_mouvement": 23.36,
+   "temps": "L'IA prépare",
+   "titre": "Une minute après, le résumé est prêt.",
+   "phrase": "Fathom sort les décisions et les prochaines étapes, avec la personne qui s'en charge.",
+   "fin_tenue": 26.76
+  },
+  {
+   "etape": 4,
+   "debut": 26.76,
+   "fin_mouvement": 30.86,
+   "temps": "L'IA prépare",
+   "titre": "Le compte rendu se range sur la bonne fiche.",
+   "phrase": "Le client, le projet, les décisions. Et chaque action avec une personne et une date.",
+   "fin_tenue": 34.26
+  },
+  {
+   "etape": 5,
+   "debut": 34.26,
+   "fin_mouvement": 37.66,
+   "temps": "L'IA prépare",
+   "titre": "Ta part devient une tâche.",
+   "phrase": "Tes actions à toi, regroupées dans une tâche, reliée au projet et à la minute de l'appel.",
+   "fin_tenue": 41.06
+  },
+  {
+   "etape": 6,
+   "debut": 41.06,
+   "fin_mouvement": 44.36,
+   "temps": "L'IA prépare",
+   "titre": "À 14 h 32, tu es prévenu.",
+   "phrase": "Dans ton canal clients : ce qui a été décidé, qui fait quoi, et les deux liens.",
+   "fin_tenue": 47.76
+  },
+  {
+   "etape": 7,
+   "debut": 47.76,
+   "fin_mouvement": 52.86,
+   "temps": "Tu décides",
+   "titre": "Tu relis, tu corriges.",
+   "phrase": "L'IA se trompe parfois : un nom mal entendu, une action donnée à la mauvaise personne.",
+   "fin_tenue": 56.26
+  },
+  {
+   "etape": 8,
+   "debut": 56.26,
+   "fin_mouvement": 58.66,
+   "temps": "Le résultat",
+   "titre": "Le lendemain, tout est là.",
+   "phrase": "Dès le matin, les actions sont dans ta liste de tâches. Le compte rendu, sur la fiche du client.",
+   "fin_tenue": 62.06
+  }
+ ]
+}
