@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>5 cas d'usage · les vrais outils</title>
+<link rel="icon" href="kit/logos/rama-logic_picto_ink.svg">
+<link rel="stylesheet" href="kit/outils.css">
+<style>
+html,body{overflow:auto;height:auto}
+body{font-family:"Clash Grotesk",sans-serif;color:var(--ink);background:var(--cream);font-synthesis:none;-webkit-font-smoothing:antialiased}
+.cadre{max-width:1280px;margin:0 auto;border-left:1px solid var(--beige);border-right:1px solid var(--beige);min-height:100vh}
+.haut{height:64px;border-bottom:1px solid var(--beige);display:flex;align-items:center;gap:12px;padding:0 32px;font-weight:500;font-size:18px}
+.haut img{width:28px;height:28px}
+.tete{padding:64px 32px 48px;border-bottom:1px solid var(--beige)}
+.lab{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+h1{margin-top:16px;font-weight:500;font-size:clamp(34px,6vw,68px);line-height:1.02;letter-spacing:-.035em;max-width:900px;text-wrap:balance}
+.lead{margin-top:20px;font-size:20px;line-height:1.5;color:var(--slate);max-width:640px}
+.cas{display:grid;grid-template-columns:96px 1fr auto;align-items:center;border-bottom:1px solid var(--beige);min-height:96px;text-decoration:none;color:inherit}
+.cas .n{align-self:stretch;display:grid;place-items:center;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:20px}
+.cas .t{padding:20px 28px;font-weight:500;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em}
+.cas .t small{display:block;margin-top:6px;font-weight:400;font-size:16px;letter-spacing:0;color:var(--slate)}
+.cas .go{margin-right:28px;padding:10px 20px;border-radius:999px;background:var(--mind);font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.cas.off .n{background:var(--beige);color:var(--ink)}
+.cas.off .go{background:transparent;border:1px solid var(--beige);color:var(--slate)}
+a.go{text-decoration:none;color:var(--ink)}a.go:hover{background:#EAF28F}
+.cas .t small a{color:var(--aloe-d)}
+.mode{padding:32px;font-size:16px;line-height:1.6;color:var(--slate)}
+.mode b{color:var(--ink);font-weight:500}
+@media (max-width:640px){.cas{grid-template-columns:64px 1fr}.cas .go{grid-column:2;margin:0 0 20px 28px;justify-self:start}}
+</style>
+</head>
+<body>
+<div class="cadre">
+  <div class="haut"><img src="kit/logos/rama-logic_picto_ink.svg" alt="">Rama Logic</div>
+  <div class="tete">
+    <div class="lab">Vidéo · 5 cas d'usage à avoir dans ton entreprise</div>
+    <h1>Les vrais outils, étape par étape.</h1>
+    <p class="lead">Une animation par cas d'usage, à piloter au clavier pendant que tu expliques. Données d'exemple : Atelier Morel et ses personnes sont inventés.</p>
+  </div>
+  <div class="cas"><span class="n">01</span><span class="t">La demande entrante<small>Cal.com, Gmail, Notion, Claude, Slack · <a href="rendus/01-demande-entrante.mp4">la version vidéo (MP4, 64 s)</a></small></span><a class="go" href="01-demande-entrante/">Ouvrir</a></div>
+  <div class="cas off"><span class="n">02</span><span class="t">Le compte rendu de réunion<small>Google Meet, Fathom, Notion, Slack</small></span><span class="go">En préparation</span></div>
+  <div class="cas off"><span class="n">03</span><span class="t">La proposition commerciale<small>Fathom, Notion, Claude, Slack</small></span><span class="go">En préparation</span></div>
+  <div class="cas off"><span class="n">04</span><span class="t">Voice of Customer et contenus<small>Fathom, Claude, Notion</small></span><span class="go">En préparation</span></div>
+  <div class="cas off"><span class="n">05</span><span class="t">Le point hebdo client<small>Notion, Claude, Slack, Gmail</small></span><span class="go">En préparation</span></div>
+  <div class="mode"><b>Au clavier.</b> Espace ou flèche droite : étape suivante. Flèche gauche : étape d'avant. R : rejouer l'étape. 0 : depuis le début. F : plein écran. H : où tu en es.</div>
+</div>
+</body>
+</html>

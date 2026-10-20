@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>01 · La demande entrante · les vrais outils</title>
+<link rel="icon" href="../kit/logos/rama-logic_picto_ink.svg">
+<link rel="stylesheet" href="../kit/outils.css">
+<style>
+/* Étape 0 : la chaîne des cinq outils */
+.chaine{position:absolute;left:48px;right:48px;top:210px;display:grid;grid-template-columns:repeat(5,1fr)}
+.chaine .fil{position:absolute;left:10%;right:10%;top:110px;height:2px;background:var(--ink);transform-origin:0 50%}
+.chaine .c{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0}
+.chaine .c .n{font-family:var(--mono);font-weight:500;font-size:22px;color:var(--slate);letter-spacing:.06em;height:32px}
+.chaine .c .tuile{margin-top:18px}
+.chaine .c .o{margin-top:26px;font-weight:500;font-size:34px;letter-spacing:-.02em}
+.chaine .c .r{margin-top:8px;font-size:24px;line-height:1.25;color:var(--slate);max-width:190px}
+.toi{position:absolute;left:48px;right:48px;bottom:72px;background:var(--ink);color:var(--cream);padding:34px 40px;opacity:0;display:flex;align-items:center;gap:40px}
+.toi .lab{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--aloe-l);flex:none}
+.toi .p{font-weight:500;font-size:40px;letter-spacing:-.025em;line-height:1.1}
+.toi .p .hl{color:var(--flame)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="rail g"></div><div class="rail d"></div>
+  <div class="barre">
+    <div class="cas"><div class="num">01</div><div class="nom">La demande entrante</div></div>
+    <div class="temps">
+      <div class="t"><b class="fd"></b><i></i><span>Déclencheur</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>L'IA prépare</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>Tu décides</span></div>
+      <div class="t"><b class="fd"></b><i></i><span>Résultat</span></div>
+    </div>
+  </div>
+
+  <!-- ===== Légendes, une par étape ===== -->
+  <div class="legende">
+    <div class="leg" id="leg0"><div class="lab">Cas d'usage 01 / 05</div>
+      <h2>La demande <span class="hl">entrante.</span></h2>
+      <p>Cinq outils se passent le relais, du clic du prospect jusqu'à ta fiche de préparation.</p></div>
+    <div class="leg" id="leg1"><div class="lab">Le déclencheur</div>
+      <div class="outil"><div class="tuile noir"><img src="../kit/logos/calcom.svg" style="filter:invert(1)" alt=""></div>Cal.com</div>
+      <h2>Un prospect réserve un créneau.</h2>
+      <p>Sur ta page Cal.com, il choisit son jour et son heure. Pas d'aller-retour de mails pour trouver une date.</p></div>
+    <div class="leg" id="leg2"><div class="lab">Le déclencheur</div>
+      <div class="outil"><div class="tuile noir"><img src="../kit/logos/calcom.svg" style="filter:invert(1)" alt=""></div>Cal.com</div>
+      <h2>Il dit qui il est, et d'où il vient.</h2>
+      <p>Son besoin, et comment il t'a trouvé. Ses réponses partent tout droit dans sa fiche.</p></div>
+    <div class="leg" id="leg3"><div class="lab">Le déclencheur</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/gmail.svg" alt=""></div>Gmail</div>
+      <h2>Son mail ne se perd plus.</h2>
+      <p>Le tri de ta boîte lui met l'étiquette Prospects, au milieu des factures et des newsletters.</p></div>
+    <div class="leg" id="leg4"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div>Notion</div>
+      <h2>Sa fiche se crée toute seule.</h2>
+      <p>Statut « 1st call », date du rendez-vous, d'où il vient. Personne n'a rien saisi.</p></div>
+    <div class="leg" id="leg5"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/claude-icon.svg" alt=""></div>Claude</div>
+      <h2>Le matin, Claude prépare le rendez-vous.</h2>
+      <p>À 7 h 20, il lit la fiche, regarde le site et le LinkedIn, relie l'entreprise et écrit le brief.</p></div>
+    <div class="leg" id="leg6"><div class="lab">L'IA prépare</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/slack.svg" alt=""></div>Slack</div>
+      <h2>Tu es prévenu dans Slack.</h2>
+      <p>Un message dans ton canal acquisition, avec le lien du brief. Rien d'autre à aller chercher.</p></div>
+    <div class="leg" id="leg7"><div class="lab">Tu décides</div>
+      <div class="outil"><div class="tuile"><img src="../kit/logos/rama-logic_picto_ink.svg" alt=""></div>Ta page de brief</div>
+      <h2>Tu lis. Tu mènes le rendez-vous.</h2>
+      <p>Qui est l'entreprise, pourquoi elle t'appelle, les questions à poser. Le rendez-vous, c'est toi.</p></div>
+    <div class="leg" id="leg8"><div class="lab">Le résultat</div>
+      <h2>Tu arrives <span class="hl">préparé.</span></h2>
+      <p>Et la même fiche client te suit, du premier mail jusqu'au point hebdo.</p></div>
+    <div class="exemple">Exemple · Atelier Morel et Claire Morel sont inventés</div>
+  </div>
+
+  <!-- ===== La scène ===== -->
+  <div class="scene">
+
+    <!-- Étape 0 : la chaîne -->
+    <div class="chaine">
+      <div class="fil"></div>
+      <div class="c"><div class="n">1</div><div class="tuile noir"><img src="../kit/logos/calcom.svg" style="filter:invert(1)" alt=""></div><div class="o">Cal.com</div><div class="r">Il réserve un créneau</div></div>
+      <div class="c"><div class="n">2</div><div class="tuile"><img src="../kit/logos/gmail.svg" alt=""></div><div class="o">Gmail</div><div class="r">Son mail est rangé</div></div>
+      <div class="c"><div class="n">3</div><div class="tuile"><img src="../kit/logos/notion-icon.svg" alt=""></div><div class="o">Notion</div><div class="r">Sa fiche se crée</div></div>
+      <div class="c"><div class="n">4</div><div class="tuile"><img src="../kit/logos/claude-icon.svg" alt=""></div><div class="o">Claude</div><div class="r">Il prépare le rendez-vous</div></div>
+      <div class="c"><div class="n">5</div><div class="tuile"><img src="../kit/logos/slack.svg" alt=""></div><div class="o">Slack</div><div class="r">Il te prévient</div></div>
+    </div>
+    <div class="toi"><div class="lab">Et toi</div><div class="p">Tu lis la fiche, tu mènes le <span class="hl">rendez-vous.</span></div></div>
+
+    <!-- Étapes 1 et 2 : Cal.com -->
+    <div class="fen" id="w-cal" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><span class="cad"></span>cal.com/sylvain.ramalogic/ramalogic</div></div>
+      <div class="corps"><div class="cal">
+        <div class="carte">
+          <div class="info">
+            <img class="av" src="../kit/img/sylvain-cal.png" alt="">
+            <div class="qui">Sylvain Ramaradjou</div>
+            <div class="ev">🔥 30m avec Rama Logic</div>
+            <div class="desc">Tu te demandes comment implémenter l'IA, Notion ou les automs dans ton business ? Parlons-en.</div>
+            <div class="meta">
+              <div class="quand" style="opacity:0"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>jeudi 22 octobre 2026<br>14:00 - 14:30</span></div>
+              <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>30m</div>
+              <div><img src="../kit/logos/google-meet.svg" alt="">Google Meet</div>
+              <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>Europe/Paris</div>
+            </div>
+          </div>
+          <div class="vue">
+            <div class="mois">
+              <div class="mh"><div>octobre <span>2026</span></div><div class="fl"><span>‹</span><span>›</span></div></div>
+              <div class="jsem"><div>DIM.</div><div>LUN.</div><div>MAR.</div><div>MER.</div><div>JEU.</div><div>VEN.</div><div>SAM.</div></div>
+              <div class="grille" id="grille"></div>
+            </div>
+            <div class="creneaux">
+              <div class="ch"><div style="position:relative;width:96px;height:26px"><div class="ha" style="position:absolute">mer. <span>21</span></div><div class="hb" style="position:absolute;opacity:0">jeu. <span>22</span></div></div><div class="tog"><b>12h</b><b class="on">24h</b></div></div>
+              <div class="liste">
+                <div class="lst a"><div class="cr">09:00</div><div class="cr">10:30</div><div class="cr">14:00</div><div class="cr">15:30</div><div class="cr">16:30</div></div>
+                <div class="lst b" style="opacity:0"><div class="cr">09:30</div><div class="cr">11:00</div><div class="cr" id="cr1400">14:00<b class="sel">14:00</b></div><div class="cr">15:00</div><div class="cr">16:30</div></div>
+              </div>
+            </div>
+            <div class="form">
+              <div class="f2"><div><div class="lbl">Prénom *</div><div class="in" id="in-prenom"><span class="v">Claire</span></div></div>
+                <div><div class="lbl">Nom *</div><div class="in"><span class="v">Morel</span></div></div></div>
+              <div><div class="lbl">📫 Email *</div><div class="in"><span class="v">claire@atelier-morel.fr</span></div></div>
+              <div><div class="lbl">Dis moi en plus sur ton besoin *</div><div class="in"><span class="v">Le suivi de nos 12 chantiers part dans tous les sens.</span></div></div>
+              <div><div class="lbl">Comment m'as tu trouvé ? *</div><div class="in" id="in-trouve"><span class="v">Linkedin</span><span class="chev">▾</span></div></div>
+              <div class="boutons"><div class="btn g">Retour</div><div class="btn p" id="btn-ok">Confirmer</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ok">
+          <div class="rond"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Ce rendez-vous est programmé</h3>
+          <div class="s">Nous avons envoyé un e-mail à chaque participant avec une invitation de calendrier comprenant tous les détails.</div>
+          <div class="tab">
+            <div class="k">Quoi</div><div class="x">🔥 30m avec Rama Logic entre Sylvain Ramaradjou et Claire Morel</div>
+            <div class="k">Quand</div><div class="x">jeudi 22 octobre 2026<br>14:00 - 14:30 <small>Europe/Paris</small></div>
+            <div class="k">Qui</div><div class="x">Sylvain Ramaradjou <small>Organisateur</small>Claire Morel <small>claire@atelier-morel.fr</small></div>
+            <div class="k">Où</div><div class="x">Google Meet</div>
+            <div class="k">Dis moi en plus sur ton besoin</div><div class="x">Le suivi de nos 12 chantiers part dans tous les sens.</div>
+            <div class="k">Comment m'as tu trouvé ?</div><div class="x">Linkedin</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 3 : Gmail -->
+    <div class="fen" id="w-gm" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/gmail.svg" alt="">mail.google.com</div></div>
+      <div class="corps"><div class="gm">
+        <div class="haut"><div class="burger"><b></b><b></b><b></b></div><div class="logo"><img src="../kit/logos/gmail.svg" alt="">Gmail</div>
+          <div class="rech"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>Rechercher dans les messages</div></div>
+        <div class="gauche">
+          <div class="nouveau"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Nouveau message</div>
+          <div class="it on"><svg class="ic" viewBox="0 0 24 24"><path d="M3 13h5l2 3h4l2-3h5M5 5h14l2 8v6H3v-6z"/></svg>Boîte de réception<span class="n">12</span></div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.8z"/></svg>Messages suivis</div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>En attente</div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><path d="M3 20l18-8L3 4l3 8zM6 12h7"/></svg>Envoyés</div>
+          <div class="it"><svg class="ic" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4"/></svg>Brouillons<span class="n">3</span></div>
+          <div class="sect">Libellés</div>
+          <div class="it"><span class="lb"></span>01-🙏 Clients</div>
+          <div class="it" id="nav-prospects"><b class="halo"></b><span class="lb" style="background:#E2A400"></span><span>Prospects</span><span class="n" id="nb-prospects" style="opacity:0">1</span></div>
+          <div class="it"><span class="lb"></span>Factures</div>
+          <div class="it"><span class="lb"></span>Newsletters</div>
+        </div>
+        <div class="boite">
+          <div class="barre-o"><span class="cc"></span><span>↻</span><span>⋮</span><span>1-50 sur 1 284</span></div>
+          <div class="onglets"><div class="on">Principale</div><div>Promotions</div><div>Réseaux sociaux</div></div>
+          <div class="lignes" id="lignes-gm"></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 4 : Notion, base RL-Contacts -->
+    <div class="fen" id="w-no" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><img src="../kit/logos/notion-icon.svg" alt="">notion.so/ramalogic/RL-Contacts</div></div>
+      <div class="corps"><div class="no">
+        <div class="side" style="width:220px">
+          <div class="ws"><i><img src="../kit/logos/rama-logic_picto_ink.svg" alt=""></i>Rama Logic</div>
+          <div class="si"><span class="e">🔍</span>Rechercher</div>
+          <div class="si"><span class="e">🏠</span>Accueil</div>
+          <div class="si"><span class="e">📥</span>Boîte de réception</div>
+          <div class="st">Espace d'équipe</div>
+          <div class="si"><span class="e">🗂️</span>ADMIN-BACK OFFICE</div>
+          <div class="si"><span class="e">🤝</span>CRM</div>
+          <div class="si on"><span class="e">👤</span>RL-Contacts</div>
+          <div class="si"><span class="e">🏢</span>RL-Companies</div>
+          <div class="si"><span class="e">💼</span>RL-Opportunity</div>
+          <div class="si"><span class="e">📽️</span>RL-Video call</div>
+          <div class="si"><span class="e">✅</span>RL-To do</div>
+        </div>
+        <div class="main" style="left:220px">
+          <div class="top"><span>CRM</span><span class="sp">/</span><span style="color:#37352F">RL-Contacts</span><span class="dr"><span>Partager</span><span>☆</span><span>···</span></span></div>
+          <div class="tete" style="padding:22px 36px 0"><h1>👤 RL-Contacts</h1>
+            <div class="vues"><span class="v on">▦ Tous les contacts</span><span class="v">🔥 1st call</span><span class="v">Pipeline</span>
+              <span class="act"><span>⚲</span><span>⇅</span><span class="nv">Nouveau ▾</span></span></div></div>
+          <div class="table" style="margin:0 36px" id="table-no">
+            <div class="tr th"><div style="width:206px">Aa Ton prénom et ton nom</div><div style="width:150px">◉ Status</div><div style="width:200px">▦ Next Meeting</div><div style="width:136px">▾ Origine RDV</div><div style="flex:1">@ E-mail</div></div>
+            <div class="lignes-no" id="lignes-no" style="position:relative"></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 5 : Claude Code, la préparation du matin -->
+    <div class="fen" id="w-cc" style="left:36px;top:40px;width:1110px;height:900px;border-color:var(--ink)">
+      <div class="nav" style="background:#2A2A28;border-bottom-color:#3A3A37"><div class="feu"><b></b><b></b><b></b></div><div class="titre" style="color:#C9C7C2;font-family:var(--mono);font-weight:400;font-size:16px">claude · r1-prep · jeu. 22 oct. 07:20</div></div>
+      <div class="corps"><div class="ccode" id="cc">
+        <div class="tete-cc ln"><span class="et">✻</span><div>Claude Code<small>r1-prep · prépare les premiers rendez-vous, tous les matins à 7 h 20</small></div></div>
+        <div class="ln cmd">&gt; <b>Prépare les R1 des 3 prochains jours.</b></div>
+        <div class="ln" style="height:12px"></div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Notion</span> · Chercher les contacts « 1st call 🔥 » des 3 prochains jours</div>
+        <div class="ln re">└ <span class="k">1 rendez-vous :</span> Claire Morel, jeudi 22/10 à 14:00</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Notion</span> · Lire la fiche de Claire Morel et ses échanges</div>
+        <div class="ln re">└ <span class="k">Origine :</span> Linkedin · <span class="k">Besoin :</span> « Le suivi de nos 12 chantiers… »</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Web Search</span> · atelier-morel.fr</div>
+        <div class="ln re">└ Atelier d'architecture, 18 personnes</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Web Search</span> · Claire Morel, LinkedIn</div>
+        <div class="ln re">└ Co-gérante de l'atelier</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Notion</span> · Relier la fiche à son entreprise, créer l'opportunité</div>
+        <div class="ln re">└ Atelier Morel · étape « 3-1st RDV »</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Write</span> · La page de brief, et sa copie dans Notion</div>
+        <div class="ln re">└ hub.ramalogic.com/briefs/r1-claire-morel.html</div>
+        <div class="ln"><span class="pt">●</span> <span class="tl">Slack</span> · Prévenir Sylvain dans #rl-acquisition</div>
+        <div class="ln" style="height:12px"></div>
+        <div class="ln fin">✻ Terminé · 1 rendez-vous préparé</div>
+      </div></div>
+    </div>
+
+    <!-- Étape 6 : notification et Slack -->
+    <div class="notif" id="notif" style="right:28px;top:28px">
+      <img src="../kit/logos/slack.svg" alt="">
+      <div style="flex:1"><div class="app"><span>Slack</span><span>maintenant</span></div>
+        <div class="tt">#rl-acquisition · Claude</div>
+        <div class="tx">🎯 R1 à préparer : Claire Morel (Atelier Morel), jeudi à 14h</div></div>
+    </div>
+    <div class="fen" id="w-sl" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="titre">Slack</div></div>
+      <div class="corps"><div class="sl">
+        <div class="rail-s"><div class="ws"><img src="../kit/logos/rama-logic_picto_ink.svg" alt=""></div>
+          <div class="ri on"><b><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"/></svg></b>Accueil</div><div class="ri"><b><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></b>Messages</div><div class="ri"><b><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20h4"/></svg></b>Activité</div></div>
+        <div class="side">
+          <div class="nomws">Rama Logic</div>
+          <div class="st">▾ Canaux</div>
+          <div class="ch" id="ch-acq"><b class="halo"></b><span>#</span><span id="ch-acq-nom">rl-acquisition</span><span class="n" id="ch-acq-n">1</span></div>
+          <div class="ch"><span>#</span><span>rl-clients</span></div>
+          <div class="ch"><span>#</span><span>rl-pilotage</span></div>
+          <div class="ch"><span>#</span><span>rl-reseaux-sociaux</span></div>
+          <div class="ch"><span>#</span><span>rl-seo</span></div>
+          <div class="ch"><span>#</span><span>rl-systeme</span></div>
+          <div class="st">▾ Messages directs</div>
+          <div class="ch"><span>●</span><span>Claude</span></div>
+        </div>
+        <div class="pane">
+          <div class="ph"># rl-acquisition <small>🔒 canal privé</small></div>
+          <div class="msgs">
+            <div class="sep">Hier</div>
+            <div class="m"><div class="av"><img src="../kit/logos/claude-icon.svg" alt=""></div>
+              <div><div class="who">Claude <span class="app">APP</span><span class="h">19:00</span></div>
+                <div class="txt">📊 Bilan prospection 21/10/2026<br>✅ 9/13 actions menées<br>📨 2 réponses reçues aujourd'hui<br>📅 1 RDV booké</div></div></div>
+            <div class="sep" id="sep-auj" style="opacity:0">Aujourd'hui</div>
+            <div class="m" id="msg-r1" style="opacity:0"><b class="fond"></b><div class="av"><img src="../kit/logos/claude-icon.svg" alt=""></div>
+              <div><div class="who">Claude <span class="app">APP</span><span class="h">07:21</span></div>
+                <div class="txt">🎯 R1 à préparer (J → J+3)<br><br>1. <b>Claire Morel (Atelier Morel)</b> · R1 le 22/10 à 14h<br>
+                <span class="gris">Verdict ICP :</span> fit, 18 personnes, elle veut structurer le suivi de ses chantiers<br>
+                Brief : <a id="lien-brief">hub.ramalogic.com/briefs/r1-claire-morel.html</a><br>
+                Notion : <a>Brief R1 - Claire Morel (Atelier Morel) - 22/10/2026</a></div></div></div>
+          </div>
+          <div class="compo">Envoyer un message dans #rl-acquisition</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Étape 7 : la page de brief -->
+    <div class="fen" id="w-br" style="left:36px;top:40px;width:1110px;height:900px">
+      <div class="nav"><div class="feu"><b></b><b></b><b></b></div><div class="url"><span class="cad"></span>hub.ramalogic.com/briefs/r1-claire-morel.html</div></div>
+      <div class="corps"><div class="br">
+        <div class="bt"><div class="l"><img src="../kit/logos/rama-logic_picto_ink.svg" alt="">L'Atelier</div><div class="r">Brief R1 · généré le 22/10 à 07:21</div></div>
+        <div class="cont">
+          <div class="hero">
+            <span class="chip">Jeu. 22/10 · 14:00 · 30 min · Google Meet</span>
+            <h3>Claire Morel</h3>
+            <div class="ro">Co-gérante · <b>Atelier Morel</b> : atelier d'architecture, 18 personnes</div>
+            <div class="badges"><span class="m">ICP : fit</span><span class="k">Cible : Audit LOGIC AI</span></div>
+          </div>
+          <div class="sh"><div class="n">01</div><div class="t">L'essentiel en 10 secondes</div></div>
+          <div class="tuiles">
+            <div class="tu" id="tu1"><b class="lu"></b><div class="k">Pourquoi ce call</div><div class="v">Le suivi de 12 chantiers part dans tous les sens.</div></div>
+            <div class="tu" id="tu2"><b class="lu"></b><div class="k">Le sujet probable</div><div class="v">Chantiers, devis et tâches de l'équipe au même endroit.</div></div>
+            <div class="tu" id="tu3"><b class="lu"></b><div class="k">Objectif du call</div><div class="v">Mesurer le temps perdu, et qui porte le sujet.</div></div>
+            <div class="tu" id="tu4"><b class="lu"></b><div class="k">Next step à verrouiller</div><div class="v">Un 2e rendez-vous daté avant de raccrocher.</div></div>
+          </div>
+          <div class="sh"><div class="n">02</div><div class="t">La trame · 30 min</div></div>
+          <div class="phase"><div class="g"><span class="d">5 MIN</span><div class="tt">Comprendre l'équipe</div></div>
+            <div class="qs">
+              <div class="q key" id="q1"><b class="lu"></b><b class="cb"></b><span>Qui tient le suivi des chantiers aujourd'hui, et dans quel outil ?</span></div>
+              <div class="q" id="q2"><b class="lu"></b><b class="cb"></b><span>Combien de chantiers en même temps ?</span></div>
+              <div class="q key" id="q3"><b class="lu"></b><b class="cb"></b><span>Qu'est-ce qui a déclenché la demande, maintenant ?</span></div>
+            </div></div>
+        </div>
+        <div class="chrono" id="chrono"><i></i>Lu en 2 min</div>
+      </div></div>
+    </div>
+
+    <!-- Étape 8 : le résultat -->
+    <div class="gain" id="gain">
+      <div class="lab">Avant chaque premier rendez-vous</div>
+      <div class="ligne avant"><span class="k">Avant</span><span class="n">20 min</span><span class="d">de recherche</span></div>
+      <div class="filet"></div>
+      <div class="ligne apres"><span class="k">Maintenant</span><span class="n">2 min</span><span class="d">de lecture</span></div>
+    </div>
+  </div>
+
+  <svg id="souris" viewBox="0 0 28 36"><path d="M2 2 L2 28 L8.5 22 L13 32.5 L17 30.8 L12.6 20.5 L21.5 20.5 Z" fill="#0D1A14" stroke="#FFFCF7" stroke-width="2" stroke-linejoin="round"/></svg>
+  <div id="clic"></div>
+</div>
+<div id="aide"></div>
+
+<script src="../kit/gsap.min.js"></script>
+<script src="../kit/pilote.js"></script>
+<script>
+// ---------- Contenus répétés, posés avant la mesure des positions ----------
+(function () {
+  // Calendrier d'octobre 2026, semaine qui commence le dimanche (réglage du compte Cal.com). Le 1er est un jeudi.
+  const g = document.getElementById("grille");
+  const dispo = [21, 22, 23, 26, 27, 28, 29, 30];
+  let h = "";
+  for (let k = 0; k < 4; k++) h += '<div class="j"></div>';
+  for (let d = 1; d <= 31; d++) {
+    const cl = ["j"]; if (dispo.includes(d)) cl.push("dispo"); if (d === 20) cl.push("auj");
+    h += `<div class="${cl.join(" ")}" ${d === 22 ? 'id="j22"' : ""}>${d}${d === 22 ? '<b class="sel">22</b>' : ""}</div>`;
+  }
+  g.innerHTML = h;
+
+  // Boîte Gmail : la ligne 0 est celle qui arrive
+  const mails = [
+    ["Claire Morel", "Demande d'accompagnement : suivi de chantiers", "Bonjour Sylvain, je viens de réserver jeudi 14 h. Quelques éléments avant : nous sommes 18…", "08:42", true],
+    ["Cal.com", "Nouvel événement : 🔥 30m avec Rama Logic entre Sylvain Ramaradjou et Claire Morel", "jeudi 22 octobre 2026, 14:00", "08:31"],
+    ["Qonto", "Votre relevé de septembre est disponible", "Retrouvez-le dans votre espace", "19 oct."],
+    ["Notion", "Nouveautés de Notion", "Ce qui a changé ce mois-ci dans votre espace", "19 oct."],
+    ["LinkedIn", "Vous êtes apparu dans 14 recherches", "Découvrez qui s'intéresse à votre profil", "18 oct."],
+    ["Brevo", "Votre campagne est prête à partir", "Relisez-la avant l'envoi", "18 oct."],
+    ["Google Workspace", "Votre facture d'octobre", "Montant dû : voir le détail", "17 oct."],
+    ["Canva", "Votre design a été partagé", "Un membre a commenté votre design", "16 oct."],
+  ];
+  document.getElementById("lignes-gm").innerHTML = mails.map((m, k) =>
+    `<div class="l${k < 2 ? " nl" : ""}" id="gm${k}" style="top:${k * 46}px"><span class="cc"></span><span class="et">☆</span><span class="de">${m[0]}</span>` +
+    `<span class="ob">${k === 0 ? '<span class="chip p" id="chip-prospects">Prospects</span>' : ""}<b>${m[1]}</b> - ${m[2]}</span><span class="h">${m[3]}</span></div>`).join("");
+
+  // Base RL-Contacts : la ligne 0 est celle qui se crée
+  const st = { a: '<span class="tag t-gr"><i></i>To contact</span>', f: '<span class="tag t-or"><i></i>1st call 🔥</span>', c: '<span class="tag t-ve"><i></i>Client</span>' };
+  const src = (s, c) => s ? `<span class="tag sel ${c}">${s}</span>` : "";
+  const contacts = [
+    ["Claire Morel", st.f, "22 octobre 2026 14:00", src("LinkedIn", "t-bl"), "claire@atelier-morel.fr"],
+    ["Inès Garnier", st.f, "15 octobre 2026 10:00", src("Google", "t-ro"), "ines@studio-garnier.fr"],
+    ["Julien Fabre", st.a, "", "", "julien.fabre@cabinet-fabre.fr"],
+    ["Marc Lefèvre", st.c, "", src("Réseau", "t-vi"), "marc@lefevre-conseil.fr"],
+    ["Sophie Durand", st.a, "", "", "sophie@durand-associes.fr"],
+    ["Thomas Roux", st.f, "9 octobre 2026 16:30", src("Site ramalogic.com", "t-ve"), "thomas@roux-paysage.fr"],
+    ["Camille Petit", st.a, "", "", "camille@petit-et-fils.fr"],
+    ["Nadia Benali", st.c, "", src("LinkedIn", "t-bl"), "nadia@benali-rh.fr"],
+  ];
+  document.getElementById("lignes-no").innerHTML = contacts.map((c, k) =>
+    `<div class="tr" id="no${k}" style="position:absolute;left:0;right:0;top:${k * 42}px">${k === 0 ? '<b class="fond"></b>' : ""}` +
+    `<div class="c nm" style="width:206px">${c[0]}</div><div class="c" style="width:150px">${c[1]}</div><div class="c" style="width:200px">${c[2]}</div>` +
+    `<div class="c" style="width:136px">${c[3]}</div><div class="c" style="flex:1;color:#787774">${c[4]}</div></div>`).join("");
+})();
+
+RL.construire(function (R) {
+  const { tl } = R;
+  // États de départ des éléments qui « arrivent » dans une liste
+  gsap.set("#lignes-gm .l:not(#gm0)", { y: -46 });
+  gsap.set("#gm0", { opacity: 0, y: -24 });
+  gsap.set("#lignes-no .tr:not(#no0)", { y: -42 });
+  gsap.set("#no0", { opacity: 0 });
+  gsap.set("#no0 .c", { opacity: 0 });
+  R.sourisPose({ x: 1700, y: 1000 });
+
+  // 0 · La chaîne des cinq outils
+  R.etape((S) => {
+    R.phase(-1, S);
+    R.legende(0, S);
+    R.entre(".chaine .c", S + 0.3, { st: 0.12 });
+    tl.fromTo(".chaine .fil", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "expo.out" }, S + 0.4);
+    R.entre(".toi", S + 1.4);
+    return 2.1;
+  });
+
+  // 1 · Cal.com : le jour, puis l'heure
+  R.etape((S) => {
+    R.phase(0, S);
+    R.legende(1, S);
+    R.sort(".chaine .c, .chaine .fil, .toi", S, 0.3);
+    R.fenetre("#w-cal", S + 0.3);
+    R.montre(S + 0.9);
+    R.souris("#j22", S + 1.0, 0.8);
+    R.clic(S + 1.85);
+    tl.to("#j22 .sel", { opacity: 1, duration: 0.18 }, S + 1.9);
+    tl.to(".cal .ha, .cal .lst.a", { opacity: 0, duration: 0.2 }, S + 1.95);
+    tl.to(".cal .hb, .cal .lst.b", { opacity: 1, duration: 0.3 }, S + 2.1);
+    R.souris("#cr1400", S + 2.5, 0.7);
+    R.clic(S + 3.25);
+    tl.to("#cr1400 .sel", { opacity: 1, duration: 0.18 }, S + 3.3);
+    return 3.6;
+  });
+
+  // 2 · Cal.com : le formulaire, puis « Confirmer »
+  R.etape((S) => {
+    R.legende(2, S);
+    tl.to(".cal .mois, .cal .creneaux", { opacity: 0, duration: 0.25 }, S);
+    R.entre(".cal .form", S + 0.2, { y: 16, d: 0.5 });
+    tl.to(".cal .quand", { opacity: 1, duration: 0.4 }, S + 0.3);
+    R.souris("#in-prenom", S + 0.3, 0.6, 0.3, 0.5);
+    const v = gsap.utils.toArray(".cal .form .v");
+    v.forEach((el, k) => {
+      if (k === 4) R.souris("#in-trouve", S + 0.8 + k * 0.35 - 0.3, 0.4, 0.4, 0.5);
+      tl.to(el, { opacity: 1, duration: 0.22 }, S + 0.8 + k * 0.35);
+    });
+    R.souris("#btn-ok", S + 2.7, 0.6);
+    R.clic(S + 3.35);
+    tl.to(".cal .carte", { opacity: 0, duration: 0.3 }, S + 3.5);
+    R.entre(".cal .ok", S + 3.6, { y: 24 });
+    R.cache(S + 3.7);
+    return 4.3;
+  });
+
+  // 3 · Gmail : le mail arrive, le tri lui met l'étiquette Prospects
+  R.etape((S) => {
+    R.legende(3, S);
+    R.ferme("#w-cal", S);
+    R.fenetre("#w-gm", S + 0.3);
+    tl.to("#lignes-gm .l:not(#gm0)", { y: 0, duration: 0.5, ease: "expo.out" }, S + 1.1);
+    tl.to("#gm0", { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, S + 1.2);
+    tl.to("#chip-prospects", { opacity: 1, duration: 0.3 }, S + 2.2);
+    tl.to("#nav-prospects .halo", { opacity: 1, duration: 0.3 }, S + 2.4);
+    tl.to("#nb-prospects", { opacity: 1, duration: 0.3 }, S + 2.4);
+    tl.to("#nav-prospects", { fontWeight: 700, duration: 0.01 }, S + 2.4);
+    return 2.9;
+  });
+
+  // 4 · Notion : la fiche contact se crée
+  R.etape((S) => {
+    R.phase(1, S);
+    R.legende(4, S);
+    R.ferme("#w-gm", S);
+    R.fenetre("#w-no", S + 0.3);
+    tl.to("#lignes-no .tr:not(#no0)", { y: 0, duration: 0.5, ease: "expo.out" }, S + 1.1);
+    tl.to("#no0", { opacity: 1, duration: 0.2 }, S + 1.15);
+    tl.to("#no0 .fond", { opacity: 1, duration: 0.3 }, S + 1.15);
+    tl.to("#no0 .c", { opacity: 1, duration: 0.25, stagger: 0.28 }, S + 1.4);
+    tl.to("#no0 .fond", { opacity: 0.55, duration: 0.6 }, S + 3.0);
+    return 3.6;
+  });
+
+  // 5 · Claude Code, 7 h 20 : la préparation
+  R.etape((S) => {
+    R.legende(5, S);
+    R.ferme("#w-no", S);
+    R.fenetre("#w-cc", S + 0.3);
+    tl.to("#cc .ln", { opacity: 1, duration: 0.15, stagger: 0.27 }, S + 0.9);
+    return 0.9 + 0.27 * 19 + 0.2;
+  });
+
+  // 6 · Slack : la notification, puis le message
+  R.etape((S) => {
+    R.legende(6, S);
+    R.ferme("#w-cc", S);
+    tl.fromTo("#notif", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, S + 0.3);
+    R.fenetre("#w-sl", S + 1.5);
+    tl.to("#notif", { opacity: 0, duration: 0.3 }, S + 2.4);
+    tl.to("#ch-acq-n", { opacity: 1, duration: 0.2 }, S + 2.0);
+    tl.to("#ch-acq-nom", { fontWeight: 900, color: "#FFFFFF", duration: 0.01 }, S + 2.0);
+    tl.to("#sep-auj", { opacity: 1, duration: 0.3 }, S + 2.2);
+    R.entre("#msg-r1", S + 2.3, { y: 20 });
+    tl.to("#msg-r1 .fond", { opacity: 1, duration: 0.3 }, S + 2.3);
+    return 3.3;
+  });
+
+  // 7 · Tu lis le brief
+  R.etape((S) => {
+    R.phase(2, S);
+    R.legende(7, S);
+    tl.set("#souris", { x: 1497, y: 977 }, S);
+    R.montre(S + 0.1);
+    R.souris("#lien-brief", S + 0.2, 0.8, 0.35, 0.5);
+    R.clic(S + 1.05);
+    R.ferme("#w-sl", S + 1.2);
+    R.fenetre("#w-br", S + 1.4);
+    R.cache(S + 1.6);
+    ["#tu1", "#tu2", "#tu3", "#tu4", "#q1", "#q3"].forEach((id, k) => {
+      const t = S + 2.2 + k * 0.42;
+      tl.to(id + " .lu", { opacity: 0.55, duration: 0.25 }, t);
+      tl.to(id + " .lu", { opacity: 0, duration: 0.5 }, t + 0.42);
+    });
+    R.entre("#chrono", S + 4.9, { y: 16 });
+    return 5.5;
+  });
+
+  // 8 · Le résultat
+  R.etape((S) => {
+    R.phase(3, S);
+    R.legende(8, S);
+    R.ferme("#w-br", S);
+    tl.to("#gain", { opacity: 1, duration: 0.4 }, S + 0.2);
+    R.entre("#gain .lab", S + 0.3);
+    R.entre("#gain .avant", S + 0.5);
+    tl.fromTo("#gain .filet", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 0.8, ease: "expo.out" }, S + 0.9);
+    R.entre("#gain .apres", S + 1.2);
+    return 2.0;
+  });
+});
+</script>
+</body>
+</html>
