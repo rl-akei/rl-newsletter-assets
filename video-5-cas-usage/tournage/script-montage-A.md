@@ -1,6 +1,6 @@
 # Script de montage · 5 cas d'usage
 
-<!-- Généré le 22/10/2026 depuis le script v3 Notion (3fc1b4b9aefa81a1b8e3ef2bc585b6bc) et la page de tournage. Hook tourné : A. Repères : [SLIDE NN] = slide 4K, [ANIM c.e] = Animations par étape/<cas c>-etape-0e.mp4. Les animations « vrais outils » font foi à l'écran ; les slides seulement hors animation. -->
+<!-- Généré le 22/10/2026 depuis le script v3 Notion (3fc1b4b9aefa81a1b8e3ef2bc585b6bc) et la page de tournage. Hook : A. Repères : [SLIDE NN] = slide 4K, [ANIM c.e] = Animations par étape/<cas c>-etape-0e.mp4. Les animations « vrais outils » font foi à l'écran ; les slides seulement hors animation. -->
 
 # Hook A · La phrase qui revient
 
