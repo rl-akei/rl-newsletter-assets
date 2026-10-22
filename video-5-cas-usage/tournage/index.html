@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tournage · 5 cas d'usage</title>
+<link rel="icon" href="../logo.png">
+<style>
+@font-face{font-family:"Clash Grotesk";font-weight:400;src:url(../fonts/clash-grotesk-400.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Clash Grotesk";font-weight:500;src:url(../fonts/clash-grotesk-500.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Clash Grotesk";font-weight:600;src:url(../fonts/clash-grotesk-600.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"JetBrains Mono";font-weight:400;src:url(../fonts/jetbrains-mono-400.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"JetBrains Mono";font-weight:500;src:url(../fonts/jetbrains-mono-500.woff2) format("woff2");font-display:swap}
+:root{--cream:#FFFCF7;--ink:#0D1A14;--aloe-d:#475E54;--aloe-l:#B4C6BE;--mind:#DFE971;--flame:#F76420;--slate:#5C6661;--beige:#D2CFC9;--paper:#F4F0E8;
+  --fs:27px;--media:520px;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--cream)}
+body{font-family:"Clash Grotesk",system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;font-synthesis:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+
+/* barre du haut */
+.top{position:sticky;top:0;z-index:20;background:var(--cream);border-bottom:2px solid var(--ink)}
+.top .in{max-width:1480px;margin:0 auto;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:12px;padding:0 20px;border-right:3px solid var(--cream);background:var(--ink);color:var(--cream);font-weight:500;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
+.brand i{width:9px;height:9px;border-radius:9px;background:var(--mind);display:block}
+nav{display:flex;flex:1;min-width:0;overflow-x:auto}
+nav button{flex:none;display:flex;align-items:center;gap:8px;padding:0 16px;border-right:1px solid var(--beige);font-family:var(--mono);font-size:14px;font-weight:500;color:var(--slate)}
+nav button .ok{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--beige);display:grid;place-items:center;font-size:10px;line-height:1}
+nav button.done .ok{background:var(--aloe-d);border-color:var(--aloe-d);color:var(--cream)}
+nav button.done{color:var(--aloe-d)}
+nav button[aria-current="true"]{background:var(--ink);color:var(--cream)}
+nav button[aria-current="true"] .ok{border-color:var(--aloe-l)}
+nav button:hover:not([aria-current="true"]){background:var(--paper)}
+.outils{display:flex;align-items:stretch;border-left:2px solid var(--ink)}
+.outils button{display:flex;align-items:center;gap:8px;padding:0 16px;font-weight:500;font-size:15px;white-space:nowrap}
+.outils button+button{border-left:1px solid var(--beige)}
+.outils button:hover{background:var(--paper)}
+.outils button[aria-pressed="true"]{background:var(--mind)}
+.outils .nb{min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--ink);color:var(--cream);font-family:var(--mono);font-size:12px;display:grid;place-items:center}
+.outils [hidden]{display:none}
+.size{display:flex;align-items:center;border-left:2px solid var(--ink)}
+.size button{width:52px;height:100%;font-weight:500;font-size:17px}
+.size button+button{border-left:1px solid var(--beige)}
+.size button:hover{background:var(--paper)}
+
+/* page */
+main{max-width:1480px;margin:0 auto;border-left:2px solid var(--beige);border-right:2px solid var(--beige);min-height:calc(100vh - 56px)}
+.wrap{padding:0 40px}
+.head{display:flex;align-items:flex-start;gap:24px;padding:32px 0 24px}
+.head .n{flex:none;min-width:76px;height:76px;padding:0 14px;display:grid;place-items:center;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:26px}
+.head h1{font-weight:500;font-size:46px;line-height:1.05;letter-spacing:-.03em}
+.head .sub{margin-top:10px;font-family:var(--mono);font-size:14px;color:var(--slate)}
+.head .grow{flex:1;min-width:0}
+.tourne{flex:none;display:flex;align-items:center;gap:10px;height:48px;padding:0 18px;border:2px solid var(--ink);border-radius:999px;font-weight:500;font-size:17px}
+.tourne .box{width:20px;height:20px;border:2px solid var(--ink);border-radius:5px;display:grid;place-items:center;font-size:13px}
+.tourne.on{background:var(--aloe-d);border-color:var(--aloe-d);color:var(--cream)}
+.tourne.on .box{border-color:var(--cream);background:var(--cream);color:var(--aloe-d)}
+.rappel{display:flex;flex-wrap:wrap;gap:6px 24px;padding:12px 0 20px;font-family:var(--mono);font-size:13px;color:var(--slate)}
+.rappel b{color:var(--ink);font-weight:500}
+.rappel .hl{background:linear-gradient(transparent 55%,var(--mind) 55%);color:var(--ink)}
+
+/* choix du hook */
+.hooks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding-bottom:24px}
+.hooks button{text-align:left;padding:14px 18px;border:2px solid var(--beige);border-radius:10px;display:flex;flex-direction:column;gap:4px}
+.hooks button b{font-weight:500;font-size:19px}
+.hooks button span{font-family:var(--mono);font-size:13px;color:var(--slate)}
+.hooks button[aria-pressed="true"]{border-color:var(--ink);background:var(--paper)}
+.hooks button em{font-style:normal;background:var(--mind);padding:1px 6px;border-radius:4px;color:var(--ink)}
+
+/* clap */
+.clap{display:flex;align-items:center;gap:18px;padding:16px 22px;background:var(--ink);color:var(--cream);border-radius:4px}
+.clap .tag{font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.06em;color:var(--mind);white-space:nowrap}
+.clap .t{font-weight:500;font-size:22px;letter-spacing:-.01em}
+.clap .d{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--aloe-l);white-space:nowrap}
+.clap.fin{margin-top:8px}
+.clap .next{margin-left:auto;display:flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:999px;background:var(--mind);color:var(--ink);font-weight:500;font-size:17px}
+
+/* lignes */
+.row{display:grid;grid-template-columns:minmax(0,1fr) var(--media);gap:40px;padding:26px 0;border-top:1px solid var(--beige)}
+.clap+.row{border-top:0}
+.lab{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--slate)}
+.lab .only{background:var(--ink);color:var(--cream);padding:2px 8px;border-radius:4px;letter-spacing:0}
+.say{font-size:var(--fs);line-height:1.5;font-weight:400;letter-spacing:-.005em;text-wrap:pretty;max-width:36em}
+.row.face .say{font-weight:500}
+.row.annonce .say{font-weight:500;font-size:calc(var(--fs) * 1.12)}
+.row.annonce{border-left:6px solid var(--mind);padding-left:22px;margin-left:-28px}
+.say mark{background:linear-gradient(transparent 58%,var(--mind) 58%);color:inherit}
+.say mark::before{content:"↺ ";font-family:var(--mono);font-size:.62em;font-weight:500;color:var(--aloe-d);vertical-align:.18em}
+.cue{display:inline-block;margin-right:6px;padding:1px 7px;border-radius:5px;background:var(--ink);color:var(--cream);font-family:var(--mono);font-size:max(13px,calc(var(--fs) * .5));font-weight:500;line-height:1.5;vertical-align:.16em}
+.vide{font-size:calc(var(--fs) * .8);color:var(--slate);font-style:italic}
+body.edit .say{outline:2px dashed var(--aloe-l);outline-offset:8px;border-radius:2px;cursor:text}
+body.edit .say:focus{outline:2px solid var(--aloe-d);background:#fff}
+.say:empty::before{content:attr(data-ph);color:var(--slate);font-style:italic;font-weight:400}
+.say.modif{border-left:4px solid var(--aloe-d);padding-left:14px;margin-left:-18px}
+.reset{margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--aloe-d);text-decoration:underline;text-underline-offset:3px}
+.lab .mod{background:var(--aloe-d);color:var(--cream);padding:2px 8px;border-radius:4px;letter-spacing:0}
+.lb textarea{width:min(900px,90vw);height:60vh;padding:16px;font-family:var(--mono);font-size:14px;border:2px solid var(--cream);background:var(--cream);color:var(--ink);cursor:text}
+.note{margin-top:12px;font-size:17px;color:var(--slate);line-height:1.4}
+.note::before{content:"↳ ";font-family:var(--mono)}
+.flag{margin-top:14px;padding:12px 16px;border-left:4px solid var(--flame);background:#FFF3EA;font-size:17px;line-height:1.45;max-width:46em}
+.flag b{display:block;margin-bottom:2px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.06em;color:#B5430F}
+.duree{margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--slate)}
+.duree.court{color:#B5430F}
+
+/* écrans à droite */
+.media{display:flex;flex-direction:column;gap:10px}
+.shot{position:relative;width:100%;aspect-ratio:16/9;border:2px solid var(--ink);background:var(--paper);overflow:hidden;cursor:zoom-in}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot .play{position:absolute;right:8px;bottom:8px;width:34px;height:34px;border-radius:99px;background:var(--ink);color:var(--cream);display:grid;place-items:center;font-size:13px;opacity:.85}
+.shot .flash{position:absolute;left:8px;top:8px;padding:3px 9px;border-radius:4px;background:var(--mind);font-family:var(--mono);font-size:12px;font-weight:500}
+.cap{font-family:var(--mono);font-size:12.5px;line-height:1.45;color:var(--slate)}
+.cap b{color:var(--ink);font-weight:500}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}
+.grid2 .cap{font-size:11.5px}
+.toi{display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border:2px dashed var(--beige);border-radius:4px;font-weight:500;font-size:17px;color:var(--slate)}
+.toi svg{flex:none}
+.toi small{display:block;font-family:var(--mono);font-size:12px;font-weight:400}
+.meme{padding:14px 18px;border:2px dashed var(--beige);border-radius:4px;font-family:var(--mono);font-size:13px;color:var(--slate);line-height:1.45}
+.intro{display:flex;align-items:center;gap:16px;padding:20px 0;border-top:1px solid var(--beige);font-family:var(--mono);font-size:14px;color:var(--slate)}
+.intro b{padding:6px 12px;background:var(--ink);color:var(--cream);font-weight:500;border-radius:4px}
+.pied{display:flex;justify-content:space-between;gap:16px;padding:28px 0 60px;font-family:var(--mono);font-size:13px;color:var(--slate)}
+.pied a{color:var(--aloe-d)}
+
+/* grand format */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(13,26,20,.94);display:none;place-items:center;padding:4vh 4vw;cursor:zoom-out}
+.lb.on{display:grid}
+.lb video,.lb img{max-width:92vw;max-height:84vh;border:2px solid var(--cream);background:var(--ink)}
+.lb .t{margin-top:12px;color:var(--cream);font-family:var(--mono);font-size:14px;text-align:center}
+
+@media (max-width:1180px){:root{--media:420px}.wrap{padding:0 28px}}
+@media (max-width:860px){.row{grid-template-columns:1fr;gap:16px}.hooks{grid-template-columns:1fr}.head{flex-wrap:wrap}.row.annonce{margin-left:0}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <div class="brand"><i></i>Tournage · 5 cas d'usage</div>
+  <nav id="nav" aria-label="Chapitres"></nav>
+  <div class="outils"><button id="edit" aria-pressed="false" title="Rendre le texte de gauche modifiable">✎ Modifier le texte</button><button id="copier" hidden title="Copier la liste avant / après">Copier mes changements <span class="nb" id="nb">0</span></button></div>
+  <div class="size"><button id="moins" title="Texte plus petit">A−</button><button id="plus" title="Texte plus grand">A+</button></div>
+</div></header>
+<main><div class="wrap" id="page"></div></main>
+<div class="lb" id="lb"><div><div id="lbin"></div><div class="t" id="lbt"></div></div></div>
+
+<script>
+const DATA = {"hooks": {"A": {"nom": "La phrase qui revient", "mots": 75, "duree": "29 s", "reco": true, "beats": [{"k": "face", "t": "« Tout est recensé quelque part, je ne sais jamais où. » Un client m'a dit ça. Et je retrouve cette frustration dans 32 appels sur 49.", "annonce": false, "note": null, "only": null}, {"k": "slide", "s": 1, "t": "Aujourd'hui, je te montre 5 cas d'usage de l'IA qui règlent ça.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "slide", "s": 2, "t": "Pas les plus spectaculaires. Ceux qui tournent chez moi tous les jours.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "01", "e": [{"n": 8, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "Le résultat", "titre": "Tu arrives préparé.", "bouge": 2.0}], "t": "Un rendez-vous préparé en 2 minutes au lieu de 20.", "rep": [], "note": null, "flag": null, "apercu": true, "suite": false, "bouge": 2.0, "parle": 3.9}, {"k": "anim", "cas": "03", "e": [{"n": 7, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "Le résultat", "titre": "Tu reviens à ton travail de fond.", "bouge": 2.4}], "t": "Une proposition en 30 minutes au lieu de 8 heures.", "rep": [], "note": null, "flag": null, "apercu": true, "suite": false, "bouge": 2.4, "parle": 3.9}, {"k": "face", "t": "Et rien ne part sans toi.", "annonce": false, "note": null, "only": null}]}, "B": {"nom": "Le verbatim de la demande entrante", "mots": 61, "duree": "24 s", "beats": [{"k": "face", "t": "« On a beaucoup d'emails auxquels on n'arrive pas à répondre. » C'est une dirigeante qui m'a dit ça.", "annonce": false, "note": null, "only": null}, {"k": "slide", "s": 1, "t": "Aujourd'hui, je te montre les 5 cas d'usage qui règlent ce genre de problème. De la première demande d'un prospect jusqu'au point hebdo avec ton client.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "slide", "s": 36, "t": "À la fin, tu sauras lequel construire en premier chez toi.", "apercu": true, "rep": [], "note": null, "only": null}, {"k": "face", "t": "Et pourquoi aucun n'envoie rien sans toi.", "annonce": false, "note": null, "only": null}]}, "C": {"nom": "L'anti-hype", "mots": 73, "duree": "28 s", "beats": [{"k": "face", "t": "Tout le monde te montre des agents IA qui font un million sans salarié. Un dirigeant du BTP, lui, m'a dit : « C'est toujours les mêmes devis. » Son problème est là.", "annonce": false, "note": null, "only": null}, {"k": "slide", "s": 2, "t": "Aujourd'hui, je te montre 5 cas d'usage ennuyeux. Ceux qui tournent chez moi tous les jours, et que j'installe chez mes clients.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "03", "e": [{"n": 7, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "Le résultat", "titre": "Tu reviens à ton travail de fond.", "bouge": 2.4}], "t": "Comme une proposition en 30 minutes au lieu de 8 heures.", "rep": [], "note": null, "flag": null, "apercu": true, "suite": false, "bouge": 2.4, "parle": 4.3}, {"k": "face", "t": "Ce sont eux qui rendent du temps à une équipe.", "annonce": false, "note": null, "only": null}]}}, "chapitres": [{"id": "hook", "num": "Hook", "titre": "Le hook", "sous": "30 s maximum · puis l'intro de marque de 7 s, rien à dire", "hook": true}, {"id": "ouverture", "num": "Ouv.", "titre": "Le parcours et la règle", "sous": "Slides 02 à 04", "mots": 181, "duree": "1 min 10 s", "beats": [{"k": "face", "t": "Avant les cinq, je te montre où ils se placent.", "annonce": false, "note": null, "only": null}, {"k": "slide", "s": 2, "t": "Ce ne sont pas les plus spectaculaires. Ce sont ceux qui tournent chez moi tous les jours, et que j'installe chez mes clients.", "apercu": false, "rep": [], "note": null, "only": "B"}, {"k": "slide", "s": 3, "t": "Voilà le parcours d'une entreprise de services. Quatre étapes. L'acquisition : quelqu'un te découvre et te contacte. La vente. La delivery : le travail fait pour le client. Et la fidélisation : le client qui reste, et qui te confie la suite.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "slide", "s": 3, "t": "La demande entrante est à l'entrée. La proposition commerciale, c'est la vente. Le compte rendu de réunion et le point hebdo vivent dans la delivery et la fidélisation.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "slide", "s": 3, "t": "Je te les montre dans l'ordre où ils s'enchaînent. Le compte rendu passe avant la proposition, parce qu'une bonne proposition se nourrit de ce qui s'est dit en rendez-vous.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "slide", "s": 3, "t": "Et le quatrième est à part : Voice of Customer. Il écoute tout le parcours. Il relève les mots de tes clients, à chaque appel. Et ces mots nourrissent tes contenus, donc ton acquisition.", "apercu": false, "rep": ["Et le quatrième est à part : Voice of Customer.", "Et ces mots nourrissent tes contenus, donc ton acquisition."], "note": null, "only": null}, {"k": "slide", "s": 4, "t": "Et une règle qui vaut pour les cinq. L'IA prépare. Toi, tu décides, et tu vérifies. Rien ne part chez un client sans qu'un humain ait validé.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "face", "t": "C'est ce qui fait qu'une équipe les garde… au lieu de les contourner. On commence.", "annonce": false, "note": null, "only": null}]}, {"id": "c01", "num": "01", "titre": "La demande entrante", "sous": "Slide 05, puis animation 01", "mots": 260, "duree": "1 min 41 s", "beats": [{"k": "face", "t": "Cas d'usage numéro un : la demande entrante.", "annonce": true, "note": "Annonce de chapitre : regard caméra, un temps avant, un temps après.", "only": null}, {"k": "slide", "s": 5, "t": "Une dirigeante m'a dit : « On a beaucoup d'emails auxquels on n'arrive pas à répondre. » Dans une PME, une demande entrante, c'est souvent un mail perdu au milieu des autres. Quelqu'un doit le voir, le transférer, et répondre. Et le jour du rendez-vous, tu arrives sans savoir à qui tu parles.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "01", "e": [{"n": 0, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "Cas d'usage 01 / 05", "titre": "La demande entrante.", "bouge": 2.1}], "t": "Voilà comment je le construis. Chaque demande arrive triée, et tu entres en rendez-vous préparé. Regarde les quatre temps, tu vas les retrouver dans les cinq cas d'usage : le déclencheur, ce que l'IA prépare, ce que tu décides, et le résultat.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.1, "parle": 15.9}, {"k": "anim", "cas": "01", "e": [{"n": 1, "cue": "un prospect prend rendez-vous", "cas": "01", "slug": "01-demande-entrante", "temps": "Le déclencheur", "titre": "Un prospect réserve un créneau.", "bouge": 3.6}, {"n": 2, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "Le déclencheur", "titre": "Il dit qui il est, et d'où il vient.", "bouge": 4.3}, {"n": 3, "cue": "ou envoie sa demande", "cas": "01", "slug": "01-demande-entrante", "temps": "Le déclencheur", "titre": "Son mail ne se perd plus.", "bouge": 2.9}], "t": "Le déclencheur : un prospect prend rendez-vous, ou envoie sa demande.", "rep": [], "note": null, "flag": "Une phrase de 4 s pour trois étapes qui bougent 11 s : le créneau, le formulaire, le mail rangé. Ralentis, ou dis-le en trois temps : « Un prospect prend rendez-vous. Il dit qui il est, et d'où il vient. Ou il envoie un mail, et ce mail ne se perd plus. »", "apercu": false, "suite": false, "bouge": 10.8, "parle": 3.9}, {"k": "anim", "cas": "01", "e": [{"n": 4, "cue": "La fiche contact se crée toute seule", "cas": "01", "slug": "01-demande-entrante", "temps": "L'IA prépare", "titre": "Sa fiche se crée toute seule.", "bouge": 3.6}, {"n": 5, "cue": "Et avant l'appel, une fiche de préparation est prête", "cas": "01", "slug": "01-demande-entrante", "temps": "L'IA prépare", "titre": "Le matin, Claude prépare le rendez-vous.", "bouge": 6.2}], "t": "Là, l'IA prépare. La fiche contact se crée toute seule dans Notion, reliée à son entreprise. La demande est triée, et attribuée à la bonne personne. Et avant l'appel, une fiche de préparation est prête : qui est l'entreprise, ce qu'elle a demandé, et trois questions à poser. Et cette fiche, c'est la même que tu vas retrouver jusqu'au point hebdo.", "rep": ["Et avant l'appel, une fiche de préparation est prête"], "note": "Respire avant « qui est l'entreprise ».", "flag": null, "apercu": false, "suite": false, "bouge": 9.8, "parle": 23.2}, {"k": "anim", "cas": "01", "e": [{"n": 6, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "L'IA prépare", "titre": "Tu es prévenu dans Slack.", "bouge": 3.3}], "t": "", "silence": true, "flag": "L'étape 06 passe sans rien dans le script : « Tu es prévenu dans Slack ». Ajout possible : « Et tu es prévenu dans Slack, avec le lien. »", "rep": [], "bouge": 3.3, "parle": 0.0}, {"k": "anim", "cas": "01", "e": [{"n": 7, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "Tu décides", "titre": "Tu lis. Tu mènes le rendez-vous.", "bouge": 5.5}], "t": "Ce que tu vois, c'est un exemple, avec une entreprise inventée. Le rendez-vous, la demande, d'où elle vient, la taille de l'équipe. Et en bas, ce qu'il faut creuser pendant le rendez-vous.", "rep": [], "note": null, "flag": "Cette phrase décrit la page de brief, qui n'apparaît qu'à l'étape 07 (« Tu décides »). Ça marche si on la montre ici. Sinon, dis-la juste après « Tu lis la fiche ».", "apercu": false, "suite": false, "bouge": 5.5, "parle": 12.4}, {"k": "anim", "cas": "01", "e": [{"n": 7, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "Tu décides", "titre": "Tu lis. Tu mènes le rendez-vous.", "bouge": 5.5}], "t": "Ce qui reste chez toi : mener le rendez-vous. Tu lis la fiche, et tu mènes la discussion. Ça, personne ne le fera à ta place.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": true, "bouge": 0, "parle": 9.7}, {"k": "anim", "cas": "01", "e": [{"n": 8, "cue": null, "cas": "01", "slug": "01-demande-entrante", "temps": "Le résultat", "titre": "Tu arrives préparé.", "bouge": 2.0}], "t": "Le résultat : tu arrives préparé, en deux minutes de lecture au lieu de vingt minutes de recherche.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.0, "parle": 6.6}, {"k": "face", "t": "Et une fois en rendez-vous, il faut garder une trace de ce qui s'est dit. C'est le deuxième.", "annonce": false, "note": null, "only": null}]}, {"id": "c02", "num": "02", "titre": "Le compte rendu de réunion", "sous": "Slide 11, puis animation 02", "mots": 232, "duree": "1 min 30 s", "beats": [{"k": "face", "t": "Cas d'usage numéro deux : le compte rendu de réunion.", "annonce": true, "note": "Annonce de chapitre : regard caméra, un temps avant, un temps après.", "only": null}, {"k": "slide", "s": 11, "t": "Un dirigeant m'a dit : « Et si je le note pas après le coup de fil… on ne saura jamais. » Tout le monde a vécu ça. Une réunion, des décisions, et trois jours plus tard, personne ne sait plus qui devait faire quoi.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "02", "e": [{"n": 0, "cue": null, "cas": "02", "slug": "02-compte-rendu", "temps": "Cas d'usage 02 / 05", "titre": "Le compte rendu de réunion.", "bouge": 2.1}], "t": "Ici, après chaque réunion, le compte rendu et les prochaines actions arrivent dans Notion. Un rendez-vous avec un prospect, ou un point projet avec un client.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.1, "parle": 10.1}, {"k": "anim", "cas": "02", "e": [{"n": 1, "cue": null, "cas": "02", "slug": "02-compte-rendu", "temps": "Le déclencheur", "titre": "Une réunion enregistrée.", "bouge": 4.0}], "t": "Le déclencheur : une réunion enregistrée. Mes réunions sont enregistrées et transcrites. J'utilise Fathom.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 4.0, "parle": 5.0}, {"k": "anim", "cas": "02", "e": [{"n": 2, "cue": "L'IA prépare. Juste après l'appel", "cas": "02", "slug": "02-compte-rendu", "temps": "Le déclencheur", "titre": "Tu raccroches. C'est tout.", "bouge": 3.2}, {"n": 3, "cue": "le compte rendu arrive", "cas": "02", "slug": "02-compte-rendu", "temps": "L'IA prépare", "titre": "Une minute après, le résumé est prêt.", "bouge": 3.9}, {"n": 4, "cue": "dans Notion, rangé sur la bonne fiche", "cas": "02", "slug": "02-compte-rendu", "temps": "L'IA prépare", "titre": "Le compte rendu se range sur la bonne fiche.", "bouge": 4.1}], "t": "L'IA prépare. Juste après l'appel, le compte rendu arrive dans Notion, rangé sur la bonne fiche : le client, le projet. Les décisions sont notées. Et les prochaines actions en sortent, chacune avec une personne et une date. Sur l'exemple : qui envoie quoi lundi, qui monte quoi mercredi, qui valide vendredi.", "rep": ["Et les prochaines actions en sortent, chacune avec une personne et une date."], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 11.2, "parle": 19.4}, {"k": "anim", "cas": "02", "e": [{"n": 5, "cue": null, "cas": "02", "slug": "02-compte-rendu", "temps": "L'IA prépare", "titre": "Ta part devient une tâche.", "bouge": 3.4}, {"n": 6, "cue": null, "cas": "02", "slug": "02-compte-rendu", "temps": "L'IA prépare", "titre": "À 14 h 32, tu es prévenu.", "bouge": 3.3}], "t": "", "silence": true, "flag": "Les étapes 05 et 06 passent sans rien dans le script (7 s) : « Ta part devient une tâche » et « À 14 h 32, tu es prévenu » dans Slack. Ajout possible : « Ta part devient une tâche. Et tu es prévenu dans Slack. »", "rep": [], "bouge": 6.7, "parle": 0.0}, {"k": "anim", "cas": "02", "e": [{"n": 7, "cue": null, "cas": "02", "slug": "02-compte-rendu", "temps": "Tu décides", "titre": "Tu relis, tu corriges.", "bouge": 5.1}], "t": "Ce qui reste chez toi : relire, et corriger ce que l'IA a mal compris. Parce qu'elle se trompe, parfois. Un nom mal entendu, une action donnée à la mauvaise personne. Tu relis, tu corriges.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 5.1, "parle": 13.2}, {"k": "anim", "cas": "02", "e": [{"n": 8, "cue": null, "cas": "02", "slug": "02-compte-rendu", "temps": "Le résultat", "titre": "Le lendemain, tout est là.", "bouge": 2.4}], "t": "Le résultat : le lendemain matin, les actions sont dans ta liste de tâches. Tu relis une page. Tu n'écris plus rien. Et ce compte rendu va servir deux fois : pour la proposition, et pour la voix du client.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.4, "parle": 14.7}, {"k": "face", "t": "Et ce qui s'est dit en rendez-vous, c'est exactement ce dont tu as besoin pour la suite : la proposition.", "annonce": false, "note": null, "only": null}]}, {"id": "c03", "num": "03", "titre": "La proposition commerciale", "sous": "Slide 17, puis animation 03", "mots": 220, "duree": "1 min 25 s", "beats": [{"k": "face", "t": "Cas d'usage numéro trois : la proposition commerciale.", "annonce": true, "note": "Annonce de chapitre : regard caméra, un temps avant, un temps après.", "only": null}, {"k": "slide", "s": 17, "t": "Un dirigeant du BTP m'a dit : « Ça me coupe dans mon travail de fond. J'ai pas de valeur ajoutée. C'est toujours les mêmes devis. » Et il a raison. Une proposition commerciale, c'est surtout de l'information qui existe déjà.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "03", "e": [{"n": 0, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "Cas d'usage 03 / 05", "titre": "La proposition commerciale.", "bouge": 2.1}], "t": "Donc l'idée est simple : un premier jet de proposition, monté avec ce qui existe déjà dans Notion.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.1, "parle": 6.6}, {"k": "anim", "cas": "03", "e": [{"n": 1, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "Le déclencheur", "titre": "L'appel découverte se termine.", "bouge": 4.8}], "t": "Le déclencheur : la fin du rendez-vous. Juste après l'appel, le premier jet se lance tout seul.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 4.8, "parle": 6.2}, {"k": "anim", "cas": "03", "e": [{"n": 2, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "L'IA prépare", "titre": "Claude rassemble ce qui existe déjà.", "bouge": 4.9}], "t": "L'IA prépare. Elle rassemble le contexte du client, ce qui s'est dit en rendez-vous, tes offres, tes conditions. Et elle sort un premier jet. Ce qui s'est dit en rendez-vous, c'est le compte rendu du cas d'usage d'avant. Tu vois comment ils s'enchaînent.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 4.9, "parle": 16.6}, {"k": "anim", "cas": "03", "e": [{"n": 3, "cue": "tu reçois un message dans Slack", "cas": "03", "slug": "03-proposition", "temps": "L'IA prépare", "titre": "Il te prévient dans Slack.", "bouge": 3.3}, {"n": 4, "cue": "Tu relis, et tu demandes tes changements dans le fil", "cas": "03", "slug": "03-proposition", "temps": "Tu décides", "titre": "Tu relis. Tu corriges dans le fil.", "bouge": 5.0}, {"n": 5, "cue": "La proposition se remet en page à ta charte", "cas": "03", "slug": "03-proposition", "temps": "Tu décides", "titre": "Elle se met en page à ta charte.", "bouge": 5.0}, {"n": 6, "cue": "Et c'est toi qui l'envoies", "cas": "03", "slug": "03-proposition", "temps": "Tu décides", "titre": "Et c'est toi qui l'envoies.", "bouge": 4.4}], "t": "Ce qui reste chez toi : tu reçois un message dans Slack. Tu relis, et tu demandes tes changements dans le fil : le prix, le ton. La proposition se remet en page à ta charte. Et c'est toi qui l'envoies.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 17.7, "parle": 15.1}, {"k": "anim", "cas": "03", "e": [{"n": 6, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "Tu décides", "titre": "Et c'est toi qui l'envoies.", "bouge": 4.4}], "t": "Le prix, c'est toi. Toujours. Pourquoi un premier jet, et pas une proposition finie ? Parce que le prix, le ton, la relation, c'est ton métier. L'IA te rend le temps de la mise en forme. Pas ta décision.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": true, "bouge": 0, "parle": 14.7}, {"k": "anim", "cas": "03", "e": [{"n": 7, "cue": null, "cas": "03", "slug": "03-proposition", "temps": "Le résultat", "titre": "Tu reviens à ton travail de fond.", "bouge": 2.4}], "t": "Le résultat. Sur mon site, j'affiche l'exemple : 8 heures avant, 30 minutes après, sur ce process précis. Et je le dis clairement : ce chiffre vaut pour cette tâche-là. Pas pour ta boîte entière.", "rep": ["Et je le dis clairement : ce chiffre vaut pour cette tâche-là."], "note": "Phrase de prudence, à ne pas accélérer.", "flag": null, "apercu": false, "suite": false, "bouge": 2.4, "parle": 12.8}, {"k": "face", "t": "Le quatrième, c'est celui dont je parle le moins. Et c'est le système le plus important de ma boîte.", "annonce": false, "note": null, "only": null}]}, {"id": "c04", "num": "04", "titre": "Voice of Customer et contenus", "sous": "Slide 23, puis animation 04", "mots": 330, "duree": "2 min 08 s", "beats": [{"k": "face", "t": "Cas d'usage numéro quatre : Voice of Customer, la voix du client. Et tes contenus.", "annonce": true, "note": "Le plus dur à dire : « Voice of Customer » bien détaché, puis une vraie pause avant « Et tes contenus ».", "only": null}, {"k": "slide", "s": 23, "t": "« Tout est recensé quelque part, je ne sais jamais où. » Un client m'a dit ça, mot pour mot. Moi, j'aurais écrit « centraliser l'information ». Personne ne parle comme ça. Le problème est là : quand tu écris un post, une page de ton site ou une proposition, tu écris avec tes mots. Pas avec les leurs.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "04", "e": [{"n": 0, "cue": null, "cas": "04", "slug": "04-voice-of-customer", "temps": "Cas d'usage 04 / 05", "titre": "La voix du client, et tes contenus.", "bouge": 2.1}], "t": "Voice of Customer, c'est une base Notion où chaque ligne est une phrase dite par un client ou un prospect. Mot pour mot. Pas mon résumé. Pas ce que j'ai cru comprendre.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.1, "parle": 12.4}, {"k": "anim", "cas": "04", "e": [{"n": 1, "cue": null, "cas": "04", "slug": "04-voice-of-customer", "temps": "Le déclencheur", "titre": "Un appel enregistré et transcrit.", "bouge": 3.5}], "t": "Le déclencheur : un appel enregistré et transcrit. Le même enregistrement que pour le compte rendu.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 3.5, "parle": 5.8}, {"k": "anim", "cas": "04", "e": [{"n": 2, "cue": null, "cas": "04", "slug": "04-voice-of-customer", "temps": "L'IA prépare", "titre": "Claude relève les phrases qui comptent.", "bouge": 4.6}], "t": "L'IA relève les phrases qui comptent : les douleurs, les envies, les objections, les déclics. Quinze au maximum par appel.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 4.6, "parle": 7.4}, {"k": "anim", "cas": "04", "e": [{"n": 4, "cue": null, "cas": "04", "slug": "04-voice-of-customer", "temps": "L'IA prépare", "titre": "Chaque phrase devient une ligne.", "bouge": 3.9}], "t": "Chaque phrase devient une ligne, avec son type, son thème, le secteur, l'intensité, et le lien vers l'appel.", "rep": [], "note": null, "flag": "Ordre inversé : dans l'animation, le contrôle (étape 03) passe AVANT « chaque phrase devient une ligne » (étape 04). Le plus simple : dire cette phrase après « …attribuées à un client ».", "apercu": false, "suite": false, "bouge": 3.9, "parle": 7.0}, {"k": "anim", "cas": "04", "e": [{"n": 3, "cue": "Un contrôle vérifie chaque phrase", "cas": "04", "slug": "04-voice-of-customer", "temps": "L'IA prépare", "titre": "Chaque phrase est vérifiée mot pour mot.", "bouge": 4.9}], "t": "Et il y a une étape que j'ai ajoutée après m'être fait avoir. Un contrôle vérifie chaque phrase : elle doit se retrouver mot pour mot dans la transcription, et c'est bien le client qui parle. Ma première version laissait l'IA faire seule. En vérifiant deux appels, 5 phrases sur 29 n'existaient pas telles quelles. Pire : certaines phrases étaient les miennes, attribuées à un client.", "rep": ["Un contrôle vérifie chaque phrase", "Ma première version laissait l'IA faire seule.", "Pire : certaines phrases étaient les miennes, attribuées à un client."], "note": "Le passage le plus dense : trois points de reprise.", "flag": null, "apercu": false, "suite": false, "bouge": 4.9, "parle": 24.8}, {"k": "anim", "cas": "04", "e": [{"n": 5, "cue": "Tous les vendredis", "cas": "04", "slug": "04-voice-of-customer", "temps": "Tu décides", "titre": "Le vendredi, tu relis ce qui fait mal.", "bouge": 3.6}, {"n": 6, "cue": "Et je choisis ce qui devient un contenu", "cas": "04", "slug": "04-voice-of-customer", "temps": "Tu décides", "titre": "Ses mots ouvrent ton post.", "bouge": 3.8}], "t": "Ce qui reste chez toi : comprendre ce qui fait mal. Tous les vendredis, je relis ce qui s'est dit dans la semaine. Je relis les phrases exactes. Et je choisis ce qui devient un contenu.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 7.4, "parle": 13.5}, {"k": "anim", "cas": "04", "e": [{"n": 7, "cue": null, "cas": "04", "slug": "04-voice-of-customer", "temps": "Le résultat", "titre": "Tes contenus parlent comme tes clients.", "bouge": 2.3}], "t": "Le résultat. Entre début août et mi-septembre : 49 appels, 327 phrases relevées. Et avec le contrôle : 16 phrases sur 16 retrouvées. Avant un post, une proposition commerciale ou ma newsletter, j'ouvre cette base. Mes contenus partent des mots de mes clients.", "rep": ["Entre début août et mi-septembre : 49 appels, 327 phrases relevées."], "note": "Dis les chiffres lentement.", "flag": null, "apercu": false, "suite": false, "bouge": 2.3, "parle": 15.9}, {"k": "face", "t": "Et tu peux commencer sans rien automatiser. Après chaque rendez-vous, colle trois phrases exactes du client dans une base, avec la date et le lien de l'enregistrement. Dans un mois, tu sais quoi écrire sur ta page d'accueil.", "annonce": false, "note": null, "only": null}]}, {"id": "c05", "num": "05", "titre": "Le point hebdo client", "sous": "Slide 29, puis animation 05", "mots": 192, "duree": "1 min 14 s", "beats": [{"k": "face", "t": "Cas d'usage numéro cinq : le point hebdo client.", "annonce": true, "note": "Annonce de chapitre : regard caméra, un temps avant, un temps après.", "only": null}, {"k": "slide", "s": 29, "t": "Un client m'a dit, en parlant d'un prestataire : « Et nous, on n'a pas trop de visibilité. » C'est comme ça qu'on perd un client. Pas sur la qualité du travail. Sur le silence.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "anim", "cas": "05", "e": [{"n": 0, "cue": null, "cas": "05", "slug": "05-point-hebdo", "temps": "Cas d'usage 05 / 05", "titre": "Le point hebdo client.", "bouge": 2.1}], "t": "Donc chaque vendredi, un point hebdo est prêt à relire pour chaque client actif.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.1, "parle": 5.4}, {"k": "anim", "cas": "05", "e": [{"n": 1, "cue": null, "cas": "05", "slug": "05-point-hebdo", "temps": "Le déclencheur", "titre": "Chaque vendredi, à midi.", "bouge": 3.9}], "t": "Le déclencheur, c'est le calendrier : chaque vendredi, pour chaque client actif. Ton client finit sa semaine avec des nouvelles, pas avec une question.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 3.9, "parle": 8.9}, {"k": "anim", "cas": "05", "e": [{"n": 2, "cue": "L'IA lit la semaine", "cas": "05", "slug": "05-point-hebdo", "temps": "L'IA prépare", "titre": "Claude lit la semaine de chaque client.", "bouge": 4.6}, {"n": 3, "cue": "Sur l'exemple", "cas": "05", "slug": "05-point-hebdo", "temps": "L'IA prépare", "titre": "Un point par client, prêt à relire.", "bouge": 4.8}, {"n": 4, "cue": "Et tous les points de la semaine arrivent ensemble dans Slack", "cas": "05", "slug": "05-point-hebdo", "temps": "L'IA prépare", "titre": "Tout arrive dans Slack.", "bouge": 3.6}], "t": "L'IA lit la semaine : les tâches faites, les jalons, ce qui bloque. Et elle rédige le récap. Sur l'exemple : ce qui a été fait, ce qui bloque, ce qu'on attend du client. Et tous les points de la semaine arrivent ensemble dans Slack.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 13.0, "parle": 16.6}, {"k": "anim", "cas": "05", "e": [{"n": 5, "cue": "Tu relis, tu corriges dans le fil", "cas": "05", "slug": "05-point-hebdo", "temps": "Tu décides", "titre": "Tu relis. Tu corriges.", "bouge": 4.9}, {"n": 6, "cue": "Tu valides", "cas": "05", "slug": "05-point-hebdo", "temps": "Tu décides", "titre": "Tu valides, en un clic.", "bouge": 3.3}, {"n": 7, "cue": "Et seulement là, les mails partent", "cas": "05", "slug": "05-point-hebdo", "temps": "Tu décides", "titre": "C'est toi qui l'envoies.", "bouge": 4.2}], "t": "Ce qui reste chez toi : la relation. Tu relis, tu corriges dans le fil. Tu valides. Et seulement là, les mails partent. Rien ne part sans toi.", "rep": [], "note": "Marque un temps après « Tu valides » : le clic dure 3 s à l'écran.", "flag": null, "apercu": false, "suite": false, "bouge": 12.4, "parle": 10.5}, {"k": "anim", "cas": "05", "e": [{"n": 8, "cue": null, "cas": "05", "slug": "05-point-hebdo", "temps": "Le résultat", "titre": "Ton client a des nouvelles.", "bouge": 2.0}], "t": "Le résultat : ton client reçoit des nouvelles chaque semaine. Et toi, tu y passes cinq minutes au lieu d'une heure. C'est là que se joue la fidélisation : le client qui reste, et qui te confie la suite.", "rep": [], "note": null, "flag": null, "apercu": false, "suite": false, "bouge": 2.0, "parle": 14.3}, {"k": "face", "t": "Voilà les cinq. Maintenant, prends du recul.", "annonce": false, "note": null, "only": null}]}, {"id": "fin", "num": "Fin", "titre": "Un seul Notion, par où commencer", "sous": "Slides 35 à 37", "mots": 243, "duree": "1 min 34 s", "beats": [{"k": "face", "t": "Dernière partie : ce qui relie les cinq, et par où commencer.", "annonce": true, "note": "Annonce de chapitre : regard caméra, un temps avant, un temps après.", "only": null}, {"k": "slide", "s": 35, "t": "Regarde où ils sont. La demande entrante et les contenus, c'est l'acquisition. La proposition, c'est la vente. Le compte rendu, c'est la delivery. Le point hebdo, c'est la fidélisation. Cinq cas d'usage, et ils se parlent : ils écrivent tous dans le même Notion. La fiche du client est la même, du premier mail jusqu'au point hebdo.", "apercu": false, "rep": ["Cinq cas d'usage, et ils se parlent", "La fiche du client est la même, du premier mail jusqu'au point hebdo."], "note": null, "only": null}, {"k": "slide", "s": 35, "t": "C'est ça, la vraie différence. Pas cinq outils en plus. Un seul endroit où l'information vit, et de l'IA qui travaille dessus.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "face", "t": "Et c'est la réponse à la phrase du début. « Tout est recensé quelque part, je ne sais jamais où. » Quand tout vit au même endroit, tu sais où.", "annonce": false, "note": null, "only": "A"}, {"k": "slide", "s": 36, "t": "Tu n'as pas besoin des cinq lundi. Prends celui qui fait le plus mal chez toi. Si tu perds des prospects, commence par le un. Si tes équipes perdent le fil, commence par le deux. Si tes contenus ne parlent à personne, commence par le quatre. Un seul. Tu l'installes, tu laisses ton équipe l'utiliser deux semaines sans rien changer, et tu fais le bilan. Seulement après, tu passes au suivant.", "apercu": false, "rep": ["Un seul. Tu l'installes"], "note": "Pause après « Un seul ».", "only": null}, {"k": "face", "t": "Et quel que soit ton choix, garde la règle : l'IA prépare, et c'est toi qui décides.", "annonce": false, "note": null, "only": null}, {"k": "slide", "s": 37, "t": "Si tu veux un regard extérieur : on en parle 30 minutes. Je te dis lesquels valent le coup chez toi, et par lequel commencer. Le lien est en dessous.", "apercu": false, "rep": [], "note": null, "only": null}, {"k": "face", "t": "Déployer l'IA, c'est facile. La faire adopter, c'est notre métier.", "annonce": false, "note": null, "only": null}]}]};
+const CH = DATA.chapitres;
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('tournage5:' + k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('tournage5:' + k, JSON.stringify(v)); }catch(e){} }
+};
+const state = {
+  i: Math.max(0, CH.findIndex(c => '#' + c.id === location.hash)) || 0,
+  hook: store.get('hook', 'A'),
+  done: store.get('done', {}),
+  fs: store.get('fs', 27),
+  edits: store.get('edits', {}),
+  edit: false
+};
+const hash = s => { let h = 5381; for (const ch of s) h = ((h << 5) + h + ch.codePointAt(0)) | 0; return (h >>> 0).toString(36); };
+const cle = (scope, b) => scope + ':' + (b.t ? hash(b.t) : 'ajout-' + b.e.map(e => e.n).join('-'));
+if (!location.hash) { const last = CH.findIndex(c => c.id === store.get('chap', 'hook')); if (last > 0) state.i = last; }
+
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const pad = n => String(n).padStart(2, '0');
+const sec = s => String(s).replace('.', ',');
+const CAM = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5 21 7.5v9l-5.5-3"/></svg>';
+
+function texte(b){
+  let h = esc(b.t);
+  (b.e || []).forEach(e => { if (e.cue) { const c = esc(e.cue); const i = h.indexOf(c); if (i >= 0) h = h.slice(0, i) + '\u0000' + pad(e.n) + '\u0001' + h.slice(i); } });
+  (b.rep || []).forEach(r => { h = h.replace(esc(r), m => '<mark>' + m + '</mark>'); });
+  return h.replace(/\u0000(\d\d)\u0001/g, '<span class="cue" title="L\'étape $1 démarre ici">▸ $1</span>');
+}
+
+function shotSlide(n, apercu){
+  return `<div class="shot" data-kind="slide" data-n="${pad(n)}"><img loading="lazy" src="img/slide-${pad(n)}.webp" alt="Slide ${pad(n)}">${apercu ? '<span class="flash">FLASH 1 s</span>' : ''}</div>`;
+}
+function shotEtape(e, apercu){
+  return `<div class="shot" data-kind="etape" data-slug="${e.slug}" data-n="${pad(e.n)}" data-t="Animation ${e.cas} · étape ${pad(e.n)} · ${esc(e.titre)}"><img loading="lazy" src="img/${e.cas}-e${pad(e.n)}.webp" alt="${esc(e.titre)}"><span class="play">▶</span>${apercu ? '<span class="flash">FLASH 1 s</span>' : ''}</div>`;
+}
+function capEtape(e, multi){
+  return `<div class="cap"><b>Étape ${pad(e.n)}</b> · ${esc(e.temps)}${multi ? '<br>' : ' · '}${esc(e.titre)} <span>· bouge ${sec(e.bouge)} s</span></div>`;
+}
+
+function ligne(b, key){
+  if (b.only && b.only !== state.hook) return '';
+  const ed = state.edits[key];
+  const t = ed !== undefined ? ed.apres : b.t;
+  let cls = 'row', lab = '', media = '';
+  const only = b.only ? `<span class="only">Seulement avec le hook ${b.only}</span>` : '';
+  if (b.k === 'face') {
+    cls += ' face' + (b.annonce ? ' annonce' : '');
+    lab = b.annonce ? 'ANNONCE · FACE CAMÉRA' : 'FACE CAMÉRA';
+    media = `<div class="toi">${CAM}<div>Toi, plein écran${b.annonce ? '<small>Au montage : la carte du chapitre</small>' : ''}</div></div>`;
+  } else if (b.k === 'slide') {
+    lab = b.apercu ? `APERÇU · SLIDE ${pad(b.s)}` : `ÉCRAN · SLIDE ${pad(b.s)}`;
+    media = shotSlide(b.s, b.apercu) + `<div class="cap"><b>Slide ${pad(b.s)}</b>${b.apercu ? ' · flash au montage, tu restes face caméra' : ''}</div>`;
+  } else {
+    const multi = b.e.length > 1;
+    lab = (b.apercu ? 'APERÇU · ' : '') + `ANIMATION ${b.cas} · ` + (multi ? `ÉTAPES ${b.e.map(e => pad(e.n)).join(', ')}` : `ÉTAPE ${pad(b.e[0].n)}`);
+    if (b.suite) {
+      media = `<div class="meme">Même écran que juste au-dessus : la dernière image de l'étape ${pad(b.e[0].n)} reste figée pendant que tu parles.</div>`;
+    } else if (multi) {
+      media = `<div class="grid2">${b.e.map(e => `<div class="media">${shotEtape(e)}${capEtape(e, true)}</div>`).join('')}</div>`;
+    } else {
+      media = shotEtape(b.e[0], b.apercu) + (b.apercu ? `<div class="cap"><b>Animation ${b.cas} · étape ${pad(b.e[0].n)}</b> · flash au montage, tu restes face caméra</div>` : capEtape(b.e[0]));
+    }
+  }
+  let gauche = `<div class="lab">${lab}${only}${ed !== undefined ? '<span class="mod">MODIFIÉ</span>' : ''}</div>`;
+  const ph = b.silence ? "Rien dans le script ici. Écris ce que tu ajoutes, si tu en ajoutes." : "";
+  if (b.silence && !t && !state.edit) gauche += `<p class="vide">Rien dans le script ici : l'animation tourne sans que tu en parles.</p>`;
+  else gauche += `<p class="say${ed !== undefined ? ' modif' : ''}" data-key="${key}" data-ph="${ph}"${state.edit ? ' contenteditable="plaintext-only" spellcheck="false"' : ''}>${texte({...b, t})}</p>`;
+  if (ed !== undefined) gauche += `<button class="reset" data-reset="${key}">↶ Revenir au texte d'origine</button>`;
+  if (b.note) gauche += `<p class="note">${esc(b.note)}</p>`;
+  if (b.k === 'anim' && !b.silence && !b.apercu && b.bouge > 0 && b.parle < b.bouge * 0.8)
+    gauche += `<p class="duree court">Tu parles ~${sec(b.parle)} s · l'animation bouge ${sec(b.bouge)} s : prends ton temps</p>`;
+  if (b.flag) gauche += `<div class="flag"><b>À VOIR · ÉCART AVEC L'ANIMATION</b>${esc(b.flag)}</div>`;
+  return `<section class="${cls}"><div>${gauche}</div><div class="media">${media}</div></section>`;
+}
+
+function render(){
+  const c = CH[state.i];
+  document.documentElement.style.setProperty('--fs', state.fs + 'px');
+  document.body.classList.toggle('edit', state.edit);
+  document.getElementById('edit').setAttribute('aria-pressed', state.edit);
+  document.getElementById('edit').textContent = state.edit ? '✓ Fini de modifier' : '✎ Modifier le texte';
+  compteur();
+  document.getElementById('nav').innerHTML = CH.map((x, i) =>
+    `<button data-i="${i}" class="${state.done[x.id] ? 'done' : ''}" aria-current="${i === state.i}"><span class="ok">${state.done[x.id] ? '✓' : ''}</span>${x.num}</button>`).join('');
+  const hk = DATA.hooks[state.hook];
+  const beats = c.hook ? hk.beats : c.beats;
+  const mots = c.hook ? hk.mots : c.mots, duree = c.hook ? hk.duree : c.duree;
+  const titre = c.hook ? `Le hook ${state.hook} · ${hk.nom}` : c.titre;
+  let h = `<div class="head"><div class="n">${c.num}</div><div class="grow"><h1>${esc(titre)}</h1><div class="sub">${esc(c.sous)} · ${mots} mots · ${duree} de parole</div></div>
+    <button class="tourne ${state.done[c.id] ? 'on' : ''}" id="tourne"><span class="box">${state.done[c.id] ? '✓' : ''}</span>Chapitre tourné</button></div>`;
+  if (c.hook) h += `<div class="hooks">${Object.entries(DATA.hooks).map(([k, v]) =>
+    `<button data-hook="${k}" aria-pressed="${k === state.hook}"><b>Hook ${k}${v.reco ? ' <em>recommandé</em>' : ''}</b><span>${esc(v.nom)} · ${v.duree}</span></button>`).join('')}</div>`;
+  h += `<div class="rappel"><span><b>1 clap</b> au début et à la fin du chapitre</span><span><b>Erreur</b> : double clap, un temps, reprends la phrase depuis son début</span><span><span class="hl">↺ surligné</span> = point de reprise si tu butes</span><span><b>▸ 04</b> = l'étape 04 démarre sur ces mots</span></div>`;
+  h += `<div class="clap"><span class="tag">● CLAP · DÉBUT</span><span class="t">${c.num === 'Hook' ? 'Hook ' + state.hook : c.num + ' · ' + esc(c.titre)}</span><span class="d">un clap, un temps, regard caméra</span></div>`;
+  const scope = c.hook ? 'hook' + state.hook : c.id;
+  h += beats.map(b => ligne(b, cle(scope, b))).join('');
+  if (c.hook) h += `<div class="intro"><b>INTRO 7 s</b>Rien à dire : l'intro de marque est collée au montage juste après ta dernière phrase.</div>`;
+  const nx = CH[state.i + 1];
+  h += `<div class="clap fin"><span class="tag">■ CLAP · FIN</span><span class="t">Un temps, puis le clap</span>${nx ? `<button class="next" id="next">Suivant : ${nx.num === 'Fin' ? 'la fin' : nx.num === 'Ouv.' ? 'l\'ouverture' : nx.num} →</button>` : '<span class="d">c\'est la dernière prise</span>'}</div>`;
+  h += `<div class="pied"><span>Script v3 du 20/10 · Notion fait foi pour le texte, les animations pour l'écran</span><span><a href="https://www.notion.so/3fc1b4b9aefa81a1b8e3ef2bc585b6bc" target="_blank">Script dans Notion</a> · <a href="../outils/" target="_blank">Animations</a> · <a href="../" target="_blank">Slides</a></span></div>`;
+  document.getElementById('page').innerHTML = h;
+  history.replaceState(null, '', '#' + c.id);
+  store.set('chap', c.id);
+}
+
+function compteur(){
+  const n = Object.keys(state.edits).length;
+  document.getElementById('nb').textContent = n;
+  document.getElementById('copier').hidden = n === 0;
+}
+function origine(key){
+  const [scope] = key.split(':');
+  const beats = scope.startsWith('hook') && scope.length === 5 ? DATA.hooks[scope[4]].beats : (CH.find(c => c.id === scope) || {}).beats || [];
+  const b = beats.find(b => cle(scope, b) === key);
+  return b ? b.t : '';
+}
+function lire(el){ const c = el.cloneNode(true); c.querySelectorAll('.cue').forEach(x => x.remove()); return c.textContent.replace(/\s+/g, ' ').trim(); }
+document.addEventListener('focusout', e => {
+  const el = e.target.closest && e.target.closest('.say[data-key]'); if (!el) return;
+  const key = el.dataset.key, avant = origine(key), apres = lire(el);
+  if (apres === avant.trim()) delete state.edits[key];
+  else { const c = key.split(':')[0]; state.edits[key] = {chap: c, avant, apres, quand: new Date().toISOString()}; }
+  store.set('edits', state.edits);
+  el.classList.toggle('modif', key in state.edits);
+  compteur();
+});
+document.addEventListener('keydown', e => {
+  if (e.target.isContentEditable && e.key === 'Enter') { e.preventDefault(); e.target.blur(); }
+}, true);
+document.addEventListener('paste', e => {
+  if (!e.target.closest || !e.target.closest('.say[contenteditable]')) return;
+  e.preventDefault(); document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain'));
+});
+function nomChap(scope){ if (scope.startsWith('hook')) return 'Hook ' + scope.slice(4); const c = CH.find(c => c.id === scope); return c ? (c.num + ' · ' + c.titre) : scope; }
+async function copier(){
+  const lignes = ['Changements de texte · tournage « 5 cas d\'usage »', ''];
+  const ordre = ['hookA', 'hookB', 'hookC', ...CH.map(c => c.id)];
+  Object.entries(state.edits).sort((a, b) => ordre.indexOf(a[1].chap) - ordre.indexOf(b[1].chap)).forEach(([k, v]) => {
+    lignes.push(nomChap(v.chap), 'Avant : ' + (v.avant || '(rien, phrase ajoutée)'), 'Après : ' + (v.apres || '(phrase supprimée)'), '');
+  });
+  const txt = lignes.join('\n');
+  try { await navigator.clipboard.writeText(txt); toast('Copié : colle-le dans Notion ou à Claude'); }
+  catch (err) {
+    document.getElementById('lbin').innerHTML = '<textarea readonly></textarea>';
+    document.querySelector('#lbin textarea').value = txt;
+    document.getElementById('lbt').textContent = 'Sélectionne tout (Cmd+A) puis copie (Cmd+C) · Échap pour fermer';
+    document.getElementById('lb').classList.add('on');
+  }
+}
+function toast(m){ const b = document.getElementById('copier'), old = b.innerHTML; b.textContent = m; setTimeout(() => { b.innerHTML = old; compteur(); }, 2200); }
+function go(i){ if (i < 0 || i >= CH.length) return; state.i = i; render(); window.scrollTo(0, 0); }
+document.addEventListener('click', e => {
+  const n = e.target.closest('nav button'); if (n) return go(+n.dataset.i);
+  const hb = e.target.closest('[data-hook]'); if (hb) { state.hook = hb.dataset.hook; store.set('hook', state.hook); return render(); }
+  if (e.target.closest('#tourne')) { const id = CH[state.i].id; state.done[id] = !state.done[id]; store.set('done', state.done); return render(); }
+  if (e.target.closest('#next')) return go(state.i + 1);
+  if (e.target.closest('#edit')) { if (state.edit && document.activeElement && document.activeElement.isContentEditable) document.activeElement.blur(); state.edit = !state.edit; return render(); }
+  if (e.target.closest('#copier')) return copier();
+  const r = e.target.closest('[data-reset]'); if (r) { delete state.edits[r.dataset.reset]; store.set('edits', state.edits); return render(); }
+  const s = e.target.closest('.shot'); if (s) return ouvrir(s);
+  if (e.target.closest('#lb') && !e.target.closest('textarea')) return fermer();
+});
+document.getElementById('plus').onclick = () => { state.fs = Math.min(44, state.fs + 2); store.set('fs', state.fs); render(); };
+document.getElementById('moins').onclick = () => { state.fs = Math.max(18, state.fs - 2); store.set('fs', state.fs); render(); };
+function ouvrir(s){
+  const lb = document.getElementById('lb'), inn = document.getElementById('lbin');
+  if (s.dataset.kind === 'etape') {
+    inn.innerHTML = `<video src="../outils/rendus/${s.dataset.slug}/etape-${s.dataset.n}.mp4" autoplay muted loop playsinline controls></video>`;
+    document.getElementById('lbt').textContent = s.dataset.t + ' · la vidéo telle qu\'elle sera posée au montage';
+  } else {
+    inn.innerHTML = `<img src="../complet/slide-${s.dataset.n}.png" alt="">`;
+    document.getElementById('lbt').textContent = 'Slide ' + s.dataset.n;
+  }
+  lb.classList.add('on');
+}
+function fermer(){ document.getElementById('lb').classList.remove('on'); document.getElementById('lbin').innerHTML = ''; }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') return fermer();
+  if (document.getElementById('lb').classList.contains('on') || (e.target && e.target.isContentEditable)) return;
+  if (e.key === 'ArrowRight') go(state.i + 1);
+  if (e.key === 'ArrowLeft') go(state.i - 1);
+});
+window.addEventListener('hashchange', () => { const i = CH.findIndex(c => '#' + c.id === location.hash); if (i >= 0 && i !== state.i) go(i); });
+render();
+</script>
+</body>
+</html>
