@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 commandes à taper dans ChatGPT ou Claude · Rama Logic</title>
+<meta name="description" content="Les 10 commandes du réel, avec la phrase exacte à coller pour chacune.">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@300,400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FFFCF7;--ink:#0D1A14;--slate:#5C6661;--beige:#D2CFC9;--aloe:#475E54;--mindaro:#DFE971;--flame:#F76420}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Clash Grotesk",system-ui,sans-serif;font-weight:400;line-height:1.5}
+.top{background:var(--ink);color:var(--cream);padding:40px 16px 36px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.top .wrap{padding:0}
+.lib{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mindaro)}
+h1{font-weight:500;font-size:clamp(30px,7vw,46px);line-height:1.08;margin:12px 0 14px}
+h1 em{font-style:normal;color:var(--flame)}
+.top p{margin:0;color:#D2CFC9;font-size:17px;max-width:560px}
+.mode{border:1px solid var(--beige);border-radius:2px;padding:16px 18px;margin:28px 0 8px;font-size:16px}
+.mode b{font-weight:600}
+ol{list-style:none;padding:0;margin:0}
+li{border-top:1px solid var(--beige);padding:22px 0}
+li:last-child{border-bottom:1px solid var(--beige)}
+.num{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--slate)}
+h2{font-weight:500;font-size:22px;margin:4px 0 6px}
+.quand{color:var(--slate);font-size:15px;margin:0 0 10px}
+.prompt{position:relative;background:#fff;border:1px solid var(--beige);border-radius:2px;padding:14px 16px 14px 16px;font-size:16px}
+.prompt span.var{background:#F6FBC6;padding:0 3px;border-radius:2px}
+button.copy{margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.04em;background:var(--ink);color:var(--cream);border:0;border-radius:999px;padding:8px 14px;cursor:pointer}
+button.copy.ok{background:var(--aloe)}
+.ex{margin:36px 0 0;font-size:16px}
+.ex h3{font-weight:500;font-size:20px;margin:0 0 8px}
+.fin{background:var(--ink);color:var(--cream);margin-top:44px;padding:36px 16px 44px}
+.fin .wrap{padding:0}
+.fin h3{font-weight:500;font-size:24px;margin:8px 0 10px}
+.fin p{color:#D2CFC9;margin:0 0 20px}
+.btn{display:inline-block;background:var(--mindaro);color:var(--ink);text-decoration:none;font-weight:500;border-radius:999px;padding:12px 20px;margin:0 8px 10px 0}
+.btn.sec{background:transparent;color:var(--cream);border:1px solid #5C6661}
+footer{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--slate);padding:20px 16px 40px;text-align:center}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="lib">Cadeau · mot COMMANDES</div>
+  <h1>10 commandes à taper dans <em>ChatGPT</em> ou Claude</h1>
+  <p>Les 10 du réel, avec la phrase exacte à coller pour chacune. Remplace ce qui est surligné par ton sujet.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="mode"><b>Mode d'emploi.</b> Ouvre une nouvelle conversation, colle la phrase, remplace <span style="background:#F6FBC6;padding:0 3px">[ton sujet]</span>, envoie. Ça marche dans ChatGPT comme dans Claude. Ce ne sont pas des fonctions cachées : ce sont des façons de demander que l'IA comprend tout de suite.</div>
+
+  <ol id="liste"></ol>
+
+  <section class="ex">
+    <h3>Exemple pour ta boîte</h3>
+    <p>Tu hésites à lancer une nouvelle offre. Enchaîne trois commandes : <b>80/20</b> sur ton marché pour voir ce qui compte, <b>Avocat du diable</b> sur ton idée pour voir où elle casse, puis <b>Fiche</b> pour avoir une page à montrer à ton associé.</p>
+  </section>
+</main>
+
+<section class="fin"><div class="wrap">
+  <div class="lib">Et ensuite</div>
+  <h3>Tu veux que ton équipe s'en serve vraiment ?</h3>
+  <p>Chez Rama Logic, on installe l'IA et Notion dans les PME de services, de 5 à 50 personnes. J'offre 30 minutes de mini audit pour regarder où l'IA te ferait gagner le plus de temps.</p>
+  <a class="btn" href="https://cal.com/sylvain">Prendre mes 30 minutes</a>
+  <a class="btn sec" href="https://ramalogic.com/newsletter/">Recevoir la newsletter</a>
+</div></section>
+<footer>Rama Logic · ramalogic.com</footer>
+
+<script>
+const C=[
+ ["ELI5","Quand tu découvres un sujet.","Explique-moi [ton sujet] comme à un enfant de 5 ans : des mots simples, une image de la vie de tous les jours, aucun jargon."],
+ ["80/20","Quand tu as peu de temps.","Sur [ton sujet], donne-moi les 20 % de choses à savoir ou à faire qui donnent 80 % du résultat. Classe-les de la plus utile à la moins utile."],
+ ["Feynman","Pour vérifier que tu as vraiment compris.","Explique [ton sujet] avec des mots simples. Puis montre-moi les passages où l'explication a des trous, et réexplique-les jusqu'à ce qu'il n'en reste plus."],
+ ["Quiz-moi","Pour apprendre et retenir.","Pose-moi des questions sur [ton sujet], une seule à la fois. Attends ma réponse, corrige-moi, puis passe à la suivante, jusqu'à ce que je maîtrise le sujet."],
+ ["Premiers principes","Quand un problème te semble bloqué.","Décompose [ton sujet] en ses éléments de base, ceux qu'on ne peut pas simplifier davantage. Puis reconstruis une solution à partir de ces éléments seulement."],
+ ["Socrate","Quand tu veux trouver la réponse toi-même.","Ne me donne pas la réponse sur [ton sujet]. Pose-moi des questions, une à la fois, qui m'aident à la trouver moi-même."],
+ ["Avocat du diable","Avant de lancer une idée.","Voici mon idée : [ton idée]. Attaque-la. Donne-moi les 5 meilleures raisons pour lesquelles elle peut échouer, de la plus grave à la moins grave, et ce que je peux faire pour chacune."],
+ ["Carte mentale","Quand tout se mélange.","Fais une carte mentale de [ton sujet] : l'idée centrale, les grandes branches, les sous-branches, et comment elles se relient entre elles."],
+ ["Fiche","Pour garder l'essentiel.","Résume [ton sujet] sur une seule page : l'essentiel en 5 points, les chiffres à retenir et les erreurs à éviter."],
+ ["Schéma","Pour voir comment les pièces s'emboîtent.","Fais un schéma de [ton sujet] qui montre les étapes ou les pièces, dans l'ordre, et comment chacune dépend des autres."]
+];
+const ol=document.getElementById('liste');
+C.forEach(([n,q,p],i)=>{
+  const li=document.createElement('li');
+  const html=p.replace(/\[([^\]]+)\]/g,'<span class="var">[$1]</span>');
+  li.innerHTML=`<div class="num">${String(i+1).padStart(2,'0')}</div><h2>${n}</h2><p class="quand">${q}</p><div class="prompt">${html}</div><button class="copy" type="button">Copier la phrase</button>`;
+  li.querySelector('button').addEventListener('click',e=>{
+    const b=e.currentTarget;
+    const done=()=>{b.textContent='Copiée';b.classList.add('ok');setTimeout(()=>{b.textContent='Copier la phrase';b.classList.remove('ok')},1800)};
+    if(navigator.clipboard){navigator.clipboard.writeText(p).then(done,()=>{})}
+  });
+  ol.appendChild(li);
+});
+</script>
+</body>
+</html>
